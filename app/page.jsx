@@ -50,7 +50,18 @@ function RobotHead({view,index}){
   </g>
  </svg>
 }
-function RobotShowcase(){return <div className="robot-stage" aria-label="TREAN AI robot companion"><Robot/></div>}
+function RobotShowcase(){
+ const [rotation,setRotation]=useState(0),[dragging,setDragging]=useState(false);
+ const drag=useRef({x:0,rotation:0});
+ const down=e=>{if(e.button!==undefined&&e.button!==0)return;drag.current={x:e.clientX,rotation};setDragging(true);e.currentTarget.setPointerCapture?.(e.pointerId)};
+ const move=e=>{if(!dragging)return;setRotation(drag.current.rotation+(e.clientX-drag.current.x)*.8)};
+ const up=()=>setDragging(false);
+ return <div className="robot-stage" aria-label="TREAN AI robot companion">
+  <div className={"robot-gif"+(dragging?" is-dragging":"")} role="img" aria-label="Animated 360 degree TREAN AI robot head" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onLostPointerCapture={up} style={{"--hand-rotation":rotation+"deg"}}>
+   <img src="/trean-robot-360.gif" alt="TREAN AI robot head rotating through a full 360 degree view" draggable="false"/>
+  </div>
+ </div>
+}
 
 function LaptopArt(){return <div className="laptop-illustration"><div className="plant">✦<br/>♧</div><div className="laptop-screen"><div className="screen-bar">TREAN AI <span>● ● ●</span></div><div className="video-frame"><span>▶</span></div><div className="screen-lines"><i/><i/><i/></div></div><div className="laptop-base"/></div>}
 function Empty({icon,title,desc,action,onClick}){return <div className="empty-state"><span className="empty-icon"><AppIcon name={icon} size={25}/></span><h3>{title}</h3><p>{desc}</p>{action&&<button className="primary" onClick={onClick}>{action} →</button>}</div>}
