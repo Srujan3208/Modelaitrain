@@ -10,7 +10,7 @@ function Logo(){return <a className="brand" href="#" onClick={e=>e.preventDefaul
 function Robot(){
  const [yaw,setYaw]=useState(0),[pitch,setPitch]=useState(0),[dragging,setDragging]=useState(false),[happy,setHappy]=useState(false);
  const drag=useRef({x:0,y:0,yaw:0,pitch:0,moved:false});
- const down=e=>{if(e.button!==undefined&&e.button!==0)return;drag.current={x:e.clientX,y:e.clientY,yaw,pitch,moved:false};setDragging(true);e.currentTarget.setPointerCapture?.(e.pointerId)};
+ const down=e=>{if(e.button!==undefined&&e.button!==0)return;const rotor=e.currentTarget.querySelector(".robot-rotor");let currentYaw=yaw,currentPitch=pitch;try{const m=new DOMMatrixReadOnly(window.getComputedStyle(rotor).transform);currentYaw=Math.atan2(m.m13,m.m11)*180/Math.PI;currentPitch=Math.atan2(-m.m23,m.m33)*180/Math.PI}catch{}drag.current={x:e.clientX,y:e.clientY,yaw:currentYaw,pitch:currentPitch,moved:false};setYaw(currentYaw);setPitch(currentPitch);setDragging(true);e.currentTarget.setPointerCapture?.(e.pointerId)};
  const move=e=>{if(!dragging)return;const dx=e.clientX-drag.current.x,dy=e.clientY-drag.current.y;if(Math.abs(dx)+Math.abs(dy)>4)drag.current.moved=true;setYaw(drag.current.yaw+dx*.85);setPitch(Math.max(-22,Math.min(22,drag.current.pitch-dy*.35)))};
  const up=()=>setDragging(false);
  const clickFace=()=>{if(drag.current.moved)return;setHappy(true);window.setTimeout(()=>setHappy(false),1300)};
