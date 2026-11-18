@@ -919,3 +919,283 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .robot-smile-pulse{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(30px,7vw,46px);font-weight:800;color:#f5ddff;text-shadow:0 0 12px #a75bff,0 0 28px #a75bff;opacity:0;pointer-events:none;transform:scale(.5);transition:opacity .2s,transform .35s}
 .robot-gif.is-smiling .robot-smile-pulse{opacity:.9;transform:scale(1.18)}
 @keyframes robot-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
+
+
+/* Desktop workspace refinement — TREAN AI */
+@media (min-width: 701px) {
+  html, body, .trean-root { min-height: 100%; }
+  .app-shell {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+  .app-shell > .sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 12;
+    width: 252px;
+    flex: 0 0 252px;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 24px 16px 20px;
+    scrollbar-width: thin;
+    scrollbar-color: #4a3a69 transparent;
+  }
+  .app-shell > .sidebar .brand {
+    min-height: 56px;
+    height: auto;
+    margin: 0 0 30px;
+    padding: 0 10px;
+    gap: 12px;
+  }
+  .app-shell > .sidebar .brand img { width: 42px; height: 42px; }
+  .app-shell > .sidebar .brand b { font-size: 21px; }
+  .app-shell > .sidebar .brand small { font-size: 10px; }
+  .app-shell > .sidebar nav { gap: 6px; }
+  .app-shell > .sidebar nav button {
+    min-height: 46px;
+    height: auto;
+    padding: 0 13px;
+    gap: 13px;
+    border-radius: 11px;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+  .app-shell > .sidebar nav button span { width: 23px; display: grid; place-items: center; }
+  .app-shell > .sidebar nav button.separated {
+    min-height: 54px;
+    margin-top: 18px;
+    padding-top: 12px;
+  }
+  .app-shell > .sidebar .pro-card {
+    margin-top: auto;
+    padding: 16px;
+    border-radius: 15px;
+  }
+  .app-shell > .sidebar .pro-card b { font-size: 15px; }
+  .app-shell > .sidebar .pro-card p { font-size: 12px; }
+  .app-shell > .sidebar .pro-card button { font-size: 12px; }
+  .app-shell > .app-content {
+    flex: 1 1 0%;
+    width: 0;
+    min-width: 0;
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+  .app-shell > .app-content > .appbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 76px;
+    min-height: 76px;
+    padding: 0 clamp(24px, 3vw, 48px);
+    gap: 18px;
+  }
+  .app-shell:not(.chat-mode) > .app-content > .appbar {
+    background: rgba(18, 16, 39, .92);
+    border-bottom-color: #302644;
+    backdrop-filter: blur(18px);
+    color: #f8f5ff;
+  }
+  .app-shell:not(.chat-mode) .global-search {
+    width: min(420px, 42%);
+    height: 42px;
+    border-radius: 14px;
+    margin-left: auto;
+    padding: 0 14px;
+  }
+  .app-shell:not(.chat-mode) .global-search input { font-size: 13px; }
+  .app-shell:not(.chat-mode) .notification { color: #eee8fa; }
+  .app-shell:not(.chat-mode) .avatar { width: 38px; height: 38px; font-size: 15px; }
+  .app-shell:not(.chat-mode) .view {
+    width: 100%;
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 38px clamp(28px, 3.8vw, 58px) 64px;
+  }
+  .app-shell:not(.chat-mode) .view-heading h1 { font-size: 30px; letter-spacing: -.7px; }
+  .app-shell:not(.chat-mode) .view-heading p { max-width: 760px; font-size: 14px; line-height: 1.65; }
+  .app-shell:not(.chat-mode) .dashboard-welcome {
+    min-height: 238px;
+    padding: 34px 42px;
+    border-radius: 22px;
+    gap: 28px;
+  }
+  .app-shell:not(.chat-mode) .dashboard-welcome h1 { font-size: clamp(30px, 3vw, 40px); letter-spacing: -1.2px; }
+  .app-shell:not(.chat-mode) .dashboard-welcome p { max-width: 520px; font-size: 15px; line-height: 1.7; }
+  .app-shell:not(.chat-mode) .dashboard-welcome .eyebrow { font-size: 10px; letter-spacing: 1.7px; }
+  .app-shell:not(.chat-mode) .dashboard-welcome .primary { margin-top: 14px; padding: 13px 20px; font-size: 13px; }
+  .app-shell:not(.chat-mode) .dashboard-welcome .laptop-illustration {
+    width: 340px;
+    height: 220px;
+    flex: 0 0 340px;
+    transform: scale(.94);
+    transform-origin: center;
+    margin: 0;
+  }
+  .app-shell:not(.chat-mode) .stats { gap: 16px; margin: 22px 0 30px; }
+  .app-shell:not(.chat-mode) .stat {
+    min-height: 104px;
+    padding: 18px 20px;
+    grid-template-columns: 42px 1fr;
+    column-gap: 13px;
+    border-radius: 16px;
+  }
+  .app-shell:not(.chat-mode) .stat > span { width: 40px; height: 40px; border-radius: 12px; }
+  .app-shell:not(.chat-mode) .stat b { font-size: 23px; }
+  .app-shell:not(.chat-mode) .stat small { font-size: 12px; }
+  .app-shell:not(.chat-mode) .section-head { margin: 28px 0 15px; }
+  .app-shell:not(.chat-mode) .section-head h2 { font-size: 20px; }
+  .app-shell:not(.chat-mode) .section-head button { font-size: 13px; }
+  .app-shell:not(.chat-mode) .dashboard-grid { grid-template-columns: minmax(0, 1.5fr) minmax(300px, .9fr); gap: 18px; }
+  .app-shell:not(.chat-mode) .empty-state { min-height: 250px; border-radius: 16px; padding: 36px 24px; }
+  .app-shell:not(.chat-mode) .empty-state h3 { font-size: 17px; }
+  .app-shell:not(.chat-mode) .empty-state p { font-size: 13px; }
+  .app-shell:not(.chat-mode) .empty-state .primary { font-size: 12px; padding: 11px 16px; }
+  .app-shell:not(.chat-mode) .quick-actions { border-radius: 16px; padding: 20px; }
+  .app-shell:not(.chat-mode) .quick-actions h3 { font-size: 16px; margin-bottom: 12px; }
+  .app-shell:not(.chat-mode) .quick-actions button { padding: 15px 4px; gap: 13px; }
+  .app-shell:not(.chat-mode) .quick-actions b { font-size: 13px; }
+  .app-shell:not(.chat-mode) .quick-actions small { font-size: 11px; }
+  .chat-mode {
+    min-height: 100dvh;
+    background: #09071b;
+  }
+  .chat-mode > .sidebar {
+    width: 252px;
+    flex-basis: 252px;
+  }
+  .chat-mode > .app-content {
+    min-height: 100dvh;
+    background: radial-gradient(ellipse at 54% 12%, #2a1550 0, transparent 48%), linear-gradient(125deg, #0b081d, #100b27 62%, #0c1027);
+  }
+  .chat-mode .appbar {
+    height: 76px;
+    min-height: 76px;
+    padding: 0 clamp(24px, 3vw, 48px);
+    background: rgba(17, 16, 37, .82);
+    backdrop-filter: blur(18px);
+  }
+  .chat-mode .chat-top-title { gap: 18px; }
+  .chat-mode .chat-top-title button { font-size: 29px; }
+  .chat-mode .chat-top-title b { font-size: 21px; }
+  .chat-mode .theme-toggle { margin-left: auto; }
+  .chat-mode .view {
+    width: 100%;
+    max-width: none;
+    min-height: calc(100dvh - 76px);
+    padding: 30px clamp(24px, 4vw, 64px) 54px;
+    background: transparent;
+  }
+  .chat-mode .chat-page {
+    width: min(100%, 1120px);
+    max-width: 1120px;
+    min-height: 0;
+    margin: 0 auto;
+    padding: 12px 0 24px;
+    gap: 0;
+  }
+  .chat-mode .chat-page:before,
+  .chat-mode .chat-page:after {
+    bottom: -28px;
+    width: 54%;
+    height: 160px;
+    opacity: .45;
+  }
+  .chat-mode .sources-top {
+    top: 10px;
+    right: 0;
+    z-index: 3;
+    padding: 10px 16px;
+    font-size: 13px;
+    border-radius: 13px;
+  }
+  .chat-mode .robot-stage {
+    min-height: 238px;
+    margin: 0 auto 4px;
+  }
+  .chat-mode .robot-stage .robot-gif {
+    width: min(24vw, 232px);
+    height: min(24vw, 232px);
+  }
+  .chat-mode .chat-page h1 {
+    margin: 2px 0 10px;
+    font-size: clamp(34px, 3.1vw, 44px);
+    line-height: 1.12;
+    letter-spacing: -1.1px;
+  }
+  .chat-mode .chat-page > p {
+    max-width: 760px;
+    margin: 0 auto 28px;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .chat-mode .chat-perks {
+    width: 100%;
+    gap: 16px;
+    margin: 0 0 22px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .chat-mode .chat-perks article {
+    min-width: 0;
+    min-height: 92px;
+    height: auto;
+    padding: 16px;
+    gap: 13px;
+    border-radius: 16px;
+  }
+  .chat-mode .chat-perks article > span {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    font-size: 25px;
+  }
+  .chat-mode .chat-perks b { font-size: 13px; }
+  .chat-mode .chat-perks small { font-size: 11px; line-height: 1.45; }
+  .chat-mode .chat-compose {
+    width: 100%;
+    min-height: 138px;
+    padding: 16px 18px 13px;
+    border-radius: 18px;
+  }
+  .chat-mode .chat-compose textarea {
+    min-height: 66px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .chat-mode .chat-compose button:not(.primary) { font-size: 12px; padding: 9px 13px; }
+  .chat-mode .chat-compose .primary { width: 54px; height: 42px; }
+  .chat-mode .try-asking { margin-top: 24px; }
+  .chat-mode .try-asking > b { font-size: 13px; }
+  .chat-mode .try-asking > div { gap: 9px; margin-top: 10px; }
+  .chat-mode .try-asking button { padding: 9px 14px; font-size: 11px; }
+}
+@media (min-width: 701px) and (max-width: 1100px) {
+  .app-shell > .sidebar, .chat-mode > .sidebar { width: 220px; flex-basis: 220px; }
+  .app-shell > .sidebar nav button { font-size: 12px; }
+  .app-shell:not(.chat-mode) .view { padding-left: 24px; padding-right: 24px; }
+  .app-shell:not(.chat-mode) .dashboard-welcome { padding: 26px; }
+  .app-shell:not(.chat-mode) .dashboard-welcome .laptop-illustration { width: 260px; flex-basis: 260px; transform: scale(.78); }
+  .chat-mode .view { padding-left: 24px; padding-right: 24px; }
+  .chat-mode .chat-page { width: min(100%, 940px); }
+  .chat-mode .robot-stage { min-height: 205px; }
+  .chat-mode .robot-stage .robot-gif { width: 200px; height: 200px; }
+  .chat-mode .chat-page h1 { font-size: 36px; }
+  .chat-mode .chat-page > p { font-size: 14px; margin-bottom: 20px; }
+  .chat-mode .chat-perks { gap: 10px; }
+  .chat-mode .chat-perks article { padding: 12px; }
+}
+@media (min-width: 701px) and (max-height: 760px) {
+  .chat-mode .view { padding-top: 18px; padding-bottom: 26px; }
+  .chat-mode .robot-stage { min-height: 175px; }
+  .chat-mode .robot-stage .robot-gif { width: 170px; height: 170px; }
+  .chat-mode .chat-page > p { margin-bottom: 18px; }
+  .chat-mode .chat-perks { margin-bottom: 16px; }
+  .chat-mode .chat-compose { min-height: 118px; }
+  .chat-mode .try-asking { margin-top: 17px; }
+}
