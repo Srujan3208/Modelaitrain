@@ -735,3 +735,47 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
  .mobile-drawer nav button.active .drawer-nav-icon svg{stroke-width:2.2!important}
  .mobile-drawer nav button.separated{padding-top:14px!important}
 }
+
+
+/* Refined mobile navigation drawer */
+@media(max-width:700px){
+ .mobile-drawer{width:min(86vw,340px)!important;padding:20px 17px calc(22px + env(safe-area-inset-bottom))!important;background:linear-gradient(165deg,#17122d 0%,#100e22 62%,#15102a 100%)!important;border-right:1px solid #49316f!important;box-shadow:24px 0 70px #05030db8!important}
+ .mobile-drawer-head{min-height:62px!important;padding:0 2px 17px!important;border-bottom:1px solid #ffffff17!important}
+ .drawer-brand{display:flex;align-items:center;gap:10px;min-width:0}
+ .drawer-brand img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 0 10px #8c4eff55)}
+ .drawer-brand b{display:block;color:#fff;font:800 16px/1.15 var(--font-display);letter-spacing:-.045em}
+ .drawer-brand i{font-style:normal;color:#ad7aff}
+ .drawer-brand small{display:block;margin-top:4px;color:#a99fbe;font:500 10px/1.2 var(--font-ui);letter-spacing:.015em}
+ .mobile-drawer-head>button{width:36px;height:36px;display:grid;place-items:center;border:1px solid #ffffff20!important;border-radius:11px;background:#ffffff08!important;color:#eee8fa!important;transition:background .2s,border-color .2s}
+ .mobile-drawer-head>button:hover{background:#ffffff15!important;border-color:#9d70ec!important}
+ .drawer-section-label{margin:21px 9px 9px;color:#9285ad;font:700 9px/1 var(--font-ui);letter-spacing:.16em}
+ .mobile-drawer nav{gap:5px!important;padding:0!important}
+ .mobile-drawer nav button{position:relative;min-height:47px!important;padding:0 12px!important;border:1px solid transparent!important;border-radius:11px!important;color:#d8d1e7!important;transition:background .18s,border-color .18s,transform .18s!important}
+ .mobile-drawer nav button:hover{background:#ffffff0b!important;transform:translateX(2px)}
+ .mobile-drawer nav button .drawer-nav-icon{width:28px!important;height:28px!important;border-radius:8px;color:#a99bbf}
+ .mobile-drawer nav button .drawer-nav-icon svg{width:19px!important;height:19px!important}
+ .mobile-drawer nav button .drawer-nav-label{font:600 13px/1.3 var(--font-ui)!important;letter-spacing:-.015em!important;color:inherit}
+ .mobile-drawer nav button.active{background:linear-gradient(105deg,#7137e8 0%,#5525bd 100%)!important;border-color:#a67aff55!important;color:#fff!important;box-shadow:0 7px 22px #602acb44!important}
+ .mobile-drawer nav button.active .drawer-nav-icon{background:#ffffff19;color:#fff}
+ .account-label{margin-top:23px;padding-top:19px;border-top:1px solid #ffffff17}
+ .mobile-pro-card{margin-top:auto!important;gap:9px!important;padding:15px!important;border:1px solid #6d4a9e!important;border-radius:14px!important;background:radial-gradient(ellipse at 100% 0%,#6936aa44,transparent 55%),linear-gradient(145deg,#271943,#18122d)!important;box-shadow:inset 0 1px #ffffff0d}
+ .mobile-pro-card>b{display:flex;align-items:center;gap:8px;color:#f6efff;font:750 14px/1.2 var(--font-display)}
+ .mobile-pro-card>b svg{color:#bd91ff}
+ .mobile-pro-card>small{font:500 11px/1.5 var(--font-ui)!important;color:#c5b8db!important}
+ .pro-card-caption{display:flex;align-items:center;justify-content:space-between;margin-top:2px;padding-top:10px;border-top:1px solid #ffffff17;color:#c29bff;font:650 10px var(--font-ui)}
+ .pro-card-caption span{font-size:15px}
+ .theme-light .mobile-drawer{background:linear-gradient(165deg,#fff 0%,#faf8ff 100%)!important;border-right-color:#e5d9f4!important}
+ .theme-light .drawer-brand b{color:#211936}
+ .theme-light .drawer-brand small{color:#857994}
+ .theme-light .mobile-drawer-head>button{color:#4d3d68!important;border-color:#e8def3!important;background:#f8f4ff!important}
+ .theme-light .drawer-section-label{color:#9385a8}
+ .theme-light .account-label{border-top-color:#ece5f4}
+ .theme-light .mobile-drawer nav button{color:#514663!important}
+ .theme-light .mobile-drawer nav button .drawer-nav-icon{color:#83739c}
+ .theme-light .mobile-drawer nav button.active{color:#fff!important}
+ .theme-light .mobile-drawer nav button.active .drawer-nav-icon{color:#fff}
+ .theme-light .mobile-pro-card{background:radial-gradient(ellipse at 100% 0%,#b995f344,transparent 55%),linear-gradient(145deg,#f4edff,#fff)!important;border-color:#ddc9f5!important}
+ .theme-light .mobile-pro-card>b{color:#37234f}
+ .theme-light .mobile-pro-card>small{color:#77658e!important}
+ .theme-light .pro-card-caption{border-top-color:#e9def5;color:#7140b6}
+}
