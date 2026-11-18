@@ -13,6 +13,7 @@ function Robot(){
  const down=e=>{if(e.button!==undefined&&e.button!==0)return;drag.current={x:e.clientX,y:e.clientY,yaw,pitch,moved:false};setDragging(true);e.currentTarget.setPointerCapture?.(e.pointerId)};
  const move=e=>{if(!dragging)return;const dx=e.clientX-drag.current.x,dy=e.clientY-drag.current.y;if(Math.abs(dx)+Math.abs(dy)>4)drag.current.moved=true;setYaw(drag.current.yaw+dx*.85);setPitch(Math.max(-18,Math.min(18,drag.current.pitch-dy*.3)))};
  const up=()=>setDragging(false);
+ useEffect(()=>{if(dragging)return;const timer=window.setInterval(()=>setYaw(v=>v+0.42),30);return()=>window.clearInterval(timer)},[dragging]);
  const clickFace=()=>{if(drag.current.moved)return;setHappy(true);window.setTimeout(()=>setHappy(false),1400)};
  return <div className={`robot ${dragging?"is-dragging":""}`} role="button" tabIndex={0} aria-label="Interactive TREAN AI robot head. Drag horizontally to rotate the complete 3D head; tap the face to smile." onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onLostPointerCapture={up} onKeyDown={e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();clickFace()}}} style={{"--robot-yaw":`${yaw}deg`,"--robot-pitch":`${pitch}deg`}}>
   <div className={`robot-rotor ${happy?"is-happy":""}`}>
