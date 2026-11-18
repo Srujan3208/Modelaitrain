@@ -806,3 +806,22 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
  .theme-light .more-sheet-arrow{color:#9588a7!important}
 }
 @keyframes more-panel-in{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+
+/* TREAN assistant character motion */
+.robot{position:relative;isolation:isolate;perspective:700px;animation:trean-robot-float 3.8s ease-in-out infinite;filter:drop-shadow(0 0 16px #9c60ed88)}
+.robot::before{content:"";position:absolute;inset:8% 10%;z-index:-1;border-radius:50%;background:radial-gradient(circle,#9c5cff38 0%,#7839df1c 48%,transparent 72%);filter:blur(10px);animation:trean-robot-aura 3.2s ease-in-out infinite}
+.robot svg{overflow:visible;transform-origin:50% 50%;transform-style:preserve-3d;backface-visibility:visible;animation:trean-robot-turn 14s cubic-bezier(.45,.05,.55,.95) infinite}
+.robot svg>circle:first-of-type{transform-box:fill-box;transform-origin:center;animation:trean-robot-ring 3.2s ease-in-out infinite}
+.robot-eyes{transform-box:fill-box;transform-origin:center;animation:trean-robot-blink 5.2s infinite}
+.robot-smile{transform-box:fill-box;transform-origin:center;animation:trean-robot-smile 3.4s ease-in-out infinite}
+.robot svg>rect:nth-of-type(1),.robot svg>rect:nth-of-type(2){transform-box:fill-box;transform-origin:center;animation:trean-robot-ear 2.8s ease-in-out infinite alternate}
+.robot svg>rect:nth-of-type(2){animation-delay:.25s}
+@keyframes trean-robot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes trean-robot-turn{0%,12%,100%{transform:rotateY(0deg)}42%{transform:rotateY(180deg)}72%{transform:rotateY(360deg)}}
+@keyframes trean-robot-blink{0%,41%,44%,78%,81%,100%{transform:scaleY(1)}42.5%,79.5%{transform:scaleY(.12)}}
+@keyframes trean-robot-smile{0%,100%{transform:scale(1)}50%{transform:scale(1.14,1.08)}}
+@keyframes trean-robot-ring{0%,100%{opacity:.78;transform:scale(1)}50%{opacity:1;transform:scale(1.045)}}
+@keyframes trean-robot-aura{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:1;transform:scale(1.12)}}
+@keyframes trean-robot-ear{from{transform:scaleY(.96)}to{transform:scaleY(1.05)}}
+@media(prefers-reduced-motion:reduce){.robot,.robot svg,.robot::before,.robot-eyes,.robot-smile,.robot svg>circle:first-of-type,.robot svg>rect:nth-of-type(1),.robot svg>rect:nth-of-type(2){animation:none!important}}
