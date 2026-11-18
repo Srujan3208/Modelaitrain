@@ -1,11 +1,27 @@
-# Modelaitrain — Playback
+# TREAN AI — Persistent Learning Agent
 
-A single-file chat app that builds a local knowledge base from YouTube video transcripts you paste in, then answers questions and generates app/website code grounded in what it's learned.
+A responsive learning workspace that turns educational videos into searchable personal knowledge.
 
-## How it works
-- Paste a video's link + transcript in the sidebar — it's automatically chunked and indexed.
-- Ask a question or ask it to build something — it retrieves the most relevant chunks across all indexed videos (keyword/TF-IDF relevance) and uses them as context for a Claude API call.
-- Everything is stored locally in the browser; no external database needed.
+## Redesigned UI
+- Dark indigo and violet visual system based on the supplied reference
+- Responsive sidebar and workspace navigation
+- Dashboard, Learn from Video, Knowledge Base, AI Chat, Summaries, Learning Sources, History, Profile and Settings sections
+- Source-aware chat composer and suggested prompts
+- Responsive desktop and mobile layouts
 
-## Usage
-Open `playback.html` directly in a browser (works fully client-side, uses the Anthropic API for chat).
+## Development
+```bash
+npm install
+npm run dev
+```
+
+## Build
+```bash
+npm run build
+```
+
+## Deployment
+Connect this repository to Vercel. Deploy `trean-redesign` as a preview first, then promote the tested code to the production branch. Git pushes to the configured production branch will trigger automatic deployments.
+
+## Environment variables
+Backend integration uses server-side environment variables for Supabase and AI providers. Never commit API secrets or service-role keys.
