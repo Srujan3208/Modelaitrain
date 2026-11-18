@@ -903,3 +903,11 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .robot-stage .robot-rotor.is-happy .robot-smile{animation:trean-big-smile .7s cubic-bezier(.2,.8,.2,1) both;stroke-width:5}
 @media(max-width:700px){.robot-stage{min-height:210px;margin:6px auto 12px}.robot-stage .robot{width:185px;height:170px}}
 @media(prefers-reduced-motion:reduce){.robot-stage .robot-rotor{transform:rotateY(0deg)!important}.robot-stage .robot-eyes,.robot-stage .robot-smile{animation:none!important}}
+
+/* Reference-based animated 3D robot head */
+.robot-stage{min-height:300px;margin:6px auto 20px;display:grid;place-items:center;position:relative;isolation:isolate}
+.robot-stage::before{content:"";position:absolute;width:280px;height:250px;border-radius:50%;background:radial-gradient(ellipse,#9b55ff55 0%,#5d25a62b 48%,transparent 72%);filter:blur(22px);pointer-events:none}
+.robot-stage .robot-gif{width:min(78vw,280px);height:min(78vw,280px);position:relative;z-index:1;margin:0 auto;display:grid;place-items:center;overflow:visible;filter:drop-shadow(0 0 20px #a56aff66)}
+.robot-stage .robot-gif img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+@media(max-width:700px){.robot-stage{min-height:250px}.robot-stage .robot-gif{width:min(72vw,245px);height:min(72vw,245px)}}
+@media(prefers-reduced-motion:reduce){.robot-stage .robot-gif img{animation:none}}
