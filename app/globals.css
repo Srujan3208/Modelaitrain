@@ -885,3 +885,21 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .rotation-dots i{display:block;width:10px;height:10px;border-radius:50%;background:linear-gradient(145deg,#eadbff,#8643f4);box-shadow:0 0 8px #a76aff77;opacity:calc(.5 + var(--dot)*.06)}
 @media(max-width:680px){.robot-showcase{padding:17px 12px 13px;border-radius:19px;margin-bottom:22px}.robot-view-grid{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:5px}.robot-view-art{max-height:105px}.robot-view-cell{padding:3px 2px 6px}.robot-view-cell>b{font-size:10px}.robot-view-cell>span{font-size:8px}.robot-rotation-bar{margin-top:8px;padding:8px}.rotation-dots{gap:5px}.rotation-dots i{width:7px;height:7px}}
 @media(prefers-reduced-motion:reduce){.robot-view-cell{transition:none}}
+
+
+/* TREAN AI companion: one continuous, two-sided 3D head */
+.robot-stage{width:100%;min-height:235px;display:grid;place-items:center;position:relative;margin:10px auto 18px;isolation:isolate}
+.robot-stage::before{content:"";position:absolute;width:220px;height:190px;border-radius:50%;background:radial-gradient(ellipse,#8b42ff42 0%,#6823b21c 48%,transparent 72%);filter:blur(18px);pointer-events:none}
+.robot-stage .robot{position:relative;z-index:1;width:210px;height:190px;margin:0 auto 8px;perspective:900px;perspective-origin:50% 48%;overflow:visible;touch-action:pan-y;cursor:grab;filter:drop-shadow(0 0 18px #9c60ed88)}
+.robot-stage .robot.is-dragging{cursor:grabbing;touch-action:none}
+.robot-stage .robot-rotor{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:none!important;will-change:transform;transform:rotateY(var(--robot-yaw,0deg)) rotateX(var(--robot-pitch,0deg))}
+.robot-stage .robot-rotor::before{content:"";position:absolute;left:20%;top:15%;width:60%;height:70%;border-radius:44%;background:linear-gradient(90deg,#5a329d 0%,#b99af2 22%,#e3d5ff 50%,#9a70e4 78%,#49247f 100%);border:2px solid #c8a5ff;box-shadow:inset 0 0 15px #fff8,0 0 18px #8e4ee977;transform:rotateY(90deg);backface-visibility:hidden}
+.robot-stage .robot-rotor>svg{position:absolute!important;inset:0;width:100%!important;height:100%!important;overflow:visible;backface-visibility:hidden;-webkit-backface-visibility:hidden;animation:none!important}
+.robot-stage .robot-rotor>.robot-face{transform:translateZ(17px);z-index:2}
+.robot-stage .robot-rotor>.robot-rear{transform:rotateY(180deg) translateZ(17px);z-index:1}
+.robot-stage .robot-eyes{animation:trean-robot-blink 5.2s infinite}
+.robot-stage .robot-smile{animation:trean-robot-smile 3.4s ease-in-out infinite}
+.robot-stage .robot-rotor.is-happy .robot-eyes{animation:trean-happy-blink .42s ease-in-out 2}
+.robot-stage .robot-rotor.is-happy .robot-smile{animation:trean-big-smile .7s cubic-bezier(.2,.8,.2,1) both;stroke-width:5}
+@media(max-width:700px){.robot-stage{min-height:210px;margin:6px auto 12px}.robot-stage .robot{width:185px;height:170px}}
+@media(prefers-reduced-motion:reduce){.robot-stage .robot-rotor{transform:rotateY(0deg)!important}.robot-stage .robot-eyes,.robot-stage .robot-smile{animation:none!important}}
