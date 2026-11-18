@@ -825,3 +825,22 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 @keyframes trean-robot-aura{0%,100%{opacity:.55;transform:scale(.92)}50%{opacity:1;transform:scale(1.12)}}
 @keyframes trean-robot-ear{from{transform:scaleY(.96)}to{transform:scaleY(1.05)}}
 @media(prefers-reduced-motion:reduce){.robot,.robot svg,.robot::before,.robot-eyes,.robot-smile,.robot svg>circle:first-of-type,.robot svg>rect:nth-of-type(1),.robot svg>rect:nth-of-type(2){animation:none!important}}
+
+
+/* True two-sided mascot: front expression and sculpted rear shell */
+.robot{perspective:620px;perspective-origin:50% 48%;overflow:visible}
+.robot-rotor{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:trean-full-head-turn 18s cubic-bezier(.42,0,.58,1) infinite}
+.robot-rotor::before{content:"";position:absolute;inset:13% 23%;border-radius:46%;background:linear-gradient(90deg,#6942b4,#d6bdff 48%,#7045bd);box-shadow:0 0 15px #a16aff77;transform:translateZ(-7px);backface-visibility:hidden}
+.robot-rotor>svg{position:absolute!important;inset:0;width:100%!important;height:100%!important;overflow:visible;backface-visibility:hidden;-webkit-backface-visibility:hidden;animation:none!important}
+.robot-rotor>.robot-face{transform:translateZ(8px);z-index:2}
+.robot-rotor>.robot-rear{transform:rotateY(180deg) translateZ(8px);z-index:1}
+.robot-eyes{animation:trean-robot-blink 5.2s infinite}
+.robot-smile{animation:trean-robot-smile 3.4s ease-in-out infinite}
+@keyframes trean-full-head-turn{
+ 0%,8%{transform:rotateY(0deg)}
+ 42%{transform:rotateY(180deg)}
+ 50%,58%{transform:rotateY(180deg)}
+ 92%{transform:rotateY(360deg)}
+ 100%{transform:rotateY(360deg)}
+}
+@media(prefers-reduced-motion:reduce){.robot-rotor{animation:none!important;transform:none!important}.robot-rotor>.robot-rear{display:none}.robot-rotor>.robot-face{transform:none}}
