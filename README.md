@@ -1,11 +1,25 @@
-# Modelaitrain — Playback
+# TREAN AI — Persistent Learning Agent
 
-A single-file chat app that builds a local knowledge base from YouTube video transcripts you paste in, then answers questions and generates app/website code grounded in what it's learned.
+This repository has two parts:
+- `playback.html` — the original standalone playback prototype.
+- `trean-ai-redesign/` — the redesigned Next.js application and supporting assets.
 
-## How it works
-- Paste a video's link + transcript in the sidebar — it's automatically chunked and indexed.
-- Ask a question or ask it to build something — it retrieves the most relevant chunks across all indexed videos (keyword/TF-IDF relevance) and uses them as context for a Claude API call.
-- Everything is stored locally in the browser; no external database needed.
+The redesigned app uses Supabase Auth and Row Level Security for per-user data, OpenAI for embeddings and chat, and the YouTube Data API for video metadata.
 
-## Usage
-Open `playback.html` directly in a browser (works fully client-side, uses the Anthropic API for chat).
+## Run the redesigned app
+
+```bash
+cd trean-ai-redesign
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `OPENAI_API_KEY`, and `YOUTUBE_API_KEY` in `.env.local`. Keep OpenAI and YouTube keys server-side; never use a `NEXT_PUBLIC_` prefix for private keys.
+
+## Security
+
+- Browser and server Supabase clients use publishable key + authenticated user session.
+- Route handlers check the signed-in user before querying or writing.
+- Row Level Security policies remain the data-access boundary.
+- No Supabase service-role or secret key is required in the redesigned client/server utilities.
