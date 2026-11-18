@@ -7,3 +7,78 @@
 @media(max-width:1100px){.sidebar{width:235px}.feature-card{padding:11px;gap:10px}.feature-card b{font-size:13px}.feature-card p{font-size:11px}.feature-icon{width:52px;height:52px}}
 @media(max-width:780px){.sidebar{width:76px;padding:15px 8px}.brand{padding:0;justify-content:center}.brand img{width:43px}.brand span,.nav-link:not(.selected){font-size:0}.nav-link{justify-content:center;padding:0;gap:0}.nav-link.selected{font-size:0}.nav-glyph{font-size:23px}.pro-card{display:none}.nav-divider{margin-top:12px}.topbar{padding:0 17px}.page-body{padding:22px 17px}.chat-body{padding-top:55px}.sources-button{right:15px;top:12px}.chat-hero{margin-bottom:25px}.robot-halo{width:125px;height:115px}.robot-halo svg{width:125px;height:115px}.chat-hero h1{font-size:31px}.chat-hero>p{font-size:14px;max-width:460px}.feature-row{grid-template-columns:1fr;gap:10px;margin-bottom:20px}.feature-card{height:78px}.feature-icon{width:50px;height:50px}.chat-input-panel{min-height:140px}.try-asking>div{gap:8px}.try-asking button{font-size:12px;padding:9px 12px}.metric-row{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.sidebar{width:59px}.brand img{width:38px}.nav-link{height:44px}.nav-glyph{font-size:20px}.page-heading b{font-size:18px}.top-right{gap:12px}.user-bubble{width:34px;height:34px}.chat-body{padding:52px 12px 30px}.chat-hero h1{font-size:27px}.chat-hero>p{font-size:13px;line-height:1.5}.feature-card{height:74px}.feature-card p br{display:none}.feature-card p{font-size:11px}.feature-card b{font-size:12px}.chat-input-panel{border-radius:16px;padding:12px;min-height:140px}.chat-input-panel textarea{font-size:14px}.tool-pill{font-size:11px;padding:8px 10px}.send-button{width:48px}.try-asking{margin-top:23px}.try-asking>div{display:grid;grid-template-columns:1fr 1fr}.try-asking button{font-size:10px;padding:9px 7px}.sources-button{font-size:12px;padding:7px 12px}.other-page h1{font-size:30px}.metric-row b{font-size:21px}}
+
+/* Responsive navigation and layout refinement */
+.mobile-brand,.mobile-tabbar,.mobile-more-shade{display:none}
+@media(max-width:780px){
+  .app-shell{min-height:100dvh;overflow-x:hidden;padding-bottom:calc(68px + env(safe-area-inset-bottom))}
+  .sidebar{display:none}
+  .main-panel{width:100%;min-height:100dvh}
+  .topbar{height:66px;padding:0 16px;gap:12px;position:sticky;top:0;z-index:4;background:#131027f2;backdrop-filter:blur(14px)}
+  .mobile-brand{display:flex;align-items:center;gap:7px;border:0;background:none;padding:0;color:#fff;font:800 15px Manrope;white-space:nowrap}
+  .mobile-brand img{width:30px;height:30px;object-fit:contain}
+  .mobile-brand i{font-style:normal;color:#a56aff}
+  .page-heading{margin-left:auto;gap:7px}
+  .page-heading b{font-size:16px}
+  .back-btn{font-size:22px}
+  .top-right{gap:10px}
+  .bell{display:none}
+  .user-bubble{width:34px;height:34px;font-size:15px}
+  .page-body{min-height:calc(100dvh - 66px);padding:22px 18px 35px}
+  .chat-body{padding:58px 18px 38px;justify-content:flex-start}
+  .sources-button{top:12px;right:16px}
+  .chat-hero{width:100%;margin:0 auto 25px;padding:0 6px}
+  .robot-halo{width:112px;height:105px;margin-bottom:12px}
+  .robot-halo svg{width:112px;height:105px}
+  .chat-hero h1{font-size:clamp(25px,6vw,34px);line-height:1.16;letter-spacing:-.7px}
+  .chat-hero>p{font-size:14px;line-height:1.55;max-width:480px;margin:10px auto 0}
+  .feature-row{width:100%;grid-template-columns:1fr;gap:10px;margin-bottom:20px}
+  .feature-card{height:auto;min-height:76px;border-radius:15px;padding:11px 14px;gap:14px}
+  .feature-icon{width:50px;height:50px;font-size:29px}
+  .feature-icon.bolt{font-size:42px}
+  .feature-card b{font-size:13px}
+  .feature-card p{font-size:11px;line-height:1.4}
+  .feature-card p br{display:none}
+  .chat-input-panel{width:100%;min-height:138px;border-radius:16px;padding:13px}
+  .chat-input-panel textarea{font-size:14px;min-height:62px}
+  .tool-pill{font-size:12px;padding:8px 11px}
+  .send-button{width:48px;height:38px}
+  .try-asking{margin-top:24px}
+  .try-asking>b{font-size:14px}
+  .try-asking>div{gap:8px}
+  .try-asking button{font-size:11px;padding:9px 12px}
+  .conversation{max-height:230px}
+  .mobile-tabbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;z-index:8;left:0;right:0;bottom:0;padding:7px 7px calc(7px + env(safe-area-inset-bottom));min-height:66px;background:#111025f5;border-top:1px solid #382958;backdrop-filter:blur(18px)}
+  .mobile-tab{border:0;background:none;color:#a9a1bd;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0}
+  .mobile-tab>span{font-size:20px;line-height:1.1}
+  .mobile-tab small{font-size:9px;white-space:nowrap}
+  .mobile-tab.active{color:#c5a0ff}
+  .mobile-tab.active>span{color:#c18aff;text-shadow:0 0 12px #9c52ff}
+  .mobile-more-shade{display:block;position:fixed;z-index:9;inset:0;background:#05030acc}
+  .mobile-more-menu{position:absolute;bottom:calc(72px + env(safe-area-inset-bottom));right:12px;width:min(280px,calc(100vw - 24px));border:1px solid #60418f;border-radius:16px;background:#1b1530;padding:12px;box-shadow:0 18px 60px #000b}
+  .mobile-more-head{display:flex;justify-content:space-between;align-items:center;font:700 14px Manrope;padding:5px 5px 12px}
+  .mobile-more-head button{border:0;background:none;color:#fff;font-size:22px}
+  .mobile-more-menu>button{display:flex;align-items:center;gap:13px;width:100%;border:0;border-radius:9px;background:transparent;color:#eee7ff;text-align:left;padding:12px 10px;font-size:13px}
+  .mobile-more-menu>button:hover{background:#38245b}
+  .mobile-more-menu>button span{width:22px;color:#b78aff;font-size:18px;text-align:center}
+  .other-page{margin:5px auto}
+  .metric-row{gap:9px}
+  .dashboard-grid{grid-template-columns:1fr}
+  .empty-panel,.upload-panel{margin:28px auto;padding:30px 20px}
+  .modal-shade{padding:16px}
+}
+@media(max-width:390px){
+  .mobile-brand{font-size:13px;gap:5px}
+  .mobile-brand img{width:26px;height:26px}
+  .page-heading b{font-size:14px}
+  .page-heading{gap:4px}
+  .topbar{padding:0 11px}
+  .page-body{padding-left:13px;padding-right:13px}
+  .chat-body{padding-left:13px;padding-right:13px}
+  .feature-card{padding:10px 11px}
+  .try-asking>div{grid-template-columns:1fr 1fr}
+  .try-asking button{padding:8px 6px;font-size:10px}
+}
+@media(min-width:781px){
+  .mobile-brand,.mobile-tabbar,.mobile-more-shade{display:none!important}
+}
