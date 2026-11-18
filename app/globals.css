@@ -779,3 +779,30 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
  .theme-light .mobile-pro-card>small{color:#77658e!important}
  .theme-light .pro-card-caption{border-top-color:#e9def5;color:#7140b6}
 }
+
+
+/* More menu: real icon + label layout, no raw identifier text */
+@media(max-width:700px){
+ .more-sheet{display:block!important;position:fixed!important;inset:0!important;z-index:30!important;background:rgba(5,3,15,.58)!important;backdrop-filter:blur(5px)!important}
+ .more-sheet-panel{position:absolute!important;right:12px!important;bottom:calc(76px + env(safe-area-inset-bottom))!important;width:min(280px,calc(100vw - 24px))!important;padding:12px!important;border:1px solid #5b4380!important;border-radius:19px!important;background:linear-gradient(155deg,#211936 0%,#151126 100%)!important;box-shadow:0 22px 65px #05020db8, inset 0 1px #ffffff12!important;animation:more-panel-in .18s ease-out}
+ .more-sheet-head{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:3px 5px 12px!important;margin-bottom:6px!important;border-bottom:1px solid #ffffff17!important;color:#f7f2ff!important;font:750 14px/1.2 var(--font-display)!important}
+ .more-sheet-head button{width:30px!important;height:30px!important;display:grid!important;place-items:center!important;border:1px solid #ffffff1c!important;border-radius:9px!important;background:#ffffff08!important;color:#e9defb!important;padding:0!important}
+ .more-sheet-panel>button{display:grid!important;grid-template-columns:34px minmax(0,1fr) 18px!important;align-items:center!important;gap:10px!important;width:100%!important;min-height:48px!important;margin:2px 0!important;padding:0 9px!important;border:1px solid transparent!important;border-radius:11px!important;background:transparent!important;color:#e8e0f4!important;text-align:left!important;font:600 13px/1.3 var(--font-ui)!important}
+ .more-sheet-panel>button:hover{background:#ffffff0c!important}
+ .more-sheet-panel>button.active{background:linear-gradient(100deg,#7138e8,#5424bc)!important;border-color:#a879ff55!important;color:#fff!important;box-shadow:0 5px 17px #602acb38!important}
+ .more-sheet-icon{display:grid!important;place-items:center!important;width:32px!important;height:32px!important;border-radius:10px!important;background:#ffffff0b!important;color:#b58bff!important}
+ .more-sheet-panel>button.active .more-sheet-icon{background:#ffffff1c!important;color:#fff!important}
+ .more-sheet-label{display:block!important;min-width:0!important;color:inherit!important;font:600 13px/1.3 var(--font-ui)!important}
+ .more-sheet-arrow{display:grid!important;place-items:center!important;color:#9385aa!important}
+ .theme-light .more-sheet{background:rgba(24,17,39,.24)!important}
+ .theme-light .more-sheet-panel{background:linear-gradient(155deg,#fff 0%,#faf7ff 100%)!important;border-color:#e2d5f2!important;box-shadow:0 22px 55px #26123b26,inset 0 1px #fff!important}
+ .theme-light .more-sheet-head{color:#261b3a!important;border-bottom-color:#eee7f5!important}
+ .theme-light .more-sheet-head button{color:#655478!important;border-color:#e9e1f1!important;background:#f7f3fc!important}
+ .theme-light .more-sheet-panel>button{color:#514461!important}
+ .theme-light .more-sheet-panel>button:hover{background:#f5effc!important}
+ .theme-light .more-sheet-panel>button.active{color:#fff!important}
+ .theme-light .more-sheet-icon{background:#f2ebfc!important;color:#7547bd!important}
+ .theme-light .more-sheet-panel>button.active .more-sheet-icon{background:#ffffff25!important;color:#fff!important}
+ .theme-light .more-sheet-arrow{color:#9588a7!important}
+}
+@keyframes more-panel-in{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
