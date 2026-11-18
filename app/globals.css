@@ -1233,3 +1233,29 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
   45% { d: path("M72 97q18 26 36 0"); }
   100% { d: path("M73 98q17 22 34 0"); }
 }
+
+
+/* Static TREAN mascot: no spin or perspective rotation */
+.robot-stage .robot-static {
+  appearance:none; border:0; background:transparent; padding:0; margin:0 auto;
+  width:min(310px, 36vw); height:auto; aspect-ratio:180/160;
+  display:grid; place-items:center; cursor:pointer; position:relative; z-index:2;
+  filter:drop-shadow(0 12px 22px #8d4cff55);
+  -webkit-tap-highlight-color:transparent;
+}
+.robot-stage .robot-static-art {width:100%;height:100%;overflow:visible;display:block}
+.robot-stage .robot-static:focus-visible {outline:2px solid #c49aff;outline-offset:9px;border-radius:28px}
+.robot-stage .static-robot-smile {transform-origin:90px 102px;transition:stroke-width .25s ease}
+.robot-stage .robot-static.is-happy {animation:trean-happy-bob 2.4s ease-in-out infinite;filter:drop-shadow(0 0 25px #bd8affaa)}
+.robot-stage .robot-static.is-happy .static-robot-smile {animation:trean-smile-pulse .9s ease-in-out infinite alternate;stroke-width:6}
+.robot-stage .robot-static.is-happy .static-robot-eyes {animation:trean-happy-blink 2.8s ease-in-out infinite}
+@keyframes trean-happy-bob {0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.025)}}
+@keyframes trean-smile-pulse {from{transform:scaleY(.92)}to{transform:scaleY(1.18)}}
+@media(max-width:700px){.robot-stage .robot-static{width:min(72vw,270px)}}
+
+/* Hamburger controls the actual navigation rail on desktop; mobile uses the drawer */
+.sidebar {transition:width .24s ease, flex-basis .24s ease, padding .24s ease, opacity .18s ease; overflow:hidden}
+.app-shell.sidebar-collapsed .sidebar {width:0;flex-basis:0;min-width:0;padding-left:0;padding-right:0;opacity:0;border:0}
+.chat-mode .chat-top-title {gap:0}
+.chat-mode .chat-top-title b {margin:0}
+.chat-mode .chat-top-title button {display:none}
