@@ -911,3 +911,11 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .robot-stage .robot-gif img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
 @media(max-width:700px){.robot-stage{min-height:250px}.robot-stage .robot-gif{width:min(72vw,245px);height:min(72vw,245px)}}
 @media(prefers-reduced-motion:reduce){.robot-stage .robot-gif img{animation:none}}
+
+.robot-stage .robot-gif{cursor:grab;touch-action:pan-y;perspective:900px;transform:perspective(900px) rotateY(var(--hand-rotation,0deg));transition:transform .12s ease-out,filter .25s ease;outline:none}
+.robot-stage .robot-gif.is-dragging{cursor:grabbing;transition:none}
+.robot-stage .robot-gif img{pointer-events:none;animation:robot-float 3.8s ease-in-out infinite;transform-origin:center}
+.robot-stage .robot-gif.is-smiling{filter:drop-shadow(0 0 30px #d4a2ff) brightness(1.12) saturate(1.12)}
+.robot-smile-pulse{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(30px,7vw,46px);font-weight:800;color:#f5ddff;text-shadow:0 0 12px #a75bff,0 0 28px #a75bff;opacity:0;pointer-events:none;transform:scale(.5);transition:opacity .2s,transform .35s}
+.robot-gif.is-smiling .robot-smile-pulse{opacity:.9;transform:scale(1.18)}
+@keyframes robot-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
