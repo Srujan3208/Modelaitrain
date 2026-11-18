@@ -1199,3 +1199,37 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
   .chat-mode .chat-compose { min-height: 118px; }
   .chat-mode .try-asking { margin-top: 17px; }
 }
+
+
+/* Isolated transparent 3D robot head — no image frame or black background */
+@media (min-width: 701px) {
+  .chat-mode .robot-stage { min-height: 286px; margin: 0 auto 4px; }
+  .chat-mode .robot-stage .robot {
+    width: min(27vw, 286px);
+    height: min(25vw, 254px);
+    margin: 0 auto;
+    filter: drop-shadow(0 0 24px #a56aff70);
+  }
+}
+@media (max-width: 700px) {
+  .chat-mode .robot-stage { min-height: 248px; margin: 0 auto 4px; }
+  .chat-mode .robot-stage .robot {
+    width: min(72vw, 248px);
+    height: min(66vw, 220px);
+    margin: 0 auto;
+    filter: drop-shadow(0 0 22px #a56aff70);
+  }
+}
+.robot-stage .robot { -webkit-tap-highlight-color: transparent; }
+.robot-stage .robot:focus-visible { outline: 2px solid #c49aff; outline-offset: 8px; border-radius: 28px; }
+.robot-stage .robot-rotor { filter: drop-shadow(0 8px 18px #5c2aa955); }
+.robot-stage .robot-smile { filter: drop-shadow(0 0 5px #d9c5ff); }
+@keyframes trean-robot-smile {
+  0%,100% { d: path("M78 100q12 13 24 0"); opacity: .92; }
+  45%,60% { d: path("M73 98q17 22 34 0"); opacity: 1; }
+}
+@keyframes trean-big-smile {
+  0% { d: path("M78 100q12 13 24 0"); }
+  45% { d: path("M72 97q18 26 36 0"); }
+  100% { d: path("M73 98q17 22 34 0"); }
+}
