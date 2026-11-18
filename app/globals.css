@@ -724,3 +724,14 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .chat-perks article>span svg{width:24px;height:24px}
 .try-asking button{font-family:var(--font-ui);font-weight:550}
 .primary svg{width:17px;height:17px}
+
+
+/* Mobile drawer navigation: separate icon and label columns */
+@media(max-width:700px){
+ .mobile-drawer nav button{display:grid!important;grid-template-columns:26px minmax(0,1fr)!important;align-items:center!important;justify-content:start!important;column-gap:12px!important;text-align:left!important;font-family:var(--font-ui)!important;font-size:14px!important;font-weight:600!important;line-height:1.25!important;white-space:normal}
+ .mobile-drawer nav button .drawer-nav-icon{display:grid!important;place-items:center!important;width:26px!important;height:26px!important;min-width:26px!important;margin:0!important;font-size:0!important;line-height:0!important}
+ .mobile-drawer nav button .drawer-nav-icon svg{display:block!important;width:20px!important;height:20px!important;stroke-width:1.85!important}
+ .mobile-drawer nav button .drawer-nav-label{display:block!important;width:auto!important;min-width:0!important;margin:0!important;padding:0!important;text-align:left!important;font:600 14px/1.3 var(--font-ui)!important;letter-spacing:-.02em!important;white-space:normal!important}
+ .mobile-drawer nav button.active .drawer-nav-icon svg{stroke-width:2.2!important}
+ .mobile-drawer nav button.separated{padding-top:14px!important}
+}
