@@ -51,15 +51,8 @@ function RobotHead({view,index}){
  </svg>
 }
 function RobotShowcase(){
- const [rotation,setRotation]=useState(0),[dragging,setDragging]=useState(false);
- const drag=useRef({x:0,rotation:0});
- const down=e=>{if(e.button!==undefined&&e.button!==0)return;drag.current={x:e.clientX,rotation};setDragging(true);e.currentTarget.setPointerCapture?.(e.pointerId)};
- const move=e=>{if(!dragging)return;setRotation(drag.current.rotation+(e.clientX-drag.current.x)*.8)};
- const up=()=>setDragging(false);
- return <div className="robot-stage" aria-label="TREAN AI robot companion">
-  <div className={"robot-gif"+(dragging?" is-dragging":"")} role="img" aria-label="Animated 360 degree TREAN AI robot head" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onLostPointerCapture={up} style={{"--hand-rotation":rotation+"deg"}}>
-   <img src="/trean-robot-360.gif" alt="TREAN AI robot head rotating through a full 360 degree view" draggable="false"/>
-  </div>
+ return <div className="robot-stage" aria-label="TREAN AI animated robot companion">
+  <Robot/>
  </div>
 }
 
