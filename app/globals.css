@@ -103,3 +103,124 @@
  .chat-mode .sidebar{display:none}
 }
 @media(max-width:390px){.chat-mode .view{padding-left:13px;padding-right:13px}.chat-mode .chat-page h1{font-size:25px}.chat-mode .chat-perks b{font-size:13px}.chat-mode .chat-perks small{font-size:11px}}
+
+/* Unified application themes and viewport sizing */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+.trean-root,.app-shell,.app-content{width:100%;max-width:100%;min-width:0}
+.app-shell{overflow-x:clip}
+.app-content{min-width:0;overflow-x:clip}
+.view{width:100%;min-width:0}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid #51416f;border-radius:20px;background:#211a38;color:#f4edff;padding:7px 11px;font-size:13px;white-space:nowrap}
+.theme-toggle span{font-size:10px}
+.chat-mode .mobile-logo{color:#fff}
+.chat-mode .mobile-logo i{color:#b58aff}
+.chat-mode .theme-toggle{border-color:#59417e;background:#24183e;color:#f5edff}
+.chat-mode .mobile-nav{background:#111025;border-top-color:#34264e}
+.chat-mode .mobile-nav button{color:#aaa1c0}
+.chat-mode .mobile-nav button.active{color:#c69aff}
+.chat-mode .more-sheet>div{background:#1b1530;border-color:#554078}
+.chat-mode .more-sheet button{background:#1b1530;color:#f4edff}
+.chat-mode .more-sheet button:hover{background:#30204c}
+
+/* Dark theme is consistent across every app section, not only AI Chat */
+.theme-dark:not(.chat-mode){background:#0b091c;color:#f5f1ff}
+.theme-dark:not(.chat-mode) .app-content{background:radial-gradient(ellipse at 70% 5%,#24123f 0,transparent 45%),#0b091c}
+.theme-dark:not(.chat-mode) .appbar{background:#121027;border-bottom-color:#302644;color:#f8f5ff}
+.theme-dark:not(.chat-mode) .mobile-logo{color:#fff}
+.theme-dark:not(.chat-mode) .global-search{border-color:#44365f;background:#1b1630}
+.theme-dark:not(.chat-mode) .global-search input{color:#f7f2ff}
+.theme-dark:not(.chat-mode) .notification{color:#f8f2ff}
+.theme-dark:not(.chat-mode) .view-heading h1,.theme-dark:not(.chat-mode) .dashboard-welcome h1,.theme-dark:not(.chat-mode) .section-head h2{color:#f7f3ff}
+.theme-dark:not(.chat-mode) .view-heading p,.theme-dark:not(.chat-mode) .dashboard-welcome p{color:#c0b7d5}
+.theme-dark:not(.chat-mode) .dashboard-welcome,.theme-dark:not(.chat-mode) .learn-hero{background:linear-gradient(110deg,#21183b,#17132d);border-color:#3a2b59;color:#f7f2ff}
+.theme-dark:not(.chat-mode) .stat,.theme-dark:not(.chat-mode) .empty-state,.theme-dark:not(.chat-mode) .quick-actions,.theme-dark:not(.chat-mode) .profile-card,.theme-dark:not(.chat-mode) .profile-details,.theme-dark:not(.chat-mode) .settings-nav,.theme-dark:not(.chat-mode) .settings-panel,.theme-dark:not(.chat-mode) .benefits>div,.theme-dark:not(.chat-mode) .url-form,.theme-dark:not(.chat-mode) .filter-row input,.theme-dark:not(.chat-mode) .filter-row select,.theme-dark:not(.chat-mode) .search-field{background:#19152d;border-color:#3a2d57;color:#f4efff}
+.theme-dark:not(.chat-mode) .stat small,.theme-dark:not(.chat-mode) .empty-state p,.theme-dark:not(.chat-mode) .quick-actions small,.theme-dark:not(.chat-mode) .profile-card p,.theme-dark:not(.chat-mode) .settings-panel p,.theme-dark:not(.chat-mode) .benefits small{color:#b9b0cd}
+.theme-dark:not(.chat-mode) .quick-actions button,.theme-dark:not(.chat-mode) .settings-nav button{background:#19152d;color:#f2edff;border-color:#39304d}
+.theme-dark:not(.chat-mode) .quick-actions h3,.theme-dark:not(.chat-mode) .quick-actions b,.theme-dark:not(.chat-mode) .profile-details h3,.theme-dark:not(.chat-mode) .settings-panel h3{color:#f5f1ff}
+.theme-dark:not(.chat-mode) .url-form input,.theme-dark:not(.chat-mode) .settings-panel input{color:#f5efff}
+.theme-dark:not(.chat-mode) .url-form input::placeholder,.theme-dark:not(.chat-mode) .search-field::placeholder{color:#aaa0c2}
+.theme-dark:not(.chat-mode) .learn-switch button,.theme-dark:not(.chat-mode) .tabs button{background:#1a1530;border-color:#40315e;color:#eee7fb}
+.theme-dark:not(.chat-mode) .learn-switch .chosen,.theme-dark:not(.chat-mode) .tabs button.selected{background:#7038e5;color:white}
+.theme-dark:not(.chat-mode) .profile-stats>div{background:#211a39;border-color:#43345f}
+.theme-dark:not(.chat-mode) .profile-stats small{color:#c2b8d7}
+.theme-dark:not(.chat-mode) .mobile-nav{background:#111025;border-top-color:#332747}
+.theme-dark:not(.chat-mode) .mobile-nav button{color:#aaa1c0}
+.theme-dark:not(.chat-mode) .mobile-nav button.active{color:#c59aff}
+.theme-dark:not(.chat-mode) .more-sheet>div{background:#1b1530;border-color:#554078}
+.theme-dark:not(.chat-mode) .more-sheet button{background:#1b1530;color:#f4edff}
+.theme-dark:not(.chat-mode) .toast{background:#201936;color:#f5edff;border-color:#59417e}
+
+/* Light mode: clean white workspace across every section */
+.theme-light{background:#f7f8fc!important;color:#202038!important}
+.theme-light .sidebar{background:#fff;border-right:1px solid #e8e5ef}
+.theme-light .sidebar .brand{color:#211b38}
+.theme-light .sidebar .brand small{color:#77718a}
+.theme-light .sidebar nav button{color:#49445c}
+.theme-light .sidebar nav button.active{color:#fff}
+.theme-light .app-content{background:#f7f8fc!important}
+.theme-light .appbar{background:#fff!important;border-bottom:1px solid #e8e5ef!important;color:#211b38!important}
+.theme-light .mobile-logo{color:#211b38!important}
+.theme-light .global-search{background:#fff;border-color:#e4e0eb}
+.theme-light .global-search input{color:#28233c}
+.theme-light .notification{color:#37304a}
+.theme-light .theme-toggle{background:#f4efff;color:#5e35ad;border-color:#d9c9f3}
+.theme-light .view-heading h1,.theme-light .dashboard-welcome h1,.theme-light .section-head h2{color:#211b38}
+.theme-light .view-heading p,.theme-light .dashboard-welcome p{color:#77718a}
+.theme-light .dashboard-welcome,.theme-light .learn-hero{background:linear-gradient(110deg,#f2edff,#fff);border-color:#e6def3;color:#211b38}
+.theme-light .stat,.theme-light .empty-state,.theme-light .quick-actions,.theme-light .profile-card,.theme-light .profile-details,.theme-light .settings-nav,.theme-light .settings-panel,.theme-light .benefits>div,.theme-light .url-form,.theme-light .filter-row input,.theme-light .filter-row select,.theme-light .search-field{background:#fff;border-color:#e7e3ed;color:#26213b}
+.theme-light .stat small,.theme-light .empty-state p,.theme-light .quick-actions small,.theme-light .profile-card p,.theme-light .settings-panel p,.theme-light .benefits small{color:#827c91}
+.theme-light .quick-actions button,.theme-light .settings-nav button{background:#fff;color:#37314a;border-color:#efecf4}
+.theme-light .quick-actions h3,.theme-light .quick-actions b,.theme-light .profile-details h3,.theme-light .settings-panel h3{color:#27213b}
+.theme-light .url-form input,.theme-light .settings-panel input{color:#29233e}
+.theme-light .learn-switch button,.theme-light .tabs button{background:#fff;border-color:#e5e0ed;color:#514b64}
+.theme-light .learn-switch .chosen,.theme-light .tabs button.selected{background:#7138e8;color:#fff}
+.theme-light .profile-stats>div{background:#faf8ff;border-color:#ece6f5}
+.theme-light .mobile-nav{background:#fff;border-top-color:#e7e1f1}
+.theme-light .mobile-nav button{color:#898297}
+.theme-light .mobile-nav button.active{color:#7136e2}
+.theme-light .more-sheet>div{background:#fff;border-color:#e4dcf1}
+.theme-light .more-sheet button{background:#fff;color:#29243f}
+.theme-light .toast{background:#fff;color:#34254f;border-color:#d7c7f5}
+
+/* AI Chat retains the reference's deep purple canvas in dark mode and becomes a true white canvas in light mode */
+.theme-light.chat-mode{background:#f7f7fb!important;color:#211b38}
+.theme-light.chat-mode .sidebar{background:#fff;border-right:1px solid #e7e2ef}
+.theme-light.chat-mode .sidebar .brand{color:#211b38}
+.theme-light.chat-mode .sidebar .brand small{color:#77718a}
+.theme-light.chat-mode .sidebar nav button{color:#49445c}
+.theme-light.chat-mode .sidebar nav button.active{color:#fff}
+.theme-light.chat-mode .pro-card{background:linear-gradient(145deg,#f4edff,#fff);color:#34214f;border-color:#d8c6f5}
+.theme-light.chat-mode .pro-card p{color:#655879}
+.theme-light.chat-mode .app-content{background:#f7f7fb}
+.theme-light.chat-mode .appbar{background:#fff;color:#211b38;border-bottom-color:#e7e2ef}
+.theme-light.chat-mode .chat-top-title button,.theme-light.chat-mode .notification{color:#34264e}
+.theme-light.chat-mode .mobile-logo{color:#211b38}
+.theme-light.chat-mode .view{background:radial-gradient(ellipse at 50% 10%,#f2eaff 0,transparent 48%),#f7f7fb}
+.theme-light.chat-mode .chat-page h1{color:#211b38}
+.theme-light.chat-mode .chat-page>p,.theme-light.chat-mode .try-asking>b{color:#716982}
+.theme-light.chat-mode .chat-perks article{background:#fff;border-color:#e5dff0;box-shadow:0 5px 18px #28134d0a}
+.theme-light.chat-mode .chat-perks b{color:#29213f}
+.theme-light.chat-mode .chat-perks small{color:#77718a}
+.theme-light.chat-mode .chat-compose{background:#fff;border-color:#a982ed;box-shadow:0 5px 20px #5a2d9810}
+.theme-light.chat-mode .chat-compose textarea{color:#25213c}
+.theme-light.chat-mode .chat-compose textarea::placeholder{color:#827a94}
+.theme-light.chat-mode .chat-compose button:not(.primary){background:#fff;color:#4c4561;border-color:#e4ddef}
+.theme-light.chat-mode .try-asking button{background:#fff;color:#4d4661;border-color:#e4ddef}
+.theme-light.chat-mode .sources-top{background:#fff;color:#5d35a7}
+.theme-light.chat-mode .mobile-nav{background:#fff;border-top-color:#e7e1f1}
+.theme-light.chat-mode .mobile-nav button{color:#898297}
+.theme-light.chat-mode .mobile-nav button.active{color:#7136e2}
+.theme-light.chat-mode .chat-page:before,.theme-light.chat-mode .chat-page:after{opacity:.22}
+@media(max-width:700px){
+ .app-shell,.app-content,.appbar,.view{width:100%!important;max-width:100%!important;min-width:0!important}
+ .app-shell{display:block!important;overflow-x:hidden!important}
+ .app-content{display:block!important}
+ .chat-mode .view{padding-left:17px;padding-right:17px}
+ .chat-mode .mobile-logo{display:flex;color:#fff}
+ .chat-mode .appbar{display:flex;justify-content:space-between}
+ .chat-mode .chat-top-title{margin-left:auto}
+ .chat-mode .theme-toggle{padding:6px 8px;gap:3px}
+ .chat-mode .theme-toggle span{font-size:9px}
+ .chat-mode .notification{display:none}
+}
+@media(max-width:390px){.theme-toggle{padding:6px 7px}.theme-toggle span{display:none}}
