@@ -1,6 +1,6 @@
 "use client";
 import {useState} from "react";
-import {LayoutDashboard,Play,Layers,MessageCircle,FileText,BookOpen,History,UserRound,Settings as SettingsIcon,Sun,Moon,Bell,Menu,X,Search,Paperclip,Send,ChevronDown,Video,BrainCircuit,Sparkles,Library,FolderOpen,Lightbulb,Upload,Bookmark,CircleHelp} from "lucide-react";
+import {LayoutDashboard,Play,Layers,MessageCircle,FileText,BookOpen,History,UserRound,Settings as SettingsIcon,ArrowRight,Sun,Moon,Bell,Menu,X,Search,Paperclip,Send,ChevronDown,Video,BrainCircuit,Sparkles,Library,FolderOpen,Lightbulb,Upload,Bookmark,CircleHelp} from "lucide-react";
 const iconMap={dashboard:LayoutDashboard,learn:Play,knowledge:Layers,chat:MessageCircle,summaries:FileText,sources:BookOpen,history:History,profile:UserRound,settings:SettingsIcon,video:Video,clock:History,brain:BrainCircuit,sparkles:Sparkles,library:Library,folder:FolderOpen,idea:Lightbulb,upload:Upload,send:Send,bookmark:Bookmark,help:CircleHelp};
 function AppIcon({name,size=19,strokeWidth=1.8,...props}){const C=iconMap[name]||Sparkles;return <C size={size} strokeWidth={strokeWidth} aria-hidden="true" {...props}/>}
 
