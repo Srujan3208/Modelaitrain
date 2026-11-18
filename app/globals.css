@@ -1259,3 +1259,10 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .chat-mode .chat-top-title {gap:0}
 .chat-mode .chat-top-title b {margin:0}
 .chat-mode .chat-top-title button {display:none}
+
+/* Correct mascot rendering: use the approved transparent robot cutout, never a clipped inline face */
+.robot-stage .robot-static{width:min(330px,38vw);height:auto;aspect-ratio:1/1;display:grid;place-items:center;overflow:visible;background:transparent;border:0;padding:0;cursor:pointer}
+.robot-stage .robot-static-art{display:block;width:100%;height:100%;object-fit:contain;object-position:center;overflow:visible;pointer-events:none;user-select:none}
+.robot-stage .robot-static.is-happy{animation:trean-mascot-happy 1.8s ease-in-out infinite;filter:drop-shadow(0 0 24px #a75cff88)}
+@keyframes trean-mascot-happy{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.035)}}
+@media(max-width:700px){.robot-stage .robot-static{width:min(76vw,300px)}}
