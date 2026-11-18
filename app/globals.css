@@ -677,3 +677,50 @@ button:disabled{cursor:not-allowed;opacity:.48;transform:none!important;box-shad
  .primary,.landing .primary{min-height:42px}
  .chat-compose button:not(.primary),.try-asking button{font-size:11px}
 }
+
+
+/* TREAN typography v2 — editorial headings + highly legible interface */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+:root{--font-ui:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--font-display:'Plus Jakarta Sans','Inter',sans-serif}
+html,body,button,input,textarea,select{font-family:var(--font-ui)!important}
+h1,h2,h3,h4,.brand b,.mobile-logo,.appbar b,.landing-copy h1,.auth-card h1,.section-head h2{font-family:var(--font-display)!important}
+body{font-feature-settings:"ss01" on,"cv11" on;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1{font-weight:800;letter-spacing:-.055em}
+h2{font-weight:750;letter-spacing:-.04em}
+h3{font-weight:700;letter-spacing:-.025em}
+p{letter-spacing:-.012em}
+button{font-weight:600;letter-spacing:-.018em}
+.view-heading h1{font-size:clamp(27px,3.1vw,36px);line-height:1.13}
+.view-heading p{font-size:14px;line-height:1.75;letter-spacing:-.01em}
+.brand b{font-weight:800;letter-spacing:-.045em}
+.brand small{font-family:var(--font-ui);font-weight:500;letter-spacing:.005em}
+.stat b,.profile-stats b{font-family:var(--font-display);font-weight:800;font-variant-numeric:tabular-nums}
+.empty-state h3,.quick-actions h3,.settings-panel h3{font-family:var(--font-display);font-weight:750}
+.chat-page h1{font-family:var(--font-display);font-weight:800;letter-spacing:-.055em}
+.chat-page>p{font-size:14px;line-height:1.7}
+.chat-perks b{font-family:var(--font-display);font-weight:750}
+.chat-perks small,.benefits small{font-size:11px;line-height:1.55}
+input,textarea,select{letter-spacing:-.01em}
+.mobile-page-title,.chat-top-title b{font-family:var(--font-display)!important;font-weight:750!important}
+
+
+/* Unified Lucide icon language */
+svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linecap:round;stroke-linejoin:round}
+.sidebar nav button>span,.mobile-drawer nav button>span{display:grid;place-items:center;width:25px;height:25px}
+.sidebar nav button>span svg,.mobile-drawer nav button>span svg{width:19px;height:19px}
+.sidebar nav button.active>span svg,.mobile-drawer nav button.active>span svg{stroke-width:2.15}
+.mobile-nav button>span{display:grid;place-items:center;min-height:24px}
+.mobile-nav button>span svg{width:20px;height:20px}
+.theme-toggle,.notification,.mobile-menu-button,.chat-top-title button{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.theme-toggle svg,.notification svg{width:18px;height:18px}
+.mobile-menu-button svg{stroke-width:2.2}
+.chat-compose button svg,.sources-top svg{vertical-align:middle}
+.empty-icon svg{width:25px;height:25px;stroke-width:1.8}
+.quick-actions button>span{display:grid;place-items:center}
+.quick-actions button>span svg{width:19px;height:19px}
+.benefits>div>span{display:grid;place-items:center}
+.benefits>div>span svg{width:21px;height:21px}
+.chat-perks article>span{display:grid;place-items:center}
+.chat-perks article>span svg{width:24px;height:24px}
+.try-asking button{font-family:var(--font-ui);font-weight:550}
+.primary svg{width:17px;height:17px}
