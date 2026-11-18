@@ -8,8 +8,15 @@ const nav=[["dashboard","dashboard","Dashboard"],["learn","learn","Learn from Vi
 const prompts=["Explain a concept from my videos","Summarize my latest lesson","Find related topics","Create revision questions"];
 function Logo(){return <a className="brand" href="#" onClick={e=>e.preventDefault()}><img src="/trean-logo.svg" alt=""/><span><b>TREAN <i>AI</i></b><small>Persistent Learning Agent</small></span></a>}
 function Robot(){
- return <div className="robot robot-gif" aria-label="TREAN AI 3D robot head rotating through a full 360 degree turn">
-  <img src="/trean-robot-360.gif" alt="Smiling purple 3D TREAN AI robot head rotating through front, side and rear views" draggable="false"/>
+ const [tilt,setTilt]=useState(0),[pressed,setPressed]=useState(false),[dragging,setDragging]=useState(false);
+ const drag=useRef({x:0,tilt:0,moved:false});
+ const down=e=>{drag.current={x:e.clientX,tilt,moved:false};setDragging(true);e.currentTarget.setPointerCapture?.(e.pointerId)};
+ const move=e=>{if(!dragging)return;const dx=e.clientX-drag.current.x;if(Math.abs(dx)>4)drag.current.moved=true;setTilt(drag.current.tilt+dx*.9)};
+ const up=()=>setDragging(false);
+ const smile=()=>{if(drag.current.moved)return;setPressed(true);window.setTimeout(()=>setPressed(false),1100)};
+ return <div className={`robot robot-gif ${dragging?"is-dragging":""} ${pressed?"is-smiling":""}`} role="button" tabIndex={0} aria-label="TREAN AI robot. Drag horizontally to rotate; tap to make it smile." onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onLostPointerCapture={up} onClick={smile} onKeyDown={e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();smile()}}} style={{"--hand-rotation":tilt+"deg"}}>
+  <img src="/trean-robot-360.gif" alt="Complete smiling purple 3D robot head rotating through front, side and rear views" draggable="false" onError={e=>{e.currentTarget.style.display="none"}}/>
+  <span className="robot-smile-pulse" aria-hidden="true">☺</span>
  </div>
 }
 const robotViews=[["0°","Front","front"],["45°","Front-right","three"],["90°","Right","side"],["135°","Rear-right","rearThree"],["180°","Back","back"],["225°","Rear-left","rearThree"],["270°","Left","side"],["315°","Front-left","three"]];
