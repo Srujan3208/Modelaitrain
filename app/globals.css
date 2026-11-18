@@ -583,3 +583,49 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
  .appbar .theme-toggle{width:32px;height:32px;min-width:32px}
  .appbar .avatar{width:32px!important;height:32px!important;min-width:32px;flex-basis:32px}
 }
+
+
+/* Mobile header: hamburger left, centered brand, account actions right */
+.mobile-menu-button{display:none}
+.mobile-drawer-backdrop,.mobile-drawer{display:none}
+@media(max-width:700px){
+ .appbar{position:sticky!important;top:0;z-index:20;display:grid!important;grid-template-columns:42px minmax(0,1fr) auto auto!important;align-items:center!important;justify-items:center!important;gap:8px!important;height:66px!important;min-height:66px;padding:0 13px!important}
+ .mobile-menu-button{display:flex!important;grid-column:1;grid-row:1;width:38px;height:38px;border:1px solid #574276;border-radius:11px;background:transparent;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:0;cursor:pointer}
+ .mobile-menu-button span{display:block;width:17px;height:2px;border-radius:2px;background:currentColor}
+ .mobile-logo{grid-column:2;grid-row:1;position:static!important;display:flex!important;justify-self:center!important;align-items:center!important;gap:7px!important;min-width:0!important;margin:0!important;cursor:pointer;white-space:nowrap;font-size:16px!important;font-weight:800!important;line-height:1}
+ .mobile-logo img{width:31px!important;height:31px!important;flex:0 0 31px!important}
+ .mobile-logo>span{display:inline!important}
+ .mobile-logo i{font-style:normal;color:#a978ff}
+ .appbar .mobile-page-title,.appbar .global-search,.appbar .chat-top-title{display:none!important}
+ .appbar .theme-toggle{grid-column:3;grid-row:1;width:35px;height:35px;min-width:35px;padding:0!important;display:grid;place-items:center;border-radius:50%;font-size:17px}
+ .appbar .theme-toggle span{display:none!important}
+ .appbar .notification{display:none!important}
+ .appbar .avatar{grid-column:4;grid-row:1;width:37px!important;height:37px!important;min-width:37px;flex:0 0 37px}
+ .mobile-drawer-backdrop{display:block;position:fixed;z-index:39;inset:0;border:0;background:rgba(5,3,15,.62);backdrop-filter:blur(3px)}
+ .mobile-drawer{display:flex;position:fixed;z-index:40;top:0;bottom:0;left:0;width:min(82vw,310px);padding:22px 16px calc(24px + env(safe-area-inset-bottom));flex-direction:column;overflow-y:auto;background:#111025;border-right:1px solid #3a2a55;box-shadow:18px 0 55px #0006;animation:trean-drawer-in .2s ease-out}
+ .mobile-drawer-head{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 18px;border-bottom:1px solid #332747;color:#fff;font-size:17px}
+ .mobile-drawer-head button{border:0;background:transparent;color:inherit;font-size:28px;line-height:1}
+ .mobile-drawer nav{display:flex;flex-direction:column;gap:6px;padding-top:18px}
+ .mobile-drawer nav button{display:flex;align-items:center;gap:13px;width:100%;min-height:46px;padding:0 13px;border:0;border-radius:11px;background:transparent;color:#e8e1f4;text-align:left;font:600 13px Manrope,sans-serif}
+ .mobile-drawer nav button span{width:23px;text-align:center;font-size:19px}
+ .mobile-drawer nav button.active{background:linear-gradient(100deg,#7139e9,#5422bf);color:#fff;box-shadow:0 7px 20px #5422bf55}
+ .mobile-drawer nav button.separated{margin-top:12px;border-top:1px solid #332747;border-radius:0;padding-top:14px}
+ .mobile-pro-card{display:flex;flex-direction:column;gap:7px;margin-top:auto;padding:15px;border:1px solid #4a3273;border-radius:13px;background:linear-gradient(145deg,#25183f,#17122c);color:#fff}
+ .mobile-pro-card small{color:#c3b5da;font-size:11px;line-height:1.5}
+ .theme-light .mobile-menu-button{border-color:#ded3ef;color:#5b35a3;background:#faf8ff}
+ .theme-light .mobile-drawer{background:#fff;border-color:#e6dff0}
+ .theme-light .mobile-drawer-head{color:#211b38;border-color:#eee8f5}
+ .theme-light .mobile-drawer nav button{color:#514b65}
+ .theme-light .mobile-drawer nav button.active{color:#fff}
+ .theme-light .mobile-pro-card{background:linear-gradient(145deg,#f4edff,#fff);color:#34214f;border-color:#d8c6f5}
+ .theme-light .mobile-pro-card small{color:#655879}
+}
+@media(max-width:380px){
+ .appbar{grid-template-columns:38px minmax(0,1fr) 32px 34px!important;gap:5px!important;padding:0 9px!important}
+ .mobile-menu-button{width:34px;height:34px}
+ .mobile-logo{font-size:14px!important;gap:5px!important}
+ .mobile-logo img{width:27px!important;height:27px!important;flex-basis:27px!important}
+ .appbar .theme-toggle{width:31px;height:31px;min-width:31px}
+ .appbar .avatar{width:33px!important;height:33px!important;min-width:33px;flex-basis:33px}
+}
+@keyframes trean-drawer-in{from{transform:translateX(-16px);opacity:.7}to{transform:translateX(0);opacity:1}}
