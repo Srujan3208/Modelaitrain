@@ -1,108 +1,59 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
-const initialSources = [
-  { id: 1, title: "The fundamentals of machine learning", channel: "DeepLearning.AI", duration: "24 min", date: "Today", status: "Ready", color: "violet", initials: "ML" },
-  { id: 2, title: "Build and deploy AI agents with tools", channel: "Fireship", duration: "18 min", date: "Yesterday", status: "Ready", color: "blue", initials: "AI" },
-  { id: 3, title: "Neural networks explained visually", channel: "3Blue1Brown", duration: "31 min", date: "Nov 15", status: "Ready", color: "orange", initials: "NN" }
+const navItems = [
+  ["dashboard","⌂","Dashboard"],["learn","▷","Learn from Video"],["knowledge","▱","Knowledge Base"],
+  ["chat","☏","AI Chat"],["summaries","▤","Summaries"],["sources","♧","Learning Sources"],
+  ["history","◷","History"],["profile","♙","Profile"],["settings","⚙","Settings"]
 ];
+const prompts = ["Explain CPU scheduling","Summarize OS in brief","Difference between FCFS and SJF","Give examples from my videos"];
 
-const nav = [
-  { id: "overview", icon: "◫", label: "Overview" },
-  { id: "library", icon: "▤", label: "My library" },
-  { id: "chat", icon: "✳", label: "AI learning chat" },
-  { id: "notes", icon: "▧", label: "Notes & summaries" }
-];
-
-export default function Home() {
-  const [active, setActive] = useState("overview");
-  const [sources, setSources] = useState(initialSources);
-  const [query, setQuery] = useState("");
-  const [videoUrl, setVideoUrl] = useState("");
-  const [showAdd, setShowAdd] = useState(false);
-  const [chatInput, setChatInput] = useState("");
-  const [messages, setMessages] = useState([
-    { role: "assistant", text: "Hey there! I’m your learning companion. Ask me anything from your video library, or add a new video to start learning." }
-  ]);
-  const [toast, setToast] = useState("");
-
-  const filtered = useMemo(() => sources.filter(s => s.title.toLowerCase().includes(query.toLowerCase()) || s.channel.toLowerCase().includes(query.toLowerCase())), [sources, query]);
-
-  function addVideo(e) {
-    e.preventDefault();
-    if (!videoUrl.trim()) return;
-    const id = Date.now();
-    setSources(prev => [{ id, title: "New YouTube video", channel: "YouTube source", duration: "Processing", date: "Just now", status: "Queued", color: "violet", initials: "YT" }, ...prev]);
-    setVideoUrl("");
-    setShowAdd(false);
-    setToast("Video added to your learning queue");
-    setTimeout(() => setToast(""), 2800);
-  }
-
-  function sendMessage(e) {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-    const text = chatInput.trim();
-    setMessages(prev => [...prev, { role: "user", text }, { role: "assistant", text: "Your question is ready for the TREAN AI knowledge engine. Connect the AI backend to generate answers grounded in your indexed videos." }]);
-    setChatInput("");
-  }
-
-  const title = nav.find(n => n.id === active)?.label || "Overview";
-
-  return (
-    <main className="shell">
-      <aside className="sidebar">
-        <a className="brand" href="#" onClick={() => setActive("overview")}>
-          <span className="brand-mark">t<span>✳</span></span>
-          <span className="brand-name">trean<span>ai</span></span>
-        </a>
-        <div className="workspace"><div className="workspace-avatar">S</div><div><b>My workspace</b><small>Personal learning</small></div><span className="chevron">⌄</span></div>
-        <div className="nav-label">WORKSPACE</div>
-        <nav className="nav-list">
-          {nav.map(item => <button key={item.id} className={active === item.id ? "nav-item active" : "nav-item"} onClick={() => setActive(item.id)}><span className="nav-icon">{item.icon}</span>{item.label}{item.id === "chat" && <i className="nav-dot" />}</button>)}
-        </nav>
-        <div className="sidebar-bottom">
-          <div className="upgrade-card"><div className="upgrade-icon">✦</div><b>Learn without limits</b><p>Your personal AI study space is just getting started.</p><button onClick={() => setToast("Your plan options will be available soon.")}>Explore TREAN AI <span>↗</span></button></div>
-          <button className="nav-item settings" onClick={() => setActive("settings")}><span className="nav-icon">⚙</span>Settings</button>
-          <div className="profile-row"><div className="profile-avatar">S</div><div className="profile-copy"><b>Srujan</b><small>Free workspace</small></div><span className="more">•••</span></div>
-        </div>
-      </aside>
-
-      <section className="main-area">
-        <header className="topbar">
-          <div className="breadcrumbs"><span>Workspace</span><b>/</b><strong>{title}</strong></div>
-          <div className="top-actions"><div className="status-pill"><i /> All systems normal</div><button className="icon-btn" aria-label="Notifications">♧<i /></button><div className="top-avatar">S</div></div>
-        </header>
-
-        <div className="page-content">
-          {active === "overview" && <><div className="welcome-row"><div><div className="eyebrow"><span className="spark">✳</span> YOUR PERSONAL AI LEARNING SPACE</div><h1>Make every video <em>count.</em></h1><p className="subtitle">Turn what you watch into knowledge you can actually use.</p></div><button className="primary-btn" onClick={() => setShowAdd(true)}><span>＋</span> Add a video</button></div>
-            <div className="hero-card"><div className="hero-copy"><div className="hero-kicker">YOUR KNOWLEDGE, REIMAGINED</div><h2>Learn at your pace.<br/><span>Think beyond the video.</span></h2><p>Bring your favorite YouTube lessons together. Ask questions, discover connections, and build a knowledge base that grows with you.</p><button className="hero-btn" onClick={() => setActive("library")}>Explore your library <span>→</span></button></div><div className="orb-wrap"><div className="orb orb-one"/><div className="orb orb-two"/><div className="orb-core"><span>✳</span></div><div className="orbit-label label-one">LEARN</div><div className="orbit-label label-two">CONNECT</div><div className="orbit-label label-three">CREATE</div></div><div className="hero-grid"/></div>
-            <div className="section-heading"><div><h3>Your learning at a glance</h3><p>A little progress adds up to a lot of knowledge.</p></div><span className="period">Last 30 days⌄</span></div>
-            <div className="stats-grid"><Stat icon="▣" label="Videos learned" value={String(sources.length).padStart(2,"0")} trend="+2 this week" tone="purple"/><Stat icon="▤" label="Knowledge chunks" value="128" trend="Across your library" tone="blue"/><Stat icon="◷" label="Learning time" value="4.8h" trend="+18% this week" tone="orange"/><Stat icon="✳" label="Questions explored" value="36" trend="Keep being curious" tone="green"/></div>
-            <div className="lower-grid"><div className="panel recent-panel"><div className="panel-heading"><div><h3>Recently added</h3><p>Pick up right where you left off.</p></div><button className="text-btn" onClick={() => setActive("library")}>View library →</button></div><div className="source-list">{sources.slice(0,3).map(s => <SourceRow key={s.id} source={s} onClick={() => setActive("notes")}/>)}</div></div><div className="panel prompt-panel"><div className="panel-heading"><div><h3>Ready to explore?</h3><p>Start with a question.</p></div><span className="prompt-spark">✳</span></div><div className="suggestions"><button onClick={() => {setActive("chat");setChatInput("Explain the most important concepts I have learned.");}}>What are my key takeaways? <span>↗</span></button><button onClick={() => {setActive("chat");setChatInput("Connect ideas across my videos.");}}>Connect ideas across videos <span>↗</span></button><button onClick={() => {setActive("chat");setChatInput("Create a quick revision quiz.");}}>Make me a revision quiz <span>↗</span></button></div><button className="chat-link" onClick={() => setActive("chat")}>Open AI learning chat <span>→</span></button></div></div>
-          </>}
-
-          {active === "library" && <><div className="page-title-row"><div><div className="eyebrow">YOUR KNOWLEDGE COLLECTION</div><h1>My <em>library.</em></h1><p className="subtitle">Every video you add becomes part of your personal knowledge base.</p></div><button className="primary-btn" onClick={() => setShowAdd(true)}>＋ Add a video</button></div><div className="library-toolbar"><div className="search-box"><span>⌕</span><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search your videos..." /></div><span className="count-label">{filtered.length} SOURCES</span></div><div className="library-grid">{filtered.map(s => <article className="library-card" key={s.id}><div className={"video-thumb "+s.color}><span>{s.initials}</span><i>▶</i></div><div className="library-card-body"><div className="card-meta"><span>{s.channel}</span><span className="ready-tag"><i/> {s.status}</span></div><h3>{s.title}</h3><div className="card-foot"><span>◷ {s.duration}</span><span>{s.date}</span></div><button className="card-open" onClick={() => setActive("notes")}>Open learning notes →</button></div></article>)}</div>{filtered.length === 0 && <div className="empty-state">No videos match your search yet.</div>}</>}
-
-          {active === "chat" && <div className="chat-page"><div className="eyebrow">YOUR AI STUDY PARTNER</div><h1>Let's think <em>together.</em></h1><p className="subtitle">Ask questions grounded in the videos you have learned.</p><div className="chat-window"><div className="chat-messages">{messages.map((m,i)=><div key={i} className={"chat-message "+m.role}><div className="chat-avatar">{m.role==="assistant"?"✳":"S"}</div><div><small>{m.role==="assistant"?"TREAN AI":"YOU"}</small><p>{m.text}</p></div></div>)}</div><form className="chat-composer" onSubmit={sendMessage}><textarea value={chatInput} onChange={e=>setChatInput(e.target.value)} placeholder="Ask anything about what you've learned..." rows={2}/><div className="composer-bottom"><span>✳ Answers will be grounded in your video library</span><button type="submit" disabled={!chatInput.trim()}>Send message ↑</button></div></form></div><div className="chat-hints"><button onClick={()=>setChatInput("Summarize my latest video")}>Summarize my latest video</button><button onClick={()=>setChatInput("Explain a difficult concept simply")}>Explain a concept simply</button><button onClick={()=>setChatInput("Create a 5-question quiz")}>Create a quick quiz</button></div></div>}
-
-          {active === "notes" && <><div className="eyebrow">REVIEW & REMEMBER</div><h1>Notes that <em>stick.</em></h1><p className="subtitle">Your video summaries, key concepts and revision material in one place.</p><div className="notes-empty"><div className="empty-illustration">▧</div><h2>Your learning notes live here.</h2><p>Choose a video from your library to view its summary and key takeaways. AI-generated notes will appear here once the learning backend is connected.</p><button className="primary-btn" onClick={()=>setActive("library")}>Browse my library →</button></div></>}
-
-          {active === "settings" && <><div className="eyebrow">MAKE IT YOURS</div><h1>Workspace <em>settings.</em></h1><p className="subtitle">Manage your learning experience and account preferences.</p><div className="panel settings-panel"><h3>Profile</h3><p>Personal learning workspace</p><div className="setting-line"><span>Display name</span><b>Srujan</b></div><div className="setting-line"><span>Workspace type</span><b>Personal</b></div><div className="setting-line"><span>AI provider</span><b>Backend connection pending</b></div></div></>}
-        </div>
-        <footer className="footer"><span>✳ TREAN AI</span><span>Learn something meaningful today.</span><span>Built for curious minds.</span></footer>
-      </section>
-
-      {showAdd && <div className="modal-backdrop" onClick={()=>setShowAdd(false)}><form className="modal" onSubmit={addVideo} onClick={e=>e.stopPropagation()}><button type="button" className="modal-close" onClick={()=>setShowAdd(false)}>×</button><div className="modal-icon">▶</div><div className="eyebrow">GROW YOUR KNOWLEDGE</div><h2>Add a YouTube video</h2><p>Paste a public YouTube video or playlist link. TREAN AI will turn it into a learning source.</p><label htmlFor="video-url">YOUTUBE URL</label><input id="video-url" type="url" required value={videoUrl} onChange={e=>setVideoUrl(e.target.value)} placeholder="https://youtube.com/watch?v=..."/><button className="primary-btn modal-submit" type="submit">Add to my library <span>→</span></button><small className="modal-note">Video processing requires the learning backend to be connected.</small></form></div>}
-      {toast && <div className="toast">✓ {toast}</div>}
-    </main>
-  );
-}
-
-function Stat({icon,label,value,trend,tone}) {
-  return <div className="stat-card"><div className={"stat-icon "+tone}>{icon}</div><div className="stat-label">{label}</div><div className="stat-value">{value}</div><div className="stat-trend">{trend}</div></div>;
-}
-function SourceRow({source,onClick}) {
-  return <button className="source-row" onClick={onClick}><div className={"source-mini "+source.color}>{source.initials}</div><div className="source-info"><b>{source.title}</b><small>{source.channel} · {source.duration}</small></div><span className="ready-tag"><i/>{source.status}</span><span className="row-arrow">↗</span></button>;
+export default function Home(){
+  const [active,setActive]=useState("chat");
+  const [question,setQuestion]=useState("");
+  const [messages,setMessages]=useState([]);
+  const [showSources,setShowSources]=useState(false);
+  const [showAdd,setShowAdd]=useState(false);
+  const [url,setUrl]=useState("");
+  const [toast,setToast]=useState("");
+  const title=navItems.find(x=>x[0]===active)?.[2]||"Dashboard";
+  function notify(s){setToast(s);setTimeout(()=>setToast(""),2600)}
+  function send(e){e?.preventDefault();if(!question.trim())return;setMessages(v=>[...v,{role:"user",text:question.trim()},{role:"assistant",text:"I’m ready to answer using your learned videos and knowledge base. Connect the TREAN AI learning backend to enable source-grounded AI answers."}]);setQuestion("")}
+  function add(e){e.preventDefault();setShowAdd(false);setUrl("");notify("Video added to your learning queue (demo).")}
+  return <main className="app-shell">
+    <aside className="sidebar">
+      <button className="brand" onClick={()=>setActive("dashboard")}><img src="/trean-logo.svg" alt="TREAN AI logo"/><span><b>TREAN <i>AI</i></b><small>Persistent Learning Agent</small></span></button>
+      <nav className="side-nav">{navItems.map(([id,icon,label],i)=><button key={id} className={active===id?"nav-link selected":i===7?"nav-link nav-divider":"nav-link"} onClick={()=>setActive(id)}><span className="nav-glyph">{icon}</span>{label}</button>)}</nav>
+      <div className="pro-card"><div className="pro-heading"><span>♛</span> TREAN Pro</div><p>Unlock higher limits,<br/> longer videos &amp; more</p><button onClick={()=>notify("TREAN Pro plans coming soon.")}>Upgrade <b>→</b></button></div>
+    </aside>
+    <section className="main-panel">
+      <header className="topbar"><div className="page-heading">{active!=="dashboard"&&<button className="back-btn" onClick={()=>setActive("dashboard")}>←</button>}<b>{title}</b></div><div className="top-right"><button className="bell" aria-label="Notifications">♧<i/></button><button className="user-bubble" onClick={()=>setActive("profile")}>S</button></div></header>
+      <div className={"page-body "+(active==="chat"?"chat-body":"")}>
+        {active==="chat"&&<><button className="sources-button" onClick={()=>setShowSources(!showSources)}>▱ <span>Sources</span></button>
+          <section className="chat-hero">
+            <div className="robot-halo"><svg viewBox="0 0 180 160" role="img" aria-label="TREAN AI robot mascot"><defs><linearGradient id="helmet" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#fff"/><stop offset=".42" stopColor="#d9caff"/><stop offset="1" stopColor="#8050f4"/></linearGradient><linearGradient id="ear" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#c5a8ff"/><stop offset="1" stopColor="#6427d9"/></linearGradient></defs><ellipse cx="90" cy="83" rx="62" ry="59" fill="none" stroke="#a84bff" strokeWidth="2" opacity=".6"/><rect x="20" y="61" width="20" height="45" rx="10" fill="url(#ear)"/><rect x="140" y="61" width="20" height="45" rx="10" fill="url(#ear)"/><path d="M43 75 Q45 22 90 20 Q135 22 137 75 L132 111 Q124 137 90 139 Q56 137 48 111Z" fill="url(#helmet)" stroke="#d5b9ff" strokeWidth="3"/><rect x="45" y="57" width="90" height="63" rx="27" fill="#17102e" stroke="#a77bff" strokeWidth="3"/><path d="M67 83 Q75 70 83 83 M98 83 Q106 70 114 83" fill="none" stroke="#d9b9ff" strokeWidth="4" strokeLinecap="round"/><path d="M78 99 Q90 110 102 99" fill="none" stroke="#d9b9ff" strokeWidth="4" strokeLinecap="round"/><path d="M71 40 Q90 31 109 40" fill="none" stroke="#fff" strokeWidth="4" opacity=".7" strokeLinecap="round"/></svg></div>
+            <h1>Chat with TREAN <em>AI</em></h1><p>Ask anything from your learned videos, notes, and knowledge base.</p>
+          </section>
+          <section className="feature-row"><article className="feature-card"><span className="feature-icon youtube">▶</span><div><b>From Your Videos</b><p>Get answers from processed<br/> YouTube videos</p></div></article><article className="feature-card"><span className="feature-icon doc">▤</span><div><b>Source-Grounded</b><p>See exact video &amp; timestamp<br/> references</p></div></article><article className="feature-card"><span className="feature-icon bolt">ϟ</span><div><b>Learn Deeper</b><p>Understand concepts, examples,<br/> and explanations</p></div></article></section>
+          {messages.length>0&&<div className="conversation">{messages.map((m,i)=><div className={"bubble "+m.role} key={i}><small>{m.role==="assistant"?"TREAN AI":"YOU"}</small><p>{m.text}</p></div>)}</div>}
+          <form className="chat-input-panel" onSubmit={send}><textarea value={question} onChange={e=>setQuestion(e.target.value)} placeholder="Ask a question about your learned content..." rows={2}/><div className="chat-tools"><div><button type="button" className="tool-pill" onClick={()=>notify("File attachment will be enabled with backend integration.")}>♧ <span>Attach</span></button><button type="button" className="tool-pill" onClick={()=>setShowSources(!showSources)}>▣ <span>Knowledge</span>⌄</button></div><button type="submit" className="send-button" aria-label="Send question">➤</button></div></form>
+          {showSources&&<div className="source-popover"><b>Your knowledge sources</b><p>No processed videos yet. Add a YouTube video to start building your knowledge base.</p><button onClick={()=>setShowAdd(true)}>＋ Add a video</button></div>}
+          <div className="try-asking"><b>Try asking</b><div>{prompts.map(p=><button key={p} onClick={()=>setQuestion(p)}>{p}</button>)}</div></div>
+        </>}
+        {active!=="chat"&&<section className="other-page"><div className="eyebrow">YOUR PERSONAL LEARNING SPACE</div><h1>{title==="Dashboard"?"Welcome back, Srujan":title}</h1><p className="other-sub">{({dashboard:"Continue your learning journey and build your personal knowledge space.",learn:"Turn YouTube videos and playlists into structured knowledge.",knowledge:"Your searchable library of everything you have learned.",summaries:"AI-generated summaries and key takeaways from your videos.",sources:"All your video sources, playlists, and references in one place.",history:"Track your recent learning activity and processed content.",profile:"Manage your account and learning preferences.",settings:"Customize your TREAN AI experience."})[active]}</p>
+          {active==="learn"&&<div className="upload-panel"><div className="upload-symbol">▷</div><h2>Learn from any YouTube video</h2><p>Paste a video or playlist link to add it to your learning space.</p><button className="gradient-action" onClick={()=>setShowAdd(true)}>Paste YouTube URL <span>Process &amp; Learn →</span></button></div>}
+          {active==="dashboard"&&<><div className="metric-row"><div><b>28</b><span>Videos</span></div><div><b>3,742</b><span>Knowledge</span></div><div><b>18.4 hrs</b><span>Learning Time</span></div><div><b>12</b><span>Topics</span></div></div><div className="section-title">Continue Your Learning</div><div className="dashboard-grid"><div className="dashboard-tile"><span>▶</span><b>Operating Systems – Introduction</b><small>Video lesson · 42:17</small></div><div className="dashboard-tile"><span>▤</span><b>CPU Scheduling Algorithms</b><small>Summary and key concepts</small></div><div className="dashboard-tile"><span>✧</span><b>Ask TREAN AI</b><small>Ask anything from your videos</small><button onClick={()=>setActive("chat")}>Open AI Chat →</button></div></div></>}
+          {active==="knowledge"&&<div className="empty-panel"><span>▱</span><h2>Your knowledge base</h2><p>Processed video transcripts, concepts and searchable learning notes will appear here.</p><button className="gradient-action" onClick={()=>setActive("learn")}>Add your first video →</button></div>}
+          {active==="summaries"&&<div className="empty-panel"><span>▤</span><h2>Video summaries</h2><p>Your generated summaries, key concepts and revision notes will appear here.</p></div>}
+          {active==="sources"&&<div className="empty-panel"><span>♧</span><h2>Your learning sources</h2><p>YouTube videos and playlists you process will be collected here.</p><button className="gradient-action" onClick={()=>setActive("learn")}>Add a source →</button></div>}
+          {active==="history"&&<div className="empty-panel"><span>◷</span><h2>Your learning history</h2><p>Your recent learning activity will appear here.</p></div>}
+          {active==="profile"&&<div className="empty-panel"><span className="profile-large">S</span><h2>Srujan</h2><p>Personal learning workspace</p></div>}
+          {active==="settings"&&<div className="empty-panel"><span>⚙</span><h2>Settings</h2><p>Account, preferences, integrations and AI model settings.</p></div>}
+        </section>}
+      </div>
+    </section>
+    {showAdd&&<div className="modal-shade" onClick={()=>setShowAdd(false)}><form className="add-modal" onSubmit={add} onClick={e=>e.stopPropagation()}><button type="button" className="close-modal" onClick={()=>setShowAdd(false)}>×</button><div className="eyebrow">GROW YOUR KNOWLEDGE</div><h2>Add a YouTube video</h2><p>Paste a public YouTube video or playlist URL.</p><input type="url" required value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://youtube.com/watch?v=..."/><button className="gradient-action" type="submit">Process &amp; Learn →</button><small>Processing requires the learning backend.</small></form></div>}
+    {toast&&<div className="toast">{toast}</div>}
+  </main>
 }
