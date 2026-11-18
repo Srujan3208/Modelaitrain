@@ -41,7 +41,7 @@ export default function Home(){
    </div>
   </section>
   <nav className="mobile-nav">{[["dashboard","dashboard","Dashboard"],["learn","learn","Learn"],["knowledge","knowledge","Library"],["chat","chat","AI Chat"]].map(([id,ic,l])=><button key={id} className={active===id?"active":""} onClick={()=>go(id)}><span><AppIcon name={ic} size={20}/></span><small>{l}</small></button>)}<button onClick={()=>setMore(!more)}><span><AppIcon name="settings" size={20}/></span><small>More</small></button></nav>
-  {more&&<div className="more-sheet" onClick={()=>setMore(false)}><div>{nav.filter(x=>!["dashboard","learn","knowledge","chat"].includes(x[0])).map(([id,ic,l])=><button key={id} onClick={e=>{e.stopPropagation();go(id)}}>{ic}　{l}</button>)}</div></div>}
+  {more&&<div className="more-sheet" onClick={()=>setMore(false)}><div className="more-sheet-panel"><div className="more-sheet-head"><span>More</span><button aria-label="Close more menu" onClick={()=>setMore(false)}><X size={18}/></button></div>{nav.filter(x=>!["dashboard","learn","knowledge","chat"].includes(x[0])).map(([id,ic,l])=><button className={active===id?"active":""} key={id} onClick={e=>{e.stopPropagation();go(id)}}><span className="more-sheet-icon"><AppIcon name={ic} size={18}/></span><span className="more-sheet-label">{l}</span><span className="more-sheet-arrow"><ArrowRight size={14}/></span></button>)}</div></div>}
  </div>}
  {toast&&<div className="toast">{toast}</div>}
  </main>
