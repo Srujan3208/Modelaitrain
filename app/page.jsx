@@ -17,6 +17,7 @@ export default function Home(){
   const [showAdd,setShowAdd]=useState(false);
   const [url,setUrl]=useState("");
   const [toast,setToast]=useState("");
+  const [showMore,setShowMore]=useState(false);
   const title=navItems.find(x=>x[0]===active)?.[2]||"Dashboard";
   function notify(s){setToast(s);setTimeout(()=>setToast(""),2600)}
   function send(e){e?.preventDefault();if(!question.trim())return;setMessages(v=>[...v,{role:"user",text:question.trim()},{role:"assistant",text:"I’m ready to answer using your learned videos and knowledge base. Connect the TREAN AI learning backend to enable source-grounded AI answers."}]);setQuestion("")}
@@ -28,7 +29,7 @@ export default function Home(){
       <div className="pro-card"><div className="pro-heading"><span>♛</span> TREAN Pro</div><p>Unlock higher limits,<br/> longer videos &amp; more</p><button onClick={()=>notify("TREAN Pro plans coming soon.")}>Upgrade <b>→</b></button></div>
     </aside>
     <section className="main-panel">
-      <header className="topbar"><div className="page-heading">{active!=="dashboard"&&<button className="back-btn" onClick={()=>setActive("dashboard")}>←</button>}<b>{title}</b></div><div className="top-right"><button className="bell" aria-label="Notifications">♧<i/></button><button className="user-bubble" onClick={()=>setActive("profile")}>S</button></div></header>
+      <header className="topbar"><button className="mobile-brand" onClick={()=>setActive("dashboard")}><img src="/trean-logo.svg" alt="TREAN AI"/><span>TREAN <i>AI</i></span></button><div className="page-heading">{active!=="dashboard"&&<button className="back-btn" onClick={()=>setActive("dashboard")}>←</button>}<b>{title}</b></div><div className="top-right"><button className="bell" aria-label="Notifications">♧<i/></button><button className="user-bubble" onClick={()=>setActive("profile")}>S</button></div></header>
       <div className={"page-body "+(active==="chat"?"chat-body":"")}>
         {active==="chat"&&<><button className="sources-button" onClick={()=>setShowSources(!showSources)}>▱ <span>Sources</span></button>
           <section className="chat-hero">
@@ -53,6 +54,11 @@ export default function Home(){
         </section>}
       </div>
     </section>
+    <nav className="mobile-tabbar" aria-label="Mobile navigation">
+      {navItems.filter(x=>["dashboard","learn","chat","knowledge"].includes(x[0])).map(([id,icon,label])=><button key={id} className={active===id?"mobile-tab active":"mobile-tab"} onClick={()=>{setActive(id);setShowMore(false)}}><span>{icon}</span><small>{id==="knowledge"?"Library":id==="learn"?"Learn":label}</small></button>)}
+      <button className={showMore?"mobile-tab active":"mobile-tab"} onClick={()=>setShowMore(v=>!v)}><span>•••</span><small>More</small></button>
+    </nav>
+    {showMore&&<div className="mobile-more-shade" onClick={()=>setShowMore(false)}><div className="mobile-more-menu" onClick={e=>e.stopPropagation()}><div className="mobile-more-head">More from TREAN AI <button onClick={()=>setShowMore(false)}>×</button></div>{navItems.filter(x=>!["dashboard","learn","chat","knowledge"].includes(x[0])).map(([id,icon,label])=><button key={id} onClick={()=>{setActive(id);setShowMore(false)}}><span>{icon}</span>{label}</button>)}</div></div>}
     {showAdd&&<div className="modal-shade" onClick={()=>setShowAdd(false)}><form className="add-modal" onSubmit={add} onClick={e=>e.stopPropagation()}><button type="button" className="close-modal" onClick={()=>setShowAdd(false)}>×</button><div className="eyebrow">GROW YOUR KNOWLEDGE</div><h2>Add a YouTube video</h2><p>Paste a public YouTube video or playlist URL.</p><input type="url" required value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://youtube.com/watch?v=..."/><button className="gradient-action" type="submit">Process &amp; Learn →</button><small>Processing requires the learning backend.</small></form></div>}
     {toast&&<div className="toast">{toast}</div>}
   </main>
