@@ -12,7 +12,7 @@ const sleep=(ms:number)=>new Promise(resolve=>setTimeout(resolve,ms));
 async function gemini(path:string,body:unknown){
  const isGeneration=path.endsWith(":generateContent");
  // Do not retry retired models: the replacement model is used as the default and as the fallback.
- const models=isGeneration?[MODEL,"gemini-3.8-flash"].filter((m,i,a)=>a.indexOf(m)===i):[path.split(":")[0]];
+ const models=isGeneration?[MODEL,"gemini-3.6-flash"].filter((m,i,a)=>a.indexOf(m)===i):[path.split(":")[0]];
  let lastError="Gemini provider request failed";
  for(const model of models){
   for(let attempt=0;attempt<3;attempt++){
