@@ -1940,3 +1940,12 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .trean-root .chat-compose{bottom:calc(4px + env(safe-area-inset-bottom))!important;left:8px!important;right:8px!important;}
  .trean-root .chat-welcome,.trean-root .chat-transcript{padding-bottom:calc(100px + env(safe-area-inset-bottom))!important;}
 }
+
+
+/* Screenshot correction: eliminate reserved mobile-nav gap in chat mode */
+@media(max-width:900px){
+ .trean-root .app-shell.chat-mode{padding-bottom:0!important;}
+ .trean-root .app-shell.chat-mode .app-content{padding-bottom:0!important;margin-bottom:0!important;}
+ .trean-root .chat-compose{bottom:calc(64px + env(safe-area-inset-bottom))!important;}
+ .trean-root .mobile-nav{height:calc(64px + env(safe-area-inset-bottom))!important;}
+}
