@@ -51,33 +51,40 @@ function RobotHead({view,index}){
  </svg>
 }
 function RobotShowcase(){
- const [smiling,setSmiling]=useState(false);
+ const [expression,setExpression]=useState(0);
+ const expressions=["smile","happy","wink"];
+ const nextExpression=()=>setExpression(v=>(v+1)%expressions.length);
  return <div className="robot-stage" aria-label="TREAN AI robot companion">
-  <button className={"robot-gif"+(smiling?" is-smiling":"")} type="button" onClick={()=>setSmiling(v=>!v)} aria-label="Toggle TREAN AI smile" aria-pressed={smiling}>
-   <svg className="trean-head-art" viewBox="0 0 320 320" role="img" aria-label="Purple TREAN AI robot head with a smiling face">
+  <button className={"robot-gif expression-"+expressions[expression]} type="button" onClick={nextExpression} aria-label="Tap TREAN AI to change its expression" aria-pressed={expression!==0}>
+   <svg className="trean-head-art" viewBox="0 0 320 320" role="img" aria-label="Interactive purple robot head">
     <defs>
-     <linearGradient id="shell" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#f2dfff"/><stop offset=".45" stopColor="#b983ff"/><stop offset="1" stopColor="#6824d8"/></linearGradient>
-     <linearGradient id="band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#c18aff"/><stop offset=".55" stopColor="#8a3cff"/><stop offset="1" stopColor="#5920c7"/></linearGradient>
-     <linearGradient id="ear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#c58cff"/><stop offset="1" stopColor="#6928d8"/></linearGradient>
-     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+     <linearGradient id="treanShell" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff0ff"/><stop offset=".3" stopColor="#d9b6ff"/><stop offset=".68" stopColor="#9d5cff"/><stop offset="1" stopColor="#5720b9"/></linearGradient>
+     <linearGradient id="treanBand" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#bd8aff"/><stop offset=".5" stopColor="#8e42ff"/><stop offset="1" stopColor="#4f1cba"/></linearGradient>
+     <linearGradient id="treanEar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#d5a7ff"/><stop offset="1" stopColor="#7130d6"/></linearGradient>
+     <filter id="treanGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     </defs>
-    <ellipse cx="160" cy="282" rx="94" ry="13" fill="#7b35e8" opacity=".16"/>
-    <path d="M81 101 C74 32 246 32 239 101" fill="none" stroke="url(#band)" strokeWidth="18" strokeLinecap="round"/>
-    <path d="M83 100 C80 48 240 48 237 100" fill="none" stroke="#e5caff" strokeWidth="5" opacity=".75"/>
-    <rect x="35" y="126" width="52" height="94" rx="25" fill="url(#ear)" stroke="#c99aff" strokeWidth="5"/>
-    <rect x="233" y="126" width="52" height="94" rx="25" fill="url(#ear)" stroke="#c99aff" strokeWidth="5"/>
-    <circle cx="61" cy="173" r="19" fill="#5e25c7" stroke="#d5b0ff" strokeWidth="5"/>
-    <circle cx="259" cy="173" r="19" fill="#5e25c7" stroke="#d5b0ff" strokeWidth="5"/>
-    <path d="M77 119 Q160 61 243 119 L252 216 Q241 264 160 276 Q79 264 68 216Z" fill="url(#shell)" stroke="#d6b3ff" strokeWidth="5"/>
-    <path d="M94 117 Q160 81 226 117" fill="none" stroke="#fff" strokeWidth="8" opacity=".5" strokeLinecap="round"/>
-    <rect x="78" y="125" width="164" height="137" rx="42" fill="#10091f" stroke="#a66aff" strokeWidth="8"/>
-    <g className="trean-face">
-     <path d="M112 178 Q126 157 140 178" fill="none" stroke="#f5ddff" strokeWidth="10" strokeLinecap="round" filter="url(#glow)"/>
-     <path d="M180 178 Q194 157 208 178" fill="none" stroke="#f5ddff" strokeWidth="10" strokeLinecap="round" filter="url(#glow)"/>
-     <path d="M127 211 Q160 239 193 211" fill="none" stroke="#f5ddff" strokeWidth="11" strokeLinecap="round" filter="url(#glow)"/>
+    <ellipse cx="160" cy="285" rx="88" ry="12" fill="#8a43f2" opacity=".18"/>
+    <path className="trean-headband" d="M78 123 C60 37 260 37 242 123" fill="none" stroke="url(#treanBand)" strokeWidth="19" strokeLinecap="round"/>
+    <path d="M84 118 C76 55 244 55 236 118" fill="none" stroke="#e9d5ff" strokeWidth="5" opacity=".8" strokeLinecap="round"/>
+    <rect x="27" y="132" width="59" height="96" rx="28" fill="url(#treanEar)" stroke="#d8b3ff" strokeWidth="5"/>
+    <rect x="234" y="132" width="59" height="96" rx="28" fill="url(#treanEar)" stroke="#d8b3ff" strokeWidth="5"/>
+    <circle cx="56.5" cy="180" r="20" fill="#6325c8" stroke="#f0d8ff" strokeWidth="5"/>
+    <circle cx="263.5" cy="180" r="20" fill="#6325c8" stroke="#f0d8ff" strokeWidth="5"/>
+    <circle cx="56.5" cy="180" r="10" fill="#b77cff" opacity=".75"/>
+    <circle cx="263.5" cy="180" r="10" fill="#b77cff" opacity=".75"/>
+    <path d="M78 117 Q160 68 242 117 L253 216 Q241 269 160 281 Q79 269 67 216Z" fill="url(#treanShell)" stroke="#e4caff" strokeWidth="5"/>
+    <path d="M96 116 Q160 83 224 116" fill="none" stroke="#fff" strokeWidth="8" opacity=".65" strokeLinecap="round"/>
+    <path d="M87 135 Q160 112 233 135" fill="none" stroke="#7e42d7" strokeWidth="3" opacity=".3"/>
+    <rect x="75" y="128" width="170" height="139" rx="43" fill="#10091f" stroke="#a96aff" strokeWidth="8"/>
+    <rect x="85" y="138" width="150" height="119" rx="34" fill="none" stroke="#5f3b91" strokeWidth="2" opacity=".65"/>
+    <g className="trean-face" filter="url(#treanGlow)">
+     {expression===2?<><path d="M111 180 Q126 166 141 180" fill="none" stroke="#f4dfff" strokeWidth="10" strokeLinecap="round"/><path d="M180 180 Q194 165 208 180" fill="none" stroke="#f4dfff" strokeWidth="10" strokeLinecap="round"/></>:<><path d="M111 180 Q126 157 141 180" fill="none" stroke="#f4dfff" strokeWidth="10" strokeLinecap="round"/><path d="M180 180 Q194 157 208 180" fill="none" stroke="#f4dfff" strokeWidth="10" strokeLinecap="round"/></>}
+     {expression===1?<path className="trean-mouth" d="M126 207 Q160 247 194 207 Q194 232 160 235 Q126 232 126 207Z" fill="#f4dfff" stroke="#f4dfff" strokeWidth="5" strokeLinejoin="round"/>:<path className="trean-mouth" d="M127 212 Q160 240 193 212" fill="none" stroke="#f4dfff" strokeWidth="11" strokeLinecap="round"/>}
     </g>
-    <path d="M95 254 Q160 286 225 254" fill="none" stroke="#f2d5ff" strokeWidth="7" strokeLinecap="round" opacity=".85"/>
+    <path d="M96 257 Q160 286 224 257" fill="none" stroke="#fff0ff" strokeWidth="7" strokeLinecap="round" opacity=".8"/>
+    <path d="M130 270 L160 280 L190 270" fill="none" stroke="#7d3bd8" strokeWidth="3" opacity=".5"/>
    </svg>
+   <span className="robot-tap-hint">Tap to interact</span>
   </button>
  </div>
 }
