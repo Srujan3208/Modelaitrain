@@ -1778,3 +1778,16 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .trean-root .chat-compose-footer button{display:inline-flex!important;visibility:visible!important;opacity:1!important;min-height:32px!important;padding:6px 10px!important;}
  .trean-root .chat-welcome,.trean-root .chat-transcript{padding-bottom:170px!important;}
 }
+
+/* MOBILE: composer is anchored to the app viewport, just above bottom navigation */
+@media(max-width:900px){
+ .trean-root .chat-page.chatgpt-style{height:calc(100dvh - 145px)!important;min-height:0!important;overflow:visible!important;position:relative!important;}
+ .trean-root .chat-compose{position:fixed!important;left:10px!important;right:10px!important;bottom:calc(112px + env(safe-area-inset-bottom))!important;top:auto!important;transform:none!important;margin:0!important;width:auto!important;max-width:none!important;z-index:1000!important;display:block!important;visibility:visible!important;opacity:1!important;box-sizing:border-box!important;}
+ .trean-root .chat-compose-main{display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px!important;align-items:end!important;gap:8px!important;}
+ .trean-root .chat-compose-main textarea{display:block!important;min-width:0!important;width:100%!important;min-height:50px!important;max-height:130px!important;}
+ .trean-root .chat-compose-main .chat-attach-button,.trean-root .chat-compose-main .primary{width:44px!important;height:44px!important;min-width:44px!important;}
+ .trean-root .chat-compose-footer{display:flex!important;visibility:visible!important;opacity:1!important;justify-content:flex-start!important;padding-top:8px!important;gap:8px!important;}
+ .trean-root .chat-compose-footer button{display:inline-flex!important;visibility:visible!important;opacity:1!important;}
+ .trean-root .chat-welcome,.trean-root .chat-transcript{padding-bottom:220px!important;}
+}
+@media(max-width:480px){.trean-root .chat-compose{left:8px!important;right:8px!important;bottom:calc(112px + env(safe-area-inset-bottom))!important;}}
