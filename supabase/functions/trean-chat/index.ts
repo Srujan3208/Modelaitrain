@@ -60,7 +60,7 @@ Deno.serve(async(req)=>{
   const knowledgeIds=(links??[]).map(x=>x.knowledge_item_id);
   for(const attachment of safeAttachments){
    if(!attachment.path.startsWith(user.id+"/"))return json({error:"Attachment ownership check failed"},403);
-   if(!["image/jpeg","image/png","image/webp","image/gif","application/pdf","text/plain","text/markdown"].includes(attachment.mime_type))return json({error:"Unsupported attachment type: "+attachment.mime_type},415);
+   if(!["image/jpeg","image/png","image/webp","image/gif","application/pdf","text/plain","text/markdown","audio/mpeg","audio/mp4","audio/wav","audio/webm","audio/ogg","video/mp4","video/webm"].includes(attachment.mime_type))return json({error:"Unsupported attachment type: "+attachment.mime_type},415);
   }
   const {data:userMsg,error:userInsertError}=await sb.from("chat_messages").insert({session_id:sessionId,user_id:user.id,role:"user",content:message,status:"completed",metadata:{attachments:safeAttachments}}).select("id").single();
   if(userInsertError||!userMsg)throw userInsertError??new Error("Could not save user message");
@@ -69,7 +69,7 @@ Deno.serve(async(req)=>{
   if(priorError)throw priorError;
   const history=(prior??[]).reverse().filter(m=>m.role==="user"||m.role==="assistant").slice(-20).map(m=>({role:m.role==="assistant"?"model":"user",parts:[{text:m.content}]}));
   const sources:any[]=[];let vector:number[]|null=null;
-  if(videoId||knowledgeIds.length){
+  {
    const embedded=await gemini(EMBED,"embedContent",{model:"models/"+EMBED,content:{parts:[{text:message}]},taskType:"RETRIEVAL_QUERY",outputDimensionality:1536});
    vector=embedded.data?.embedding?.values;if(!Array.isArray(vector))throw new Error("Knowledge embedding could not be created");
   }
@@ -78,8 +78,8 @@ Deno.serve(async(req)=>{
    for(const c of chunks??[])sources.push({source_type:"transcript_chunk",transcript_chunk_id:c.id,video_id:c.video_id,source_title:"Video transcript",excerpt:c.content,start_seconds:c.start_seconds,end_seconds:c.end_seconds,relevance_score:c.similarity});
    if(!sources.length){const {data:v}=await sb.from("videos").select("title,transcript,youtube_url").eq("id",videoId).eq("user_id",user.id).single();if(v?.transcript)sources.push({source_type:"video_transcript",video_id:videoId,source_title:v.title??"Video transcript",source_url:v.youtube_url,excerpt:v.transcript.slice(0,12000),relevance_score:1});}
   }
-  if(knowledgeIds.length){
-   const {data:items,error}=await sb.rpc("search_knowledge_items",{query_embedding:JSON.stringify(vector),p_knowledge_ids:knowledgeIds,p_match_count:6});if(error)throw error;
+  {
+   const {data:items,error}=await sb.rpc("search_knowledge_items",{query_embedding:JSON.stringify(vector),p_knowledge_ids:knowledgeIds.length?knowledgeIds:null,p_match_count:8});if(error)throw error;
    for(const k of items??[])sources.push({source_type:"knowledge_item",knowledge_item_id:k.id,video_id:k.video_id,source_title:k.title,excerpt:k.content,relevance_score:k.similarity});
    if(!items?.length){const {data:k}=await sb.from("knowledge_items").select("id,video_id,title,content").eq("user_id",user.id).in("id",knowledgeIds).limit(10);for(const x of k??[])sources.push({source_type:"knowledge_item",knowledge_item_id:x.id,video_id:x.video_id,source_title:x.title,excerpt:x.content,relevance_score:1});}
   }
@@ -105,7 +105,7 @@ Deno.serve(async(req)=>{
    }
    if(history.length)history[history.length-1].parts.push(...attachmentParts);
   }
-  const system="You are TREAN AI, a professional educational learning assistant. Answer directly and clearly with structured Markdown. Use supplied learning context when relevant. Never pretend to have read a file unless extracted text is provided. Distinguish source-derived information from general knowledge. Cite retrieved learning context as [Source 1], [Source 2] exactly; never fabricate citations.\n\nLearning context:\n"+(context||"No video or knowledge context retrieved.")+"\n\nUploaded file context:\n"+(fileContext||"No text extraction available for uploaded files.");
+  const system="You are TREAN AI, a professional educational learning assistant. Answer directly and clearly with structured Markdown. Use retrieved knowledge when relevant, but do not limit your reasoning to it. If the question is an application/problem-solving question, combine learned concepts with general knowledge and derive a solution step by step. Clearly label what comes from the user\u2019s learned sources versus general knowledge. If learned context is absent or incomplete, say so briefly and still answer using your knowledge. Cite retrieved learning context as [Source 1], [Source 2] exactly; never fabricate citations.\n\nLearning context:\n"+(context||"No video or knowledge context retrieved.")+"\n\nUploaded file context:\n"+(fileContext||"No text extraction available for uploaded files.");
   const generated=await gemini(MODEL,"generateContent",{systemInstruction:{parts:[{text:system}]},contents:history,generationConfig:{temperature:0.35}});
   const answer=generated.data?.candidates?.[0]?.content?.parts?.map((p:any)=>p.text??"").join("");if(!answer?.trim())throw new Error("AI returned an empty response");
   const {data:assistant,error:assistantError}=await sb.from("chat_messages").insert({session_id:sessionId,user_id:user.id,role:"assistant",content:answer,status:"completed",model:generated.model,metadata:{}}).select("id").single();
