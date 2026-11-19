@@ -1373,3 +1373,49 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .app-shell [class*="composer"] [class*="supported"]{font-size:11px!important;line-height:1.45;white-space:normal}
  .app-shell [class*="bottom-nav"]{padding-bottom:env(safe-area-inset-bottom)}
 }
+
+/* Button polish v4: premium tactile controls and prompt cards */
+.app-shell button,.app-shell [role="button"],.app-shell a.button{
+ transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background .18s ease,color .18s ease;
+ -webkit-tap-highlight-color:transparent;
+}
+.app-shell button:active,.app-shell [role="button"]:active,.app-shell a.button:active{transform:scale(.975)}
+.app-shell button:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.app-shell button:not(.primary):not([class*="send"]):not([class*="icon"]):not([class*="nav"]),
+.app-shell [role="button"]{
+ border-color:rgba(167,125,235,.22);
+}
+.app-shell .primary,.app-shell button[class*="primary"],.app-shell button[class*="send"]{
+ background:linear-gradient(135deg,#7540e8 0%,#9b46f4 100%);
+ color:#fff;border:1px solid rgba(203,174,255,.24);
+ box-shadow:0 6px 18px rgba(117,64,232,.18),inset 0 1px 0 rgba(255,255,255,.16);
+}
+.app-shell .primary:hover,.app-shell button[class*="primary"]:hover,.app-shell button[class*="send"]:hover{
+ filter:brightness(1.08);box-shadow:0 9px 24px rgba(117,64,232,.3);transform:translateY(-1px)
+}
+.app-shell .secondary,.app-shell button[class*="secondary"]{
+ background:rgba(255,255,255,.035);border:1px solid rgba(167,125,235,.22);color:inherit
+}
+.app-shell .secondary:hover,.app-shell button[class*="secondary"]:hover{
+ background:rgba(142,94,230,.12);border-color:rgba(167,125,235,.45)
+}
+/* Suggested prompts become spacious, clearly clickable tiles */
+.app-shell main button:has(svg),.app-shell main [role="button"]:has(svg){
+ cursor:pointer
+}
+.app-shell main button[class*="suggest"],.app-shell main [class*="suggestion"],.app-shell main [class*="prompt-card"],.app-shell main [class*="quick-action"]{
+ text-align:left;border-radius:20px!important;background:linear-gradient(145deg,rgba(25,21,39,.98),rgba(20,17,31,.98));border:1px solid rgba(157,121,212,.2);box-shadow:0 3px 14px rgba(0,0,0,.12);padding:18px!important;min-height:116px;position:relative;overflow:hidden
+}
+.app-shell main button[class*="suggest"]:hover,.app-shell main [class*="suggestion"]:hover,.app-shell main [class*="prompt-card"]:hover,.app-shell main [class*="quick-action"]:hover{
+ background:linear-gradient(145deg,rgba(43,29,67,.98),rgba(24,19,39,.98));border-color:rgba(167,125,235,.42);box-shadow:0 10px 28px rgba(89,45,154,.18);transform:translateY(-2px)
+}
+.app-shell main button[class*="suggest"] svg,.app-shell main [class*="suggestion"] svg,.app-shell main [class*="prompt-card"] svg,.app-shell main [class*="quick-action"] svg{
+ color:#b99aff
+}
+@media(max-width:700px){
+ .app-shell button,.app-shell [role="button"]{touch-action:manipulation}
+ .app-shell .primary,.app-shell button[class*="primary"]{min-height:48px;padding:13px 18px;border-radius:15px;font-size:14px}
+ .app-shell .secondary,.app-shell button[class*="secondary"]{min-height:46px;padding:12px 16px;border-radius:14px}
+ .app-shell main button[class*="suggest"],.app-shell main [class*="suggestion"],.app-shell main [class*="prompt-card"],.app-shell main [class*="quick-action"]{min-height:122px;padding:16px!important;border-radius:18px!important}
+}
+@media(prefers-reduced-motion:reduce){.app-shell button,.app-shell [role="button"],.app-shell a.button{transition:none}}
