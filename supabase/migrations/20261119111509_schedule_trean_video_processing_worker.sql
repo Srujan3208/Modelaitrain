@@ -9,7 +9,7 @@ select cron.schedule(
    'x-worker-secret',(select decrypted_secret from vault.decrypted_secrets where name='trean_video_worker_secret')
   ),
   body:=jsonb_build_object('scheduled',true,'requested_at',now()),
-  timeout_milliseconds:=10000
+  timeout_milliseconds:=120000
  );
  $job$
 );
