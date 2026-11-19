@@ -3,9 +3,50 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 const cors={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"authorization, apikey, content-type, x-client-info","Access-Control-Allow-Methods":"POST, OPTIONS"};
 const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{...cors,"Content-Type":"application/json"}});
 const KEY=Deno.env.get("GEMINI_API_KEY")??"";
-const MODEL=Deno.env.get("TREAN_CHAT_MODEL")??"gemini-flash-latest";
+// Gemini model IDs are configurable so a model retirement never requires editing application code.
+const MODEL=Deno.env.get("TREAN_CHAT_MODEL")??"gemini-3.8-flash";
 const EMBED=Deno.env.get("TREAN_EMBEDDING_MODEL")??"gemini-embedding-001";
-async function gemini(path:string,body:unknown){const isGeneration=path.endsWith(":generateContent");const models=isGeneration?[MODEL,"gemini-2.5-flash","gemini-2.0-flash"].filter((m,i,a)=>a.indexOf(m)===i):[path.split(":")[0]];let lastError="AI provider error";for(const model of models){for(let attempt=0;attempt<2;attempt++){const endpoint=isGeneration?model+":"+path.split(":").pop():path;const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+endpoint,{method:"POST",headers:{"Content-Type":"application/json","X-goog-api-key":KEY},body:JSON.stringify(body)});const d=await r.json().catch(()=>({}));if(r.ok)return d;lastError=d?.error?.message??"Gemini API error "+r.status;if(!isGeneration||!(r.status===429||r.status===500||r.status===503))break;if(attempt===0)await new Promise(resolve=>setTimeout(resolve,700));}if(!isGeneration)break;}throw new Error("AI provider unavailable after retries: "+lastError);}
+const GEMINI_TIMEOUT_MS=Number(Deno.env.get("TREAN_GEMINI_TIMEOUT_MS")??"25000");
+const RETRYABLE_STATUS=new Set([408,429,500,502,503,504]);
+const sleep=(ms:number)=>new Promise(resolve=>setTimeout(resolve,ms));
+async function gemini(path:string,body:unknown){
+ const isGeneration=path.endsWith(":generateContent");
+ // Do not retry retired models: the replacement model is used as the default and as the fallback.
+ const models=isGeneration?[MODEL,"gemini-3.8-flash"].filter((m,i,a)=>a.indexOf(m)===i):[path.split(":")[0]];
+ let lastError="Gemini provider request failed";
+ for(const model of models){
+  for(let attempt=0;attempt<3;attempt++){
+   const endpoint=isGeneration?model+":"+path.split(":").pop():path;
+   const controller=new AbortController();
+   const timeout=setTimeout(()=>controller.abort(),GEMINI_TIMEOUT_MS);
+   try{
+    const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+endpoint,{
+     method:"POST",
+     headers:{"Content-Type":"application/json","X-goog-api-key":KEY},
+     body:JSON.stringify(body),
+     signal:controller.signal
+    });
+    const d=await r.json().catch(()=>({}));
+    if(r.ok)return d;
+    const providerMessage=d?.error?.message??("Gemini API returned HTTP "+r.status);
+    lastError=providerMessage;
+    // A bad model or invalid request will not improve with retries/fallback to the same API shape.
+    if(!RETRYABLE_STATUS.has(r.status))break;
+    if(attempt<2)await sleep(500*(attempt+1));
+   }catch(error){
+    if(error instanceof DOMException&&error.name==="AbortError"){
+     lastError="Gemini request timed out after "+GEMINI_TIMEOUT_MS+" ms";
+    }else{
+     lastError=error instanceof Error?error.message:"Gemini network request failed";
+    }
+    if(attempt<2)await sleep(500*(attempt+1));
+   }finally{
+    clearTimeout(timeout);
+   }
+  }
+ }
+ throw new Error("Gemini is temporarily unavailable: "+lastError);
+}
 Deno.serve(async(req:Request)=>{
  if(req.method==="OPTIONS")return new Response("ok",{headers:cors});if(req.method!=="POST")return json({error:"Method not allowed"},405);if(!KEY)return json({error:"AI provider not configured. Set GEMINI_API_KEY in Supabase Edge Function secrets."},503);
  const auth=req.headers.get("Authorization");if(!auth?.startsWith("Bearer "))return json({error:"Authentication required"},401);
@@ -36,5 +77,10 @@ Deno.serve(async(req:Request)=>{
   const rows=sources.map((s,i)=>({message_id:assistant.id,user_id:userId,...s,citation_label:"Source "+(i+1)}));if(rows.length){const {error}=await supabase.from("chat_message_sources").insert(rows);if(error)throw error;}
   const now=new Date().toISOString();await supabase.from("chat_sessions").update({updated_at:now,last_message_at:now}).eq("id",sessionId).eq("user_id",userId);
   return json({session_id:sessionId,user_message_id:userMsg.id,assistant_message_id:assistant.id,answer,sources:sources.map((s,i)=>({citation_label:"Source "+(i+1),source_title:s.source_title,source_type:s.source_type,excerpt:s.excerpt,video_id:s.video_id,knowledge_item_id:s.knowledge_item_id,transcript_chunk_id:s.transcript_chunk_id,start_seconds:s.start_seconds,end_seconds:s.end_seconds,source_url:s.source_url,relevance_score:s.relevance_score})),usage:null,model:MODEL});
- }catch(e){console.error("trean-chat",e);return json({error:e instanceof Error?e.message:"Chat request failed"},500);}
+ }catch(e){
+  const message=e instanceof Error?e.message:"Chat request failed";
+  console.error("trean-chat",message);
+  const retryable=/temporarily unavailable|timed out|high demand|rate limit/i.test(message);
+  return json({error:message,code:retryable?"AI_PROVIDER_TEMPORARY":"CHAT_REQUEST_FAILED",retryable},retryable?503:500);
+ }
 });
