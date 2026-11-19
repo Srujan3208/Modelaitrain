@@ -17,7 +17,7 @@ const successful=contributions.filter(x=>!x.error);if(!successful.length)throw n
 if(successful.length===1)return {answer:successful[0].text,models:successful.map(x=>({role:x.role,model:x.model})),mode:"fallback-single",usage:successful[0].usage};
 const synth=await openrouter(successful[0].model,[{role:"system",content:system+" You are TREAN's synthesis engine. Integrate contributions, resolve contradictions, correct errors and produce one polished answer. Do not reveal internal reasoning."},{role:"user",content:message+"\n\nContributions:\n"+successful.map((x,i)=>"## Contribution "+(i+1)+" ("+x.role+")\n"+x.text).join("\n\n")}],0.25);
 return {answer:synth.text,models:successful.map(x=>({role:x.role,model:x.model})),mode:"collaborative",usage:synth.usage};}
-\nconst KEY=Deno.env.get("GEMINI_API_KEY")??"";
+const KEY=Deno.env.get("GEMINI_API_KEY")??"";
 const admin=()=>createClient(Deno.env.get("SUPABASE_URL")!,Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,{auth:{persistSession:false,autoRefreshToken:false}});
 function toBase64(bytes:Uint8Array){let binary="";for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(binary);}
 const MODEL="gemini-3.8-flash";
