@@ -143,6 +143,17 @@ export default function Home(){
   };
   load();
  },[supabaseUser]);
+ useEffect(()=>{
+  if(!supabaseUser||!isSupabaseConfigured())return;
+  const supabase=getSupabase();
+  const timer=window.setInterval(async()=>{
+   const {data,error}=await supabase.from("videos").select("id,title,channel_name,thumbnail_url,youtube_url,status,duration_seconds,created_at,processing_stage,processing_progress,last_error").eq("user_id",supabaseUser.id).order("created_at",{ascending:false});
+   if(!error)setVideos(data||[]);
+   const {data:items,error:knowledgeError}=await supabase.from("knowledge_items").select("id,title,content,knowledge_type,video_id,created_at").eq("user_id",supabaseUser.id).order("created_at",{ascending:false});
+   if(!knowledgeError)setKnowledge(items||[]);
+  },5000);
+  return()=>window.clearInterval(timer);
+ },[supabaseUser]);
  const loadChatSessions=async()=>{if(!supabaseUser||!isSupabaseConfigured())return;const {data,error}=await getSupabase().from("chat_sessions").select("id,title,context_type,video_id,updated_at,last_message_at").eq("user_id",supabaseUser.id).order("updated_at",{ascending:false});if(!error)setChatSessions(data||[]);};
  const openChatSession=async(id)=>{setChatBusy(true);try{const supabase=getSupabase();const {data:s,error:se}=await supabase.from("chat_sessions").select("id,title,context_type,video_id").eq("id",id).eq("user_id",supabaseUser.id).single();if(se)throw se;const {data:m,error:me}=await supabase.from("chat_messages").select("id,role,content,created_at").eq("session_id",id).eq("user_id",supabaseUser.id).order("created_at",{ascending:true});if(me)throw me;setActiveChatSession(s);setChatMessages(m||[]);const assistantIds=(m||[]).filter(x=>x.role==="assistant").map(x=>x.id);if(assistantIds.length){const {data:src}=await supabase.from("chat_message_sources").select("message_id,citation_label,source_title,source_type,excerpt,start_seconds,end_seconds,source_url").in("message_id",assistantIds).eq("user_id",supabaseUser.id);const grouped={};(src||[]).forEach(x=>(grouped[x.message_id]??=[]).push(x));setChatSources(grouped);}else setChatSources({});setQuestion("");}catch(e){say(e.message||"Could not load chat.");}finally{setChatBusy(false)}};
  const newChat=()=>{setActiveChatSession(null);setChatMessages([]);setChatSources({});setQuestion("");setSelectedVideo("");setSelectedKnowledge([]);};
