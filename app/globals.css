@@ -1162,3 +1162,36 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .app-shell.chat-mode.theme-light .theme-toggle{color:#7650b5;background:#f2ebfa;border-color:#e5d9f2}
 .app-shell.chat-mode.theme-light .avatar{background:#7650b5;color:white}
 @media(max-width:700px){.app-shell.chat-mode .chat-message p,.app-shell.chat-mode .response-content{font-size:14px;line-height:1.75}.app-shell.chat-mode .response-content h3{font-size:17px;margin:17px 0 9px}.app-shell.chat-mode .response-content h4{font-size:15px;margin:14px 0 7px}}
+
+/* Premium conversational typography and response hierarchy */
+.app-shell.chat-mode .chat-transcript{gap:28px}
+.app-shell.chat-mode .chat-message.user{max-width:min(88%,680px);font-size:15px;line-height:1.65;font-weight:500;letter-spacing:-.015em;padding:15px 18px}
+.app-shell.chat-mode .chat-message.assistant{max-width:100%;padding:3px 0}
+.app-shell.chat-mode .chat-message.assistant b{display:inline-flex;align-items:center;margin-bottom:12px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:800}
+.app-shell.chat-mode .response-content{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:15.5px;line-height:1.82;letter-spacing:-.008em;font-weight:400;max-width:75ch}
+.app-shell.chat-mode .response-content p{margin:0 0 15px}
+.app-shell.chat-mode .response-content h3{font-size:clamp(18px,2.4vw,21px);font-weight:750;letter-spacing:-.035em;line-height:1.35;margin:25px 0 12px;padding-left:12px;border-left:3px solid #8e63d9}
+.app-shell.chat-mode .response-content h4{font-size:16px;font-weight:700;letter-spacing:-.02em;line-height:1.45;margin:20px 0 9px}
+.app-shell.chat-mode .response-content strong{font-weight:750;color:inherit}
+.app-shell.chat-mode .response-content em{color:inherit;opacity:.92}
+.app-shell.chat-mode .response-content code{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:.88em;padding:3px 7px;border-radius:6px;background:rgba(146,111,210,.16);border:1px solid rgba(146,111,210,.16)}
+.app-shell.chat-mode .response-content blockquote{margin:12px 0 18px;padding:11px 15px;border-left:3px solid #9670d8;border-radius:0 10px 10px 0;background:rgba(145,108,205,.09);opacity:.95}
+.app-shell.chat-mode .response-space{height:8px}
+.app-shell.chat-mode .response-list{display:flex;gap:10px;align-items:flex-start;margin:7px 0;padding-left:2px}
+.app-shell.chat-mode .response-list>span{color:#a98be7;font-weight:750;flex:none;min-width:18px}
+.app-shell.chat-mode .response-list.numbered{margin-bottom:8px}
+.app-shell.chat-mode .chat-message.error{font-size:14px;line-height:1.6}
+.app-shell.chat-mode.theme-light .response-content h3{border-left-color:#7950bb}
+.app-shell.chat-mode.theme-light .response-content blockquote{background:#f1eafa;border-left-color:#7950bb}
+.app-shell.chat-mode.theme-light .response-content code{background:#f0e9f8;border-color:#e3d8ef}
+.app-shell.chat-mode.theme-light .chat-message.assistant{background:transparent}
+@media(max-width:700px){
+ .app-shell.chat-mode .chat-transcript{gap:24px}
+ .app-shell.chat-mode .chat-message.user{max-width:90%;font-size:14px;line-height:1.65;padding:13px 15px}
+ .app-shell.chat-mode .chat-message.assistant b{font-size:11px;margin-bottom:9px}
+ .app-shell.chat-mode .response-content{font-size:15px;line-height:1.78;max-width:none}
+ .app-shell.chat-mode .response-content p{margin-bottom:13px}
+ .app-shell.chat-mode .response-content h3{font-size:18px;margin:22px 0 10px;padding-left:10px}
+ .app-shell.chat-mode .response-content h4{font-size:15.5px;margin:17px 0 8px}
+ .app-shell.chat-mode .response-list{gap:8px;margin:6px 0}
+}
