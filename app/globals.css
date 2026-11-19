@@ -1266,3 +1266,13 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .robot-stage .robot-static.is-happy{animation:trean-mascot-happy 1.8s ease-in-out infinite;filter:drop-shadow(0 0 24px #a75cff88)}
 @keyframes trean-mascot-happy{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.035)}}
 @media(max-width:700px){.robot-stage .robot-static{width:min(76vw,300px)}}
+
+
+/* Final mascot sizing and integration fix */
+.robot-stage{min-height:190px!important;margin:8px auto 12px!important;display:grid;place-items:center;overflow:visible!important}
+.robot-stage::before{width:190px!important;height:170px!important;opacity:.55!important}
+.robot-stage .robot-static{width:clamp(145px,16vw,190px)!important;max-width:190px!important;aspect-ratio:1!important;height:auto!important;margin:0 auto!important;background:transparent!important;filter:drop-shadow(0 8px 16px #8d4cff44)!important}
+.robot-stage .robot-static-art{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;display:block!important;background:transparent!important}
+.chat-mode .robot-stage{min-height:190px!important;margin:6px auto 8px!important}
+.chat-mode .robot-stage .robot-static{width:clamp(145px,16vw,190px)!important}
+@media(max-width:700px){.robot-stage{min-height:170px!important;margin:4px auto 8px!important}.robot-stage .robot-static{width:clamp(145px,42vw,180px)!important}.chat-mode .robot-stage{min-height:170px!important}.chat-mode .robot-stage .robot-static{width:clamp(145px,42vw,180px)!important}}
