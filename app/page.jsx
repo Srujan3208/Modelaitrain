@@ -52,10 +52,32 @@ function RobotHead({view,index}){
 }
 function RobotShowcase(){
  const [smiling,setSmiling]=useState(false);
- const smile=()=>{setSmiling(true);window.setTimeout(()=>setSmiling(false),1200)};
  return <div className="robot-stage" aria-label="TREAN AI robot companion">
-  <button className={"robot-gif"+(smiling?" is-smiling":"")} type="button" onClick={smile} aria-label="Make TREAN AI smile">
-   <img src="/trean-head-front.png" alt="TREAN AI smiling purple robot head" draggable="false"/>
+  <button className={"robot-gif"+(smiling?" is-smiling":"")} type="button" onClick={()=>setSmiling(v=>!v)} aria-label="Toggle TREAN AI smile" aria-pressed={smiling}>
+   <svg className="trean-head-art" viewBox="0 0 320 320" role="img" aria-label="Purple TREAN AI robot head with a smiling face">
+    <defs>
+     <linearGradient id="shell" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#f2dfff"/><stop offset=".45" stopColor="#b983ff"/><stop offset="1" stopColor="#6824d8"/></linearGradient>
+     <linearGradient id="band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#c18aff"/><stop offset=".55" stopColor="#8a3cff"/><stop offset="1" stopColor="#5920c7"/></linearGradient>
+     <linearGradient id="ear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#c58cff"/><stop offset="1" stopColor="#6928d8"/></linearGradient>
+     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <ellipse cx="160" cy="282" rx="94" ry="13" fill="#7b35e8" opacity=".16"/>
+    <path d="M81 101 C74 32 246 32 239 101" fill="none" stroke="url(#band)" strokeWidth="18" strokeLinecap="round"/>
+    <path d="M83 100 C80 48 240 48 237 100" fill="none" stroke="#e5caff" strokeWidth="5" opacity=".75"/>
+    <rect x="35" y="126" width="52" height="94" rx="25" fill="url(#ear)" stroke="#c99aff" strokeWidth="5"/>
+    <rect x="233" y="126" width="52" height="94" rx="25" fill="url(#ear)" stroke="#c99aff" strokeWidth="5"/>
+    <circle cx="61" cy="173" r="19" fill="#5e25c7" stroke="#d5b0ff" strokeWidth="5"/>
+    <circle cx="259" cy="173" r="19" fill="#5e25c7" stroke="#d5b0ff" strokeWidth="5"/>
+    <path d="M77 119 Q160 61 243 119 L252 216 Q241 264 160 276 Q79 264 68 216Z" fill="url(#shell)" stroke="#d6b3ff" strokeWidth="5"/>
+    <path d="M94 117 Q160 81 226 117" fill="none" stroke="#fff" strokeWidth="8" opacity=".5" strokeLinecap="round"/>
+    <rect x="78" y="125" width="164" height="137" rx="42" fill="#10091f" stroke="#a66aff" strokeWidth="8"/>
+    <g className="trean-face">
+     <path d="M112 178 Q126 157 140 178" fill="none" stroke="#f5ddff" strokeWidth="10" strokeLinecap="round" filter="url(#glow)"/>
+     <path d="M180 178 Q194 157 208 178" fill="none" stroke="#f5ddff" strokeWidth="10" strokeLinecap="round" filter="url(#glow)"/>
+     <path d="M127 211 Q160 239 193 211" fill="none" stroke="#f5ddff" strokeWidth="11" strokeLinecap="round" filter="url(#glow)"/>
+    </g>
+    <path d="M95 254 Q160 286 225 254" fill="none" stroke="#f2d5ff" strokeWidth="7" strokeLinecap="round" opacity=".85"/>
+   </svg>
   </button>
  </div>
 }
