@@ -129,7 +129,9 @@ export default function Home(){
   }catch(err){say(err.message||"Authentication failed.")}
   finally{setAuthBusy(false)}
  };
- const resetPassword=async(e)=>{e.preventDefault();setAuthBusy(true);try{const {error}=await getSupabase().auth.resetPasswordForEmail(email,{redirectTo:window.location.origin});if(error)throw error;say("Password reset email sent. Check your inbox.");setAuthMode("Sign In")}catch(err){say(err.message||"Could not send reset email.")}finally{setAuthBusy(false)}};\n const updatePassword=async(e)=>{e.preventDefault();setAuthBusy(true);try{const {error}=await getSupabase().auth.updateUser({password});if(error)throw error;say("Password updated successfully. Please sign in.");setAuthMode("Sign In");setPassword("");await getSupabase().auth.signOut()}catch(err){say(err.message||"Password update failed.")}finally{setAuthBusy(false)}};\n const googleLogin=async()=>{
+ const resetPassword=async(e)=>{e.preventDefault();setAuthBusy(true);try{const {error}=await getSupabase().auth.resetPasswordForEmail(email,{redirectTo:window.location.origin});if(error)throw error;say("Password reset email sent. Check your inbox.");setAuthMode("Sign In")}catch(err){say(err.message||"Could not send reset email.")}finally{setAuthBusy(false)}};
+ const updatePassword=async(e)=>{e.preventDefault();setAuthBusy(true);try{const {error}=await getSupabase().auth.updateUser({password});if(error)throw error;say("Password updated successfully. Please sign in.");setAuthMode("Sign In");setPassword("");await getSupabase().auth.signOut()}catch(err){say(err.message||"Password update failed.")}finally{setAuthBusy(false)}};
+ const googleLogin=async()=>{
   try{const {error}=await getSupabase().auth.signInWithOAuth({provider:"google",options:{redirectTo:window.location.origin}});if(error)throw error}
   catch(err){say(err.message||"Google sign-in failed.")}
  };
