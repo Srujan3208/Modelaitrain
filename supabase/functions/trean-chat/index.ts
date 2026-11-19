@@ -11,9 +11,9 @@ const DEFAULT_MODELS:ModelConfig[]=[
  {id:"or-analyst",model:"google/gemini-2.5-flash",role:"analyst",provider:"openrouter"},
  {id:"or-critic",model:"anthropic/claude-3.5-haiku",role:"critic",provider:"openrouter"},
  {id:"or-writer",model:"meta-llama/llama-3.3-70b-instruct",role:"writer",provider:"openrouter"},
- {id:"groq-fast",model:"llama-3.3-70b-versatile",role:"fast",provider:"groq"},
- {id:"groq-reason",model:"deepseek-r1-distill-llama-70b",role:"reasoner",provider:"groq"},
- {id:"groq-creative",model:"llama-3.1-8b-instant",role:"creative",provider:"groq"},
+ {id:"groq-fast",model:"openai/gpt-oss-120b",role:"fast",provider:"groq"},
+ {id:"groq-reason",model:"openai/gpt-oss-20b",role:"reasoner",provider:"groq"},
+ {id:"groq-creative",model:"groq/compound",role:"creative",provider:"groq"},
  {id:"or-coder",model:"qwen/qwen-2.5-coder-32b-instruct",role:"coder",provider:"openrouter"},
  {id:"or-small",model:"google/gemini-2.0-flash-001",role:"fast",provider:"openrouter"}
 ];
