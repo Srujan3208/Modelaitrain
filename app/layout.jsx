@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./globals.css";\nimport "katex/dist/katex.min.css";\nimport "highlight.js/styles/github-dark.css";
 
 export const metadata = {
   title: "TREAN AI — Learn from every video",
