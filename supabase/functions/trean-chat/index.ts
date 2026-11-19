@@ -37,12 +37,12 @@ async function collaborativeGenerate(message:string,history:any[],system:string)
  const score=(m:any)=>{const id=m.id.toLowerCase();let p=preferred.findIndex(x=>id.includes(x));const price=Number(m.pricing.prompt??0)+Number(m.pricing.completion??0);return (p<0?99:p)*1000+price*1000000;};
  models.sort((x:any,y:any)=>score(x)-score(y));
  const picked:any[]=[];const authors=new Set<string>();
- for(const m of models){const author=m.id.split("/")[0];if(!authors.has(author)){picked.push({id:m.id,model:m.id,role:author,provider:"openrouter"});authors.add(author);}if(picked.length>=10)break;}
- for(const m of models){if(picked.length>=10)break;if(!picked.some((x:any)=>x.model===m.id))picked.push({id:m.id,model:m.id,role:"specialist",provider:"openrouter"});}
+ for(const m of models){const author=m.id.split("/")[0];if(!authors.has(author)){picked.push({id:m.id,model:m.id,role:author,provider:"openrouter"});authors.add(author);}if(picked.length>=7)break;}
+ for(const m of models){if(picked.length>=7)break;if(!picked.some((x:any)=>x.model===m.id))picked.push({id:m.id,model:m.id,role:"specialist",provider:"openrouter"});}
  return picked;
  }catch(e){console.warn("model discovery failed",e);return [];}
 }
-const discovered=await discoverOpenRouterModels();const all=(discovered.length?discovered:configuredModels()).filter(m=>m.enabled!==false&&((m.provider??"openrouter")==="groq"?!!Deno.env.get("GROQ_API_KEY"):!!OPENROUTER_KEY)).slice(0,10);
+const discovered=await discoverOpenRouterModels();const groqPool=Deno.env.get("GROQ_API_KEY")?[{id:"groq-oss-120b",model:"openai/gpt-oss-120b",role:"fast-reasoner",provider:"groq" as const},{id:"groq-oss-20b",model:"openai/gpt-oss-20b",role:"fast",provider:"groq" as const},{id:"groq-compound",model:"groq/compound",role:"compound",provider:"groq" as const}]:[];const base=discovered.length?discovered:configuredModels();const all=[...base,...groqPool].filter(m=>m.enabled!==false&&((m.provider??"openrouter")==="groq"?!!Deno.env.get("GROQ_API_KEY"):!!OPENROUTER_KEY)).slice(0,10);
  if(!all.length)throw new Error("No AI provider keys are configured");
  const count=Math.min(all.length,complexity(message));const selected=all.slice(0,count);
  const common=[{role:"system",content:system},...history.map((h:any)=>({role:h.role==="model"?"assistant":h.role,content:h.parts?.map((p:any)=>p.text??"").join("")??""}))];
