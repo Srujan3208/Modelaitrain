@@ -953,3 +953,11 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 @keyframes trean-mouth-bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 @keyframes trean-wink-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @media(max-width:700px){.robot-stage .robot-gif{touch-action:manipulation!important}.robot-stage .robot-tap-hint{bottom:-4px}}
+
+/* Supabase integration UI */
+.integration-note{margin:8px 4px;color:#a99fbe;font-size:11px;line-height:1.5}
+.knowledge-list,.recent-video-list{display:grid;gap:10px;margin-top:16px}
+.knowledge-card,.recent-video-list article{padding:16px;border:1px solid #503778;border-radius:13px;background:#211735;color:#eee7fa}
+.knowledge-card b,.recent-video-list b{display:block;font-size:14px}
+.knowledge-card p{margin:8px 0;color:#c7bbd8;font-size:12px;line-height:1.5}
+.knowledge-card small,.recent-video-list small{display:block;margin-top:8px;color:#b28aff;font-size:10px;text-transform:capitalize}
