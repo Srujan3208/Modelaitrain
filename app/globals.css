@@ -1338,3 +1338,38 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
 .app-shell .card,.app-shell .panel,.app-shell .video-card{border-radius:18px}
 .app-shell :focus-visible{outline:2px solid #a77bf0;outline-offset:3px}
 @media(max-width:700px){html,body{font-size:15px}.app-shell h1{font-size:30px}.app-shell h2{font-size:23px}.app-shell p,.app-shell li{font-size:15px;line-height:1.75}.app-shell .chat-message,.app-shell .message-content,.app-shell .assistant-message{font-size:15px;line-height:1.8}.app-shell button{min-height:42px}.app-shell .primary,.app-shell .secondary{font-size:13px}}
+
+/* Chat workspace v3: mobile-first conversation layout */
+.app-shell .chat-tabs,.app-shell [class*="chat-tab"],.app-shell [class*="conversation-tab"]{scrollbar-width:none}
+.app-shell .chat-tabs::-webkit-scrollbar,.app-shell [class*="chat-tab"]::-webkit-scrollbar{display:none}
+.app-shell .chat-tabs{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;padding:5px 2px 12px;scroll-snap-type:x proximity}
+.app-shell .chat-tabs>*{flex:0 0 auto;scroll-snap-align:start}
+.app-shell [class*="tab"]{max-width:260px}
+.app-shell .chat-message,.app-shell .message-content,.app-shell .assistant-message{overflow-wrap:anywhere;word-break:normal}
+.app-shell .assistant-message h1,.app-shell .assistant-message h2,.app-shell .assistant-message h3{margin:1.35em 0 .55em}
+.app-shell .assistant-message p{margin:.7em 0}
+.app-shell .assistant-message ul,.app-shell .assistant-message ol{padding-left:1.35em;margin:.65em 0}
+.app-shell .assistant-message blockquote{margin:1em 0;padding:.8em 1em;border-left:3px solid #9b72ed;border-radius:0 12px 12px 0;background:rgba(142,95,220,.08)}
+.app-shell .assistant-message table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse}
+.app-shell .assistant-message th,.app-shell .assistant-message td{padding:9px 12px;border:1px solid rgba(150,115,210,.24);text-align:left}
+.app-shell .assistant-message pre{max-width:100%;overflow:auto;border:1px solid rgba(150,115,210,.2);border-radius:14px;padding:15px;background:#100d1c}
+.app-shell .assistant-message code{overflow-wrap:anywhere}
+.app-shell .chat-composer,.app-shell [class*="composer"]{backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.app-shell textarea{resize:none}
+@media(max-width:700px){
+ .app-shell{overflow-x:hidden}
+ .app-shell main,.app-shell [class*="chat-container"],.app-shell [class*="conversation"]{min-width:0;max-width:100%}
+ .app-shell .chat-tabs{gap:7px;padding:4px 0 10px;margin-bottom:8px;border-bottom:1px solid rgba(150,115,210,.16)}
+ .app-shell .chat-tabs>*{border-radius:13px!important;padding:11px 13px!important;min-height:42px!important;font-size:13px!important;max-width:220px}
+ .app-shell .chat-message,.app-shell .message-content,.app-shell .assistant-message{font-size:15px;line-height:1.78}
+ .app-shell .assistant-message h1{font-size:24px}.app-shell .assistant-message h2{font-size:20px}.app-shell .assistant-message h3{font-size:17px}
+ .app-shell .assistant-message p{margin:.7em 0}
+ .app-shell [class*="message"]{max-width:100%;min-width:0}
+ .app-shell [class*="composer"]{border-radius:22px!important;padding:12px!important;gap:10px!important}
+ .app-shell [class*="composer"] textarea{min-height:44px!important;max-height:160px!important;font-size:16px!important;padding:8px 5px!important}
+ .app-shell [class*="composer"] button{min-width:44px;min-height:44px;border-radius:14px}
+ .app-shell [class*="composer"] [class*="file"],.app-shell [class*="composer"] [class*="attach"]{width:44px!important;height:44px!important}
+ .app-shell [class*="composer"] [class*="knowledge"]{max-width:100%;overflow-x:auto}
+ .app-shell [class*="composer"] [class*="supported"]{font-size:11px!important;line-height:1.45;white-space:normal}
+ .app-shell [class*="bottom-nav"]{padding-bottom:env(safe-area-inset-bottom)}
+}
