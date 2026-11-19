@@ -1289,3 +1289,25 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .theme-light.app-shell.chat-mode .response-table-wrap{border-color:#e3d8ee}
 .theme-light.app-shell.chat-mode .response-table-wrap th{background:#f1e9fa;color:#352246}
 .theme-light.app-shell.chat-mode .response-table-wrap td{color:#3a2a4e;border-color:#e9e0f0}
+
+/* Learning studio: polished upload, text and task cards */
+.app-shell .url-form{display:grid;grid-template-columns:1fr;gap:12px;padding:18px;border:1px solid rgba(150,115,210,.3);border-radius:18px;background:rgba(110,70,170,.06)}
+.app-shell .url-form input,.app-shell .url-form textarea,.app-shell .url-form select{width:100%;min-width:0;border:1px solid rgba(150,115,210,.35);border-radius:12px;background:rgba(20,14,36,.75);color:inherit;padding:13px 14px;outline:none}
+.app-shell .url-form textarea{resize:vertical;min-height:150px;line-height:1.65}
+.app-shell .url-form input[type=file]{padding:12px;border-style:dashed;background:rgba(120,80,180,.09);font-size:13px}
+.app-shell .url-form input:focus,.app-shell .url-form textarea:focus{border-color:#a77bf0;box-shadow:0 0 0 3px rgba(146,92,225,.14)}
+.app-shell .url-form .primary{width:100%;min-height:48px;font-size:14px}
+.app-shell .learn-switch{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0}
+.app-shell .learn-switch button{min-height:44px;padding:10px 16px;border-radius:12px;border:1px solid rgba(150,115,210,.32);background:rgba(120,80,180,.07);color:inherit}
+.app-shell .learn-switch button.chosen{background:linear-gradient(120deg,#6930e8,#9345f5);color:#fff;border-color:transparent}
+.app-shell .video-card{padding:17px;border:1px solid rgba(150,115,210,.28);border-radius:16px;background:rgba(120,80,180,.06);margin:10px 0}
+.app-shell .video-card h3{font-size:15px;line-height:1.5;margin:0 0 8px}
+.app-shell .video-card p{line-height:1.6;overflow-wrap:anywhere}
+.app-shell .video-card small{display:block;margin-top:8px;opacity:.8;line-height:1.5}
+.app-shell .progress-track{height:7px;border-radius:999px;background:rgba(140,110,180,.2);overflow:hidden;margin:12px 0}
+.app-shell .progress-track>div{height:100%;border-radius:999px;background:linear-gradient(90deg,#7b43e9,#b68aff)}
+.theme-light.app-shell .url-form{background:#fff;border-color:#e3d8ef}
+.theme-light.app-shell .url-form input,.theme-light.app-shell .url-form textarea{background:#faf7fd;color:#302243;border-color:#e3d8ef}
+.theme-light.app-shell .url-form input[type=file]{background:#f8f4fc}
+.theme-light.app-shell .video-card{background:#fff;border-color:#e7dff0}
+@media(max-width:700px){.app-shell .url-form{padding:13px;border-radius:15px}.app-shell .url-form textarea{min-height:135px}.app-shell .url-form input,.app-shell .url-form textarea{font-size:16px}.app-shell .learn-switch button{flex:1}.app-shell .video-card{padding:13px}}
