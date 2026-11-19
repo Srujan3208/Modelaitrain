@@ -101,8 +101,8 @@ export default function Home(){
  useEffect(()=>{
   if(!isSupabaseConfigured()){setAuthReady(true);return}
   const supabase=getSupabase();
-  supabase.auth.getUser().then(({data})=>{setSupabaseUser(data.user||null);setAuthReady(true)});
-  const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>setSupabaseUser(session?.user||null));
+  supabase.auth.getUser().then(({data})=>{const user=data.user||null;setSupabaseUser(user);setAuthReady(true);if(user){setScreen("app");setActive("dashboard")}});
+  const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>{const user=session?.user||null;setSupabaseUser(user);if(user){setScreen("app");setActive("dashboard")}else{setScreen("landing")}});
   return ()=>subscription.unsubscribe();
  },[]);
  const authSubmit=async(e)=>{
