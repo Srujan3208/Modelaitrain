@@ -4,19 +4,45 @@ const cors={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"au
 const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{...cors,"Content-Type":"application/json"}});
 const OPENROUTER_KEY=Deno.env.get("OPENROUTER_API_KEY")??"";
 const OPENROUTER_BASE=Deno.env.get("OPENROUTER_BASE_URL")??"https://openrouter.ai/api/v1";
-type ModelConfig={id:string,model:string,role:string,enabled?:boolean};
-const DEFAULT_MODELS:ModelConfig[]=[{id:"primary",model:"openai/gpt-4o",role:"primary"}];
-function configuredModels():ModelConfig[]{try{const raw=Deno.env.get("TREAN_MODELS_JSON");if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed))return parsed.filter((m:any)=>m?.model&&m?.role).slice(0,5);}}catch{}return DEFAULT_MODELS;}
-function complexity(message:string){if(/debug|architect|build|design|research|compare|analy[sz]e|implement|develop|project|write.*code|algorithm|explain.*deep/i.test(message))return 3;if(message.length>1500)return 2;return 1;}
-async function openrouter(model:string,messages:any[],temperature=0.35){if(!OPENROUTER_KEY)throw new Error("OPENROUTER_API_KEY is not configured");const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),25000);try{const r=await fetch(OPENROUTER_BASE+"/chat/completions",{method:"POST",headers:{"Authorization":"Bearer "+OPENROUTER_KEY,"Content-Type":"application/json","HTTP-Referer":"https://trean-ai.vercel.app","X-Title":"TREAN AI"},body:JSON.stringify({model,messages,temperature}),signal:controller.signal});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data?.error?.message??("OpenRouter HTTP "+r.status));const text=data?.choices?.[0]?.message?.content;if(typeof text!=="string"||!text.trim())throw new Error("Model returned empty content");return {text,model:data.model??model,usage:data.usage};}finally{clearTimeout(timer);}}
-async function collaborativeGenerate(message:string,history:any[],system:string){const available=configuredModels().filter(m=>m.enabled!==false).slice(0,5);const count=Math.min(available.length,Math.max(1,complexity(message)));const selected=available.slice(0,count);const common=[{role:"system",content:system},{role:"user",content:message},...history.map((h:any)=>({role:h.role==="model"?"assistant":h.role,content:h.parts?.map((p:any)=>p.text??"").join("")??""}))];if(selected.length===1){const r=await openrouter(selected[0].model,common);return {answer:r.text,models:[{role:selected[0].role,model:r.model}],mode:"single",usage:r.usage};}
-const rolePrompts=["Analyze requirements, facts, and the strongest solution.","Develop a practical solution with steps and examples.","Critique accuracy, risks, omissions, and edge cases.","Offer an alternative approach and compare tradeoffs.","Review proposals for consistency and quality."];
-const results=await Promise.allSettled(selected.map((m,i)=>openrouter(m.model,[...common,{role:"system",content:"Assigned role: "+(m.role||rolePrompts[i])+". Provide a useful contribution. Do not claim to see other model outputs."}])));
-const contributions=results.map((r,i)=>r.status==="fulfilled"?{role:selected[i].role,model:r.value.model,text:r.value.text,usage:r.value.usage}:{role:selected[i].role,model:selected[i].model,error:r.reason instanceof Error?r.reason.message:"Provider failed"});
-const successful=contributions.filter(x=>!x.error);if(!successful.length)throw new Error("All collaborative models failed: "+contributions.map(x=>x.error).join("; "));
-if(successful.length===1)return {answer:successful[0].text,models:successful.map(x=>({role:x.role,model:x.model})),mode:"fallback-single",usage:successful[0].usage};
-const synth=await openrouter(successful[0].model,[{role:"system",content:system+" You are TREAN's synthesis engine. Integrate contributions, resolve contradictions, correct errors and produce one polished answer. Do not reveal internal reasoning."},{role:"user",content:message+"\n\nContributions:\n"+successful.map((x,i)=>"## Contribution "+(i+1)+" ("+x.role+")\n"+x.text).join("\n\n")}],0.25);
-return {answer:synth.text,models:successful.map(x=>({role:x.role,model:x.model})),mode:"collaborative",usage:synth.usage};}
+type ModelConfig={id:string,model:string,role:string,provider?:"openrouter"|"groq",enabled?:boolean};
+const DEFAULT_MODELS:ModelConfig[]=[
+ {id:"or-primary",model:"openai/gpt-4o-mini",role:"primary",provider:"openrouter"},
+ {id:"or-reasoner",model:"deepseek/deepseek-r1",role:"reasoner",provider:"openrouter"},
+ {id:"or-analyst",model:"google/gemini-2.5-flash",role:"analyst",provider:"openrouter"},
+ {id:"or-critic",model:"anthropic/claude-3.5-haiku",role:"critic",provider:"openrouter"},
+ {id:"or-writer",model:"meta-llama/llama-3.3-70b-instruct",role:"writer",provider:"openrouter"},
+ {id:"groq-fast",model:"llama-3.3-70b-versatile",role:"fast",provider:"groq"},
+ {id:"groq-reason",model:"deepseek-r1-distill-llama-70b",role:"reasoner",provider:"groq"},
+ {id:"groq-creative",model:"llama-3.1-8b-instant",role:"creative",provider:"groq"},
+ {id:"or-coder",model:"qwen/qwen-2.5-coder-32b-instruct",role:"coder",provider:"openrouter"},
+ {id:"or-small",model:"google/gemini-2.0-flash-001",role:"fast",provider:"openrouter"}
+];
+function configuredModels():ModelConfig[]{try{const raw=Deno.env.get("TREAN_MODELS_JSON");if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed))return parsed.filter((m:any)=>m?.model&&m?.role).slice(0,10);}}catch{}return DEFAULT_MODELS;}
+function complexity(message:string){if(/debug|architect|build|design|research|compare|analy[sz]e|implement|develop|project|write.*code|algorithm|explain.*deep|strategy|plan|create.*content/i.test(message)||message.length>4000)return 10;if(message.length>1500||/explain|solve|summarize|review|improve/i.test(message))return 5;return 3;}
+async function callModel(config:ModelConfig,messages:any[],temperature=0.35){
+ const provider=config.provider??(config.model.startsWith("groq/")?"groq":"openrouter");
+ const key=provider==="groq"?Deno.env.get("GROQ_API_KEY")??"":OPENROUTER_KEY;
+ if(!key)throw new Error(provider+" API key not configured");
+ const endpoint=provider==="groq"?"https://api.groq.com/openai/v1/chat/completions":OPENROUTER_BASE+"/chat/completions";
+ const model=config.model.replace(/^groq\//,"");
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),30000);
+ try{const r=await fetch(endpoint,{method:"POST",headers:{"Authorization":"Bearer "+key,"Content-Type":"application/json",...(provider==="openrouter"?{"HTTP-Referer":"https://trean-ai.vercel.app","X-Title":"TREAN AI"}:{})},body:JSON.stringify({model,messages,temperature}),signal:controller.signal});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data?.error?.message??provider+" HTTP "+r.status);const text=data?.choices?.[0]?.message?.content;if(typeof text!=="string"||!text.trim())throw new Error("Model returned empty content");return {text,model:data.model??model,usage:data.usage,provider};}finally{clearTimeout(timer);}
+}
+async function collaborativeGenerate(message:string,history:any[],system:string){
+ const all=configuredModels().filter(m=>m.enabled!==false&&((m.provider??"openrouter")==="groq"?!!Deno.env.get("GROQ_API_KEY"):!!OPENROUTER_KEY)).slice(0,10);
+ if(!all.length)throw new Error("No AI provider keys are configured");
+ const count=Math.min(all.length,complexity(message));const selected=all.slice(0,count);
+ const common=[{role:"system",content:system},...history,{role:"user",content:message}];
+ if(selected.length===1){const r=await callModel(selected[0],common);return {answer:r.text,models:[{role:selected[0].role,model:r.model,provider:r.provider}],mode:"single",usage:r.usage};}
+ const prompts=["Solve the request as the primary expert. Provide a complete, accurate answer.","Analyze the request independently. Focus on reasoning, evidence, and important details.","Find errors, risks, missing requirements, and edge cases. Improve accuracy.","Create a practical, well-structured solution with clear steps and examples.","Consider alternative approaches and tradeoffs.","Focus on code, technical correctness, and implementation when applicable.","Focus on clarity, usability, and the user's actual goal.","Check assumptions and identify uncertainty. Avoid unsupported claims.","Suggest creative improvements and useful features.","Review the combined task for completeness and consistency."];
+ const results=await Promise.allSettled(selected.map((m,i)=>callModel(m,[...common,{role:"system",content:"Collaboration role: "+(m.role||prompts[i])+". Give your independent contribution; do not claim to see other model outputs."}])));
+ const contributions=results.map((r,i)=>r.status==="fulfilled"?{role:selected[i].role,model:r.value.model,provider:r.value.provider,text:r.value.text,usage:r.value.usage}:{role:selected[i].role,model:selected[i].model,error:r.reason instanceof Error?r.reason.message:"Provider failed"});
+ const successful=contributions.filter(x=>!x.error);if(!successful.length)throw new Error("All collaborative models failed: "+contributions.map(x=>x.error).join("; "));
+ if(successful.length===1)return {answer:successful[0].text,models:successful.map(x=>({role:x.role,model:x.model,provider:x.provider})),mode:"fallback-single",usage:successful[0].usage};
+ const synthModel=selected.find(m=>successful.some(x=>x.model===m.model))??selected[0];
+ const synth=await callModel(synthModel,[{role:"system",content:system+" You are TREAN AI's synthesis engine. Combine contributions, resolve contradictions, remove repetition, verify consistency and produce one polished user-facing answer. Do not reveal internal reasoning."},{role:"user",content:message+"\n\nIndependent model contributions:\n"+successful.map((x,i)=>"## Contribution "+(i+1)+" ("+x.role+", "+x.model+")\n"+x.text).join("\n\n")}],0.25);
+ return {answer:synth.text,models:successful.map(x=>({role:x.role,model:x.model,provider:x.provider})),mode:"collaborative-"+successful.length,usage:synth.usage};
+}
 const KEY=Deno.env.get("GEMINI_API_KEY")??"";
 const admin=()=>createClient(Deno.env.get("SUPABASE_URL")!,Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,{auth:{persistSession:false,autoRefreshToken:false}});
 function toBase64(bytes:Uint8Array){let binary="";for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));return btoa(binary);}
