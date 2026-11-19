@@ -919,3 +919,13 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
 .robot-smile-pulse{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(30px,7vw,46px);font-weight:800;color:#f5ddff;text-shadow:0 0 12px #a75bff,0 0 28px #a75bff;opacity:0;pointer-events:none;transform:scale(.5);transition:opacity .2s,transform .35s}
 .robot-gif.is-smiling .robot-smile-pulse{opacity:.9;transform:scale(1.18)}
 @keyframes robot-float{0%,100%{translate:0 0}50%{translate:0 -7px}}
+
+/* Robot companion: clean framing, no clipped silhouette or oversized stage */
+.robot-stage{min-height:250px;margin:8px auto 16px;padding:12px 0;overflow:visible}
+.robot-stage::before{width:240px;height:220px;opacity:.65}
+.robot-stage .robot-gif{width:min(62vw,230px);height:min(62vw,230px);max-width:230px;max-height:230px;margin:0 auto;display:grid;place-items:center;border:0;background:transparent;box-shadow:none;padding:0;overflow:visible;transform:none!important;transition:filter .25s ease;filter:drop-shadow(0 8px 22px #8f4dff55)}
+.robot-stage .robot-gif img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;animation:robot-soft-float 4s ease-in-out infinite;transform:none!important}
+.robot-stage .robot-gif.is-smiling{filter:drop-shadow(0 0 26px #d4a2ff) brightness(1.08) saturate(1.08)}
+@keyframes robot-soft-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(max-width:700px){.robot-stage{min-height:235px;margin:0 auto 12px;padding:6px 0}.robot-stage .robot-gif{width:min(58vw,205px);height:min(58vw,205px);max-width:205px;max-height:205px}}
+@media(prefers-reduced-motion:reduce){.robot-stage .robot-gif img{animation:none!important}}
