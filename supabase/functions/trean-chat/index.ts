@@ -29,7 +29,20 @@ async function callModel(config:ModelConfig,messages:any[],temperature=0.35){
  try{const r=await fetch(endpoint,{method:"POST",headers:{"Authorization":"Bearer "+key,"Content-Type":"application/json",...(provider==="openrouter"?{"HTTP-Referer":"https://trean-ai.vercel.app","X-Title":"TREAN AI"}:{})},body:JSON.stringify({model,messages,temperature}),signal:controller.signal});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data?.error?.message??provider+" HTTP "+r.status);const text=data?.choices?.[0]?.message?.content;if(typeof text!=="string"||!text.trim())throw new Error("Model returned empty content");return {text,model:data.model??model,usage:data.usage,provider};}finally{clearTimeout(timer);}
 }
 async function collaborativeGenerate(message:string,history:any[],system:string){
- const all=configuredModels().filter(m=>m.enabled!==false&&((m.provider??"openrouter")==="groq"?!!Deno.env.get("GROQ_API_KEY"):!!OPENROUTER_KEY)).slice(0,10);
+ async function discoverOpenRouterModels(){
+ if(!OPENROUTER_KEY)return [];
+ try{const r=await fetch(OPENROUTER_BASE+"/models",{headers:{Authorization:"Bearer "+OPENROUTER_KEY}});if(!r.ok)return [];
+ const data=await r.json();const models=(data.data??[]).filter((m:any)=>m?.id&&m?.architecture?.output_modalities?.includes("text")&&m?.pricing);
+ const preferred=["anthropic/","moonshotai/","kimi","deepseek/","google/","qwen/","openai/","meta-llama/","mistralai/","x-ai/"];
+ const score=(m:any)=>{const id=m.id.toLowerCase();let p=preferred.findIndex(x=>id.includes(x));const price=Number(m.pricing.prompt??0)+Number(m.pricing.completion??0);return (p<0?99:p)*1000+price*1000000;};
+ models.sort((x:any,y:any)=>score(x)-score(y));
+ const picked:any[]=[];const authors=new Set<string>();
+ for(const m of models){const author=m.id.split("/")[0];if(!authors.has(author)){picked.push({id:m.id,model:m.id,role:author,provider:"openrouter"});authors.add(author);}if(picked.length>=10)break;}
+ for(const m of models){if(picked.length>=10)break;if(!picked.some((x:any)=>x.model===m.id))picked.push({id:m.id,model:m.id,role:"specialist",provider:"openrouter"});}
+ return picked;
+ }catch(e){console.warn("model discovery failed",e);return [];}
+}
+const discovered=await discoverOpenRouterModels();const all=(discovered.length?discovered:configuredModels()).filter(m=>m.enabled!==false&&((m.provider??"openrouter")==="groq"?!!Deno.env.get("GROQ_API_KEY"):!!OPENROUTER_KEY)).slice(0,10);
  if(!all.length)throw new Error("No AI provider keys are configured");
  const count=Math.min(all.length,complexity(message));const selected=all.slice(0,count);
  const common=[{role:"system",content:system},...history.map((h:any)=>({role:h.role==="model"?"assistant":h.role,content:h.parts?.map((p:any)=>p.text??"").join("")??""}))];
@@ -120,7 +133,7 @@ Deno.serve(async(req)=>{
    if(!sources.length){const {data:v}=await sb.from("videos").select("title,transcript,youtube_url").eq("id",videoId).eq("user_id",user.id).single();if(v?.transcript)sources.push({source_type:"video_transcript",video_id:videoId,source_title:v.title??"Video transcript",source_url:v.youtube_url,excerpt:v.transcript.slice(0,12000),relevance_score:1});}
   }
   {
-   const {data:items,error}=await sb.rpc("search_knowledge_items",{query_embedding:JSON.stringify(vector),p_knowledge_ids:knowledgeIds.length?knowledgeIds:null,p_match_count:8});if(error)throw error;
+   const {data:items,error}=vector?await sb.rpc("search_knowledge_items",{query_embedding:JSON.stringify(vector),p_knowledge_ids:knowledgeIds.length?knowledgeIds:null,p_match_count:8}):{data:[],error:null};if(error)console.warn("knowledge search unavailable",error.message);
    for(const k of items??[])sources.push({source_type:"knowledge_item",knowledge_item_id:k.id,video_id:k.video_id,source_title:k.title,excerpt:k.content,relevance_score:k.similarity});
    if(!items?.length){const {data:k}=await sb.from("knowledge_items").select("id,video_id,title,content").eq("user_id",user.id).in("id",knowledgeIds).limit(10);for(const x of k??[])sources.push({source_type:"knowledge_item",knowledge_item_id:x.id,video_id:x.video_id,source_title:x.title,excerpt:x.content,relevance_score:1});}
   }
