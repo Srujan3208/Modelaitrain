@@ -1247,3 +1247,30 @@ svg.lucide{display:inline-block;flex:0 0 auto;vertical-align:middle;stroke-linec
  .app-shell.chat-mode .view{padding:14px!important}
 }
 @media(max-width:380px){.app-shell.chat-mode .chat-prompt-grid{grid-template-columns:1fr!important}.app-shell.chat-mode .chat-compose button:not(.primary){max-width:calc(100% - 48px)}}
+
+/* ChatGPT-style rich AI response rendering */
+.app-shell.chat-mode .response-content{max-width:78ch;overflow-wrap:anywhere}
+.app-shell.chat-mode .response-content h1,.app-shell.chat-mode .response-content h2,.app-shell.chat-mode .response-content h3,.app-shell.chat-mode .response-content h4{font-weight:750;letter-spacing:-.025em;line-height:1.35;margin:1.45em 0 .65em}
+.app-shell.chat-mode .response-content h1{font-size:1.45rem}.app-shell.chat-mode .response-content h2{font-size:1.25rem}.app-shell.chat-mode .response-content h3{font-size:1.1rem}.app-shell.chat-mode .response-content h4{font-size:1rem}
+.app-shell.chat-mode .response-content p{margin:0 0 1em;line-height:1.8}
+.app-shell.chat-mode .response-content ul,.app-shell.chat-mode .response-content ol{padding-left:1.45rem;margin:.55em 0 1.1em;display:block}
+.app-shell.chat-mode .response-content li{margin:.38em 0;line-height:1.75;padding-left:.15em}
+.app-shell.chat-mode .response-content li::marker{color:#a78bfa}
+.app-shell.chat-mode .response-content hr{border:0;border-top:1px solid rgba(160,130,210,.24);margin:1.5em 0}
+.app-shell.chat-mode .response-content .markdown-table-wrap{width:100%;overflow-x:auto;margin:1.1em 0;border:1px solid rgba(160,130,210,.22);border-radius:12px}
+.app-shell.chat-mode .response-content table{border-collapse:collapse;min-width:100%;font-size:.92em}
+.app-shell.chat-mode .response-content th,.app-shell.chat-mode .response-content td{padding:10px 13px;text-align:left;border-bottom:1px solid rgba(160,130,210,.2);vertical-align:top}
+.app-shell.chat-mode .response-content th{font-weight:700;background:rgba(145,108,205,.13)}
+.app-shell.chat-mode .response-content tr:last-child td{border-bottom:0}
+.app-shell.chat-mode .response-content .markdown-code-wrap{margin:1em 0 1.2em;border:1px solid rgba(160,130,210,.25);border-radius:14px;overflow:hidden;background:#100d18}
+.app-shell.chat-mode .response-content .markdown-code-toolbar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#1b1625;color:#b9a9d2;font-size:12px;border-bottom:1px solid rgba(160,130,210,.2)}
+.app-shell.chat-mode .response-content .markdown-copy{border:1px solid rgba(180,150,220,.3);background:transparent;color:#d8c9ee;border-radius:7px;padding:4px 9px;font-size:12px;cursor:pointer}
+.app-shell.chat-mode .response-content pre{margin:0;padding:15px;overflow:auto;max-width:100%;font-size:13px;line-height:1.65;tab-size:2}
+.app-shell.chat-mode .response-content pre code{display:block;background:transparent;border:0;padding:0;color:#e7ddf5;font-size:inherit;white-space:pre}
+.app-shell.chat-mode .response-content :not(pre)>code{white-space:break-spaces;word-break:break-word}
+.app-shell.chat-mode .response-content blockquote{margin:1em 0;padding:12px 16px;border-left:3px solid #9670d8;background:rgba(145,108,205,.09);border-radius:0 10px 10px 0}
+.app-shell.chat-mode .response-content blockquote p:last-child{margin-bottom:0}
+.app-shell.chat-mode .response-content .katex-display{overflow-x:auto;overflow-y:hidden;padding:.5em 0;margin:1em 0}
+.app-shell.chat-mode .response-content .hljs-keyword,.app-shell.chat-mode .response-content .hljs-selector-tag{color:#c792ea}.app-shell.chat-mode .response-content .hljs-string,.app-shell.chat-mode .response-content .hljs-attr{color:#c3e88d}.app-shell.chat-mode .response-content .hljs-number,.app-shell.chat-mode .response-content .hljs-literal{color:#f78c6c}.app-shell.chat-mode .response-content .hljs-comment{color:#82748e}.app-shell.chat-mode .response-content .hljs-title,.app-shell.chat-mode .response-content .hljs-function{color:#82aaff}
+.app-shell.chat-mode.theme-light .response-content .markdown-code-wrap{background:#f4f0f8}.app-shell.chat-mode.theme-light .response-content .markdown-code-toolbar{background:#ebe4f3;color:#55436b}.app-shell.chat-mode.theme-light .response-content pre code{color:#30223e}.app-shell.chat-mode.theme-light .response-content .markdown-copy{color:#55436b;border-color:#cfc0df}
+@media(max-width:700px){.app-shell.chat-mode .response-content{font-size:15px;line-height:1.78}.app-shell.chat-mode .response-content pre{font-size:12px;padding:12px}.app-shell.chat-mode .response-content th,.app-shell.chat-mode .response-content td{padding:8px 10px}}
