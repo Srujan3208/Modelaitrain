@@ -146,7 +146,7 @@ export default function Home(){
  const addVideo=async(e)=>{
   e.preventDefault();
   if(!supabaseUser){setScreen("auth");setAuthMode("Sign In");say("Sign in before saving a video.");return}
-  const match=url.match(/(?:youtu\\.be\\/|youtube\\.com\\/(?:watch\\?v=|embed\\/|shorts\\/|live\\/))([A-Za-z0-9_-]{11})/);
+  let videoId=null;try{const parsed=new URL(url.trim());if(parsed.hostname==="youtu.be")videoId=parsed.pathname.split("/").filter(Boolean)[0];else if(parsed.hostname.endsWith("youtube.com"))videoId=parsed.searchParams.get("v")||parsed.pathname.split("/").filter(Boolean).find((part,i,arr)=>["embed","shorts","live"].includes(arr[i-1]));}catch{} const match=videoId&&/^[A-Za-z0-9_-]{11}$/.test(videoId)?[url,videoId]:null;
   if(!match){say("Enter a valid YouTube video URL.");return}
   setAuthBusy(true);
   try{
