@@ -72,7 +72,7 @@ async function processOne(db:any,job:any,key:string){
 Deno.serve(async(req)=>{
  if(req.method==="OPTIONS")return new Response("ok",{headers:cors});if(req.method!=="POST")return json({error:"POST required"},405);
  const workerToken=req.headers.get("x-worker-secret");let scheduled=false,userId:string|null=null,videoId:string|null=null;
- if(workerToken){const {data:valid,error}=await anonClient().rpc("validate_video_worker_secret",{p_token:workerToken});if(error||valid!==true)return json({error:"Invalid worker credential"},401);scheduled=true;}
+ if(workerToken){const {data:valid,error}=await admin().rpc("validate_video_worker_secret",{p_token:workerToken});if(error||valid!==true)return json({error:"Invalid worker credential"},401);scheduled=true;}
  else{
   const auth=req.headers.get("Authorization")??"";if(!auth.startsWith("Bearer "))return json({error:"Authentication required"},401);
   const {data:{user},error}=await anonClient().auth.getUser(auth.slice(7));if(error||!user)return json({error:"Unauthorized"},401);userId=user.id;
