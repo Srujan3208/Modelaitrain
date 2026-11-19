@@ -1933,3 +1933,10 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
 .theme-light.chat-mode .trean-root .chat-compose textarea::placeholder {color:#8b829d!important}
 .theme-light.chat-mode .trean-root .chat-prompt-grid button {background:#fff!important;color:#241b3c!important;border-color:#e2d7f4!important}
 .theme-light.chat-mode .trean-root .chat-message.user {background:#eee7ff!important;color:#241b3c!important}
+
+
+/* FINAL MOBILE FIX: keep composer immediately above the Android system navigation bar */
+@media(max-width:900px){
+ .trean-root .chat-compose{bottom:calc(4px + env(safe-area-inset-bottom))!important;left:8px!important;right:8px!important;}
+ .trean-root .chat-welcome,.trean-root .chat-transcript{padding-bottom:calc(100px + env(safe-area-inset-bottom))!important;}
+}
