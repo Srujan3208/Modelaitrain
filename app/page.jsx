@@ -161,7 +161,7 @@ export default function Home(){
    const v=meta.video;
    const {data,error}=await supabase.from("videos").insert({user_id:supabaseUser.id,youtube_video_id:v.youtube_video_id,youtube_url:v.youtube_url,title:v.title,channel_name:v.channel_name,thumbnail_url:v.thumbnail_url,duration_seconds:v.duration_seconds,status:"pending"}).select().single();
    if(error)throw error;
-   setVideos(x=>[data,...x]);setUrl("");say("YouTube video details fetched and saved to your learning library.");
+   setVideos(x=>[data,...x]);setUrl("");say("Video saved. Processing has started…");supabase.functions.invoke("process-video",{body:{video_id:data.id}}).then(({data:result,error:workerError})=>{if(workerError||result?.error)say("Video saved, but processing failed to start. Check processing status and retry.");else if(result?.success)say("Video processing completed successfully.");}).catch(()=>say("Video saved. Processing will retry automatically if the worker is unavailable."));
   }catch(err){say(err.message||"Could not fetch YouTube video. Check API configuration and video URL.")}
   finally{setAuthBusy(false)}
  };
