@@ -1791,3 +1791,17 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .trean-root .chat-welcome,.trean-root .chat-transcript{padding-bottom:220px!important;}
 }
 @media(max-width:480px){.trean-root .chat-compose{left:8px!important;right:8px!important;bottom:calc(112px + env(safe-area-inset-bottom))!important;}}
+
+
+/* MOBILE CHAT: keep composer pinned above bottom navigation; scroll only conversation */
+@media(max-width:900px){
+ .trean-root .chat-page.chatgpt-style{height:calc(100dvh - 140px)!important;min-height:0!important;overflow:hidden!important;position:relative!important;display:flex!important;flex-direction:column!important;}
+ .trean-root .chat-welcome,.trean-root .chat-transcript{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding:12px 14px calc(230px + env(safe-area-inset-bottom))!important;}
+ .trean-root .chat-compose{position:fixed!important;left:10px!important;right:10px!important;bottom:calc(76px + env(safe-area-inset-bottom))!important;top:auto!important;margin:0!important;transform:none!important;width:auto!important;max-width:none!important;z-index:1000!important;}
+ .trean-root .chat-compose-main{display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px!important;align-items:end!important;gap:8px!important;}
+ .trean-root .chat-compose-main textarea{width:100%!important;min-width:0!important;min-height:48px!important;max-height:130px!important;}
+ .trean-root .chat-compose-main .chat-attach-button,.trean-root .chat-compose-main .primary{width:44px!important;height:44px!important;min-width:44px!important;}
+ .trean-root .chat-compose-footer{display:flex!important;justify-content:flex-start!important;padding-top:8px!important;gap:8px!important;}
+ .trean-root .mobile-nav{position:fixed!important;left:0!important;right:0!important;bottom:0!important;z-index:90!important;}
+}
+@media(max-width:480px){.trean-root .chat-compose{left:8px!important;right:8px!important;bottom:calc(76px + env(safe-area-inset-bottom))!important;}}
