@@ -4,7 +4,7 @@ const cors={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"au
 const json=(body:unknown,status=200)=>new Response(JSON.stringify(body),{status,headers:{...cors,"Content-Type":"application/json"}});
 const KEY=Deno.env.get("GEMINI_API_KEY")??"";
 // Gemini model IDs are configurable so a model retirement never requires editing application code.
-const MODEL=Deno.env.get("TREAN_CHAT_MODEL")??"gemini-2.5-flash";
+const MODEL="gemini-3.8-flash";
 const EMBED=Deno.env.get("TREAN_EMBEDDING_MODEL")??"gemini-embedding-001";
 const GEMINI_TIMEOUT_MS=Number(Deno.env.get("TREAN_GEMINI_TIMEOUT_MS")??"10000");
 const RETRYABLE_STATUS=new Set([408,429,500,502,503,504]);
@@ -12,7 +12,7 @@ const sleep=(ms:number)=>new Promise(resolve=>setTimeout(resolve,ms));
 async function gemini(path:string,body:unknown){
  const isGeneration=path.endsWith(":generateContent");
  // Capacity errors and timeouts fail over immediately instead of repeating a slow request.
- const models=isGeneration?[MODEL,"gemini-2.5-flash-lite"].filter((m,i,a)=>a.indexOf(m)===i):[path.split(":")[0]];
+ const models=isGeneration?[MODEL,"gemini-3.5-flash-lite"].filter((m,i,a)=>a.indexOf(m)===i):[path.split(":")[0]];
  let lastError="Gemini provider request failed";
  for(const model of models){
   const endpoint=isGeneration?model+":"+path.split(":").pop():path;
