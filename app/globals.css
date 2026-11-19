@@ -1841,3 +1841,95 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .trean-root .mobile-nav{position:fixed!important;left:0!important;right:0!important;bottom:0!important;z-index:90!important}
 }
 @media(max-width:480px){.trean-root .chat-compose{left:8px!important;right:8px!important;bottom:8px!important}.trean-root .chat-welcome,.trean-root .chat-transcript{padding-left:12px!important;padding-right:12px!important}}
+
+
+/* TREAN AI final dark-card + chat composer correction */
+.theme-dark .trean-root .history-section,
+.theme-dark .trean-root .history-list article,
+.theme-dark .trean-root .video-card,
+.theme-dark .trean-root .activity-card,
+.theme-dark .trean-root .chat-history-chip,
+.theme-dark .trean-root .chat-prompt-grid button,
+.theme-dark .trean-root .learn-card,
+.theme-dark .trean-root .dashboard-card,
+.theme-dark .trean-root .library-card,
+.theme-dark .trean-root .knowledge-card,
+.theme-dark .trean-root .stat,
+.theme-dark .trean-root .quick-actions,
+.theme-dark .trean-root .profile-card,
+.theme-dark .trean-root .profile-details,
+.theme-dark .trean-root .settings-panel,
+.theme-dark .trean-root .settings-nav,
+.theme-dark .trean-root .empty-state,
+.theme-dark .trean-root .url-form,
+.theme-dark .trean-root .filter-row input,
+.theme-dark .trean-root .filter-row select,
+.theme-dark .trean-root .search-field {
+  background-color:#171226!important;
+  color:#f5f0ff!important;
+  border-color:rgba(166,126,235,.22)!important;
+}
+.theme-dark .trean-root .history-list article:hover,
+.theme-dark .trean-root .chat-history-chip:hover,
+.theme-dark .trean-root .chat-prompt-grid button:hover {
+  background-color:#211735!important;
+  border-color:rgba(174,130,255,.42)!important;
+  box-shadow:0 0 22px rgba(124,58,237,.12)!important;
+}
+.theme-dark .trean-root .history-item-main b,
+.theme-dark .trean-root .chat-history-chip>button:first-child,
+.theme-dark .trean-root .chat-prompt-grid button,
+.theme-dark .trean-root .history-section h2,
+.theme-dark .trean-root .history-section h3 {color:#f5f0ff!important}
+.theme-dark .trean-root .history-item-main small,
+.theme-dark .trean-root .chat-history-label {color:#b9add0!important}
+.theme-dark .trean-root .history-item-icon,
+.theme-dark .trean-root .chat-history-chip .history-item-icon {background:#291b43!important;color:#b995ff!important}
+.theme-dark.chat-mode .trean-root .chat-page.chatgpt-style {background:transparent!important}
+.theme-dark.chat-mode .trean-root .chat-compose {
+  background:rgba(20,15,31,.98)!important;
+  border:1px solid rgba(168,126,240,.32)!important;
+  color:#f5f0ff!important;
+  box-shadow:0 12px 34px rgba(0,0,0,.38),0 0 20px rgba(116,54,220,.08)!important;
+}
+.theme-dark.chat-mode .trean-root .chat-compose textarea {
+  color:#f7f2ff!important;background:transparent!important;
+}
+.theme-dark.chat-mode .trean-root .chat-compose textarea::placeholder {color:#817792!important}
+.theme-dark.chat-mode .trean-root .chat-compose .chat-attach-button,
+.theme-dark.chat-mode .trean-root .chat-compose-footer button {
+  background:#211832!important;border-color:#3c2c57!important;color:#c9b3ef!important;
+}
+.theme-dark.chat-mode .trean-root .chat-message.user {
+  background:#241936!important;border-color:#3e2b59!important;color:#f5f0ff!important;
+}
+.theme-dark.chat-mode .trean-root .chat-prompt-grid button {
+  background:#171226!important;border-color:#3b2b56!important;color:#f4efff!important;
+}
+.theme-dark.chat-mode .trean-root .chat-prompt-grid button>span {
+  background:#281a42!important;color:#c4a0ff!important;
+}
+/* Mobile chat: viewport owns the composer, transcript/welcome alone scroll */
+@media(max-width:900px){
+  .trean-root .app-shell.chat-mode {height:100dvh!important;min-height:100dvh!important;overflow:hidden!important}
+  .trean-root .app-shell.chat-mode .app-content {min-height:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
+  .trean-root .app-shell.chat-mode .view {min-height:0!important;flex:1 1 auto!important;overflow:hidden!important;padding:0!important}
+  .trean-root .chat-page.chatgpt-style {height:100%!important;min-height:0!important;max-height:none!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;position:relative!important;gap:0!important}
+  .trean-root .chat-welcome,.trean-root .chat-transcript {flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding:12px 12px calc(240px + env(safe-area-inset-bottom))!important}
+  .trean-root .chat-compose {position:fixed!important;left:10px!important;right:10px!important;bottom:calc(86px + env(safe-area-inset-bottom))!important;top:auto!important;transform:none!important;width:auto!important;max-width:none!important;margin:0!important;z-index:100!important;box-sizing:border-box!important;border-radius:26px!important;padding:11px 12px!important}
+  .trean-root .chat-compose-main {display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px!important;align-items:end!important;gap:8px!important}
+  .trean-root .chat-compose-main textarea {min-width:0!important;width:100%!important;min-height:48px!important;max-height:120px!important;resize:none!important;font-size:16px!important;line-height:1.4!important;padding:10px 4px!important}
+  .trean-root .chat-compose-main .chat-attach-button,.trean-root .chat-compose-main .primary {width:44px!important;height:44px!important;min-width:44px!important;flex:0 0 44px!important;border-radius:15px!important}
+  .trean-root .chat-compose-footer {display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:8px!important;padding-top:8px!important}
+  .trean-root .chat-compose-footer button {min-height:34px!important;padding:6px 11px!important}
+  .trean-root .mobile-nav {position:fixed!important;left:0!important;right:0!important;bottom:0!important;z-index:90!important}
+}
+@media(max-width:480px){
+  .trean-root .chat-compose {left:8px!important;right:8px!important}
+  .trean-root .chat-welcome,.trean-root .chat-transcript {padding-left:12px!important;padding-right:12px!important}
+}
+.theme-light.chat-mode .trean-root .chat-compose {background:rgba(255,255,255,.97)!important;border-color:#ddd0f4!important;color:#241b3c!important}
+.theme-light.chat-mode .trean-root .chat-compose textarea {color:#241b3c!important;background:transparent!important}
+.theme-light.chat-mode .trean-root .chat-compose textarea::placeholder {color:#8b829d!important}
+.theme-light.chat-mode .trean-root .chat-prompt-grid button {background:#fff!important;color:#241b3c!important;border-color:#e2d7f4!important}
+.theme-light.chat-mode .trean-root .chat-message.user {background:#eee7ff!important;color:#241b3c!important}
