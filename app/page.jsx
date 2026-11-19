@@ -97,7 +97,7 @@ function LaptopArt(){return <div className="laptop-illustration"><div className=
 function Empty({icon,title,desc,action,onClick}){return <div className="empty-state"><span className="empty-icon"><AppIcon name={icon} size={25}/></span><h3>{title}</h3><p>{desc}</p>{action&&<button className="primary" onClick={onClick}>{action} →</button>}</div>}
 export default function Home(){
  const [screen,setScreen]=useState("app"),[active,setActive]=useState("chat"),[theme,setTheme]=useState("dark"),[menuOpen,setMenuOpen]=useState(false),[more,setMore]=useState(false),[tab,setTab]=useState("All Sources"),[setting,setSetting]=useState("Account"),[url,setUrl]=useState(""),[question,setQuestion]=useState(""),[authMode,setAuthMode]=useState("Sign In");
- const [email,setEmail]=useState(""),[password,setPassword]=useState(""),[toast,setToast]=useState(""),[supabaseUser,setSupabaseUser]=useState(null),[authBusy,setAuthBusy]=useState(false),[videos,setVideos]=useState([]),[knowledge,setKnowledge]=useState([]),[authReady,setAuthReady]=useState(false),[chatSessions,setChatSessions]=useState([]),[chatMessages,setChatMessages]=useState([]),[activeChatSession,setActiveChatSession]=useState(null),[chatBusy,setChatBusy]=useState(false),[chatSources,setChatSources]=useState({}),[selectedVideo,setSelectedVideo]=useState(""),[selectedKnowledge,setSelectedKnowledge]=useState([]),[chatAttachments,setChatAttachments]=useState([]),[playlistUrl,setPlaylistUrl]=useState(""),[playlistMode,setPlaylistMode]=useState(false);const processingTriggered=useRef(new Set()),chatFileInput=useRef(null);
+ const [email,setEmail]=useState(""),[password,setPassword]=useState(""),[toast,setToast]=useState(""),[supabaseUser,setSupabaseUser]=useState(null),[authBusy,setAuthBusy]=useState(false),[videos,setVideos]=useState([]),[knowledge,setKnowledge]=useState([]),[authReady,setAuthReady]=useState(false),[chatSessions,setChatSessions]=useState([]),[chatMessages,setChatMessages]=useState([]),[activeChatSession,setActiveChatSession]=useState(null),[chatBusy,setChatBusy]=useState(false),[chatSources,setChatSources]=useState({}),[selectedVideo,setSelectedVideo]=useState(""),[selectedKnowledge,setSelectedKnowledge]=useState([]),[chatAttachments,setChatAttachments]=useState([]),[playlistUrl,setPlaylistUrl]=useState(""),[playlistMode,setPlaylistMode]=useState(false),[playlistBusy,setPlaylistBusy]=useState(false);const processingTriggered=useRef(new Set()),chatFileInput=useRef(null);
  const say=(m)=>{setToast(m);setTimeout(()=>setToast(""),2500)};
  useEffect(()=>{try{const saved=localStorage.getItem("trean-theme");if(saved==="light"||saved==="dark")setTheme(saved)}catch{}},[]);
  useEffect(()=>{try{localStorage.setItem("trean-theme",theme)}catch{}},[theme]);
@@ -180,7 +180,32 @@ export default function Home(){
   }catch(err){say(err.message||"Could not fetch YouTube video. Check API configuration and video URL.")}
   finally{setAuthBusy(false)}
  };
- return <main className="trean-root">
+ const addPlaylist=async(e)=>{
+   e.preventDefault();if(!supabaseUser){setScreen("auth");setAuthMode("Sign In");say("Sign in before importing a playlist.");return;}
+   let playlistId="";try{const parsed=new URL(playlistUrl.trim());playlistId=parsed.searchParams.get("list")||"";}catch{}
+   if(!/^[A-Za-z0-9_-]{10,80}$/.test(playlistId)){say("Paste a valid YouTube playlist URL containing list=...");return;}
+   setPlaylistBusy(true);
+   try{
+    const {data:meta,error:metaError}=await getSupabase().functions.invoke("youtube-metadata",{body:{playlistId}});
+    if(metaError)throw metaError;if(meta?.error)throw new Error(meta.error);
+    const p=meta.playlist,videosInPlaylist=Array.isArray(meta.videos)?meta.videos:[];
+    if(!videosInPlaylist.length)throw new Error("No importable videos were found in this playlist.");
+    const {data:playlist,error:playlistError}=await getSupabase().from("video_playlists").upsert({user_id:supabaseUser.id,youtube_playlist_id:p.id,title:p.title,channel_name:p.channel_name,thumbnail_url:p.thumbnail_url,total_videos:p.total_videos,status:"processing"},{onConflict:"user_id,youtube_playlist_id"}).select("id").single();
+    if(playlistError)throw playlistError;
+    const rows=videosInPlaylist.map(v=>({user_id:supabaseUser.id,youtube_video_id:v.youtube_video_id,youtube_url:v.youtube_url,title:v.title,channel_name:v.channel_name,thumbnail_url:v.thumbnail_url,duration_seconds:v.duration_seconds,status:"pending"}));
+    const {error:videoError}=await getSupabase().from("videos").upsert(rows,{onConflict:"user_id,youtube_video_id",ignoreDuplicates:true});if(videoError)throw videoError;
+    const ids=videosInPlaylist.map(v=>v.youtube_video_id);
+    const {data:savedVideos,error:lookupError}=await getSupabase().from("videos").select("id,youtube_video_id").eq("user_id",supabaseUser.id).in("youtube_video_id",ids);if(lookupError)throw lookupError;
+    const order=new Map(videosInPlaylist.map((v,i)=>[v.youtube_video_id,i]));
+    const links=(savedVideos||[]).map(v=>({playlist_id:playlist.id,video_id:v.id,user_id:supabaseUser.id,position:order.get(v.youtube_video_id)??0}));
+    if(links.length){const {error:linkError}=await getSupabase().from("video_playlist_items").upsert(links,{onConflict:"playlist_id,video_id",ignoreDuplicates:true});if(linkError)throw linkError;}
+    await getSupabase().from("video_playlists").update({status:"active",total_videos:links.length,updated_at:new Date().toISOString()}).eq("id",playlist.id).eq("user_id",supabaseUser.id);
+    const {data:refreshed}=await getSupabase().from("videos").select("id,title,channel_name,thumbnail_url,youtube_url,status,duration_seconds,created_at,processing_stage,processing_progress,last_error").eq("user_id",supabaseUser.id).order("created_at",{ascending:false});
+    if(refreshed)setVideos(refreshed);setPlaylistUrl("");say("Imported "+links.length+" playlist videos. Background processing is queued.");
+   }catch(err){say(err.message||"Playlist import failed.");}
+   finally{setPlaylistBusy(false);}
+  };
+  return <main className="trean-root">
  {screen==="landing"&&<div className="landing">
   <header className="landing-header"><Logo/><nav><a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#about">About</a></nav><div><button className="outline-light" onClick={()=>{setAuthMode("Sign In");setScreen("auth")}}>Log in</button><button className="primary" onClick={()=>{setAuthMode("Sign Up");setScreen("auth")}}>Get Started</button></div></header>
   <section className="landing-hero"><div className="landing-copy"><span className="pill-light">Persistent Learning Agent</span><h1>Turn YouTube Videos into Your Personal Knowledge</h1><p>Learn, summarize, ask questions, and build a searchable knowledge base from any educational video.</p><div className="landing-actions"><button className="primary" onClick={()=>{setAuthMode("Sign Up");setScreen("auth")}}>Get Started Free →</button><button className="outline-light" onClick={()=>document.getElementById("how")?.scrollIntoView({behavior:"smooth"})}>▷ Watch Demo</button></div><div className="landing-points"><span>▣ Video to Knowledge Instantly</span><span>✧ AI-Powered Q&A</span><span>▤ Summaries & Key Concepts</span><span>♧ Personal Knowledge Base</span></div></div><div className="landing-art"><LaptopArt/><div className="float-card float-one">✧ AI Summary<br/><small>Key ideas extracted</small></div><div className="float-card float-two">▶ Video processed<br/><small>Ready to learn</small></div></div></section>
