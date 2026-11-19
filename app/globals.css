@@ -1597,3 +1597,27 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
 .trean-root .chat-history-strip{padding-bottom:calc(18px + env(safe-area-inset-bottom))!important}
 @media(max-width:900px){.trean-root .chat-page.chatgpt-style{height:calc(100dvh - 150px)!important}.trean-root .chat-welcome{padding:12px 12px 24px!important}.trean-root .chat-welcome .robot-stage{transform:scale(.68)!important;margin-bottom:-12px!important}.trean-root .chat-welcome h1{font-size:clamp(25px,7vw,32px)!important}.trean-root .chat-prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;margin-top:20px!important}.trean-root .chat-prompt-grid button{min-height:62px!important;padding:11px!important;font-size:12px!important}.trean-root .chat-compose{margin:0 8px 8px!important;width:calc(100% - 16px)!important;bottom:0!important;padding:12px!important;border-radius:24px!important}.trean-root .chat-compose-main textarea{min-height:88px!important;max-height:180px!important;font-size:16px!important}.trean-root .chat-compose-footer button{font-size:12px!important}.trean-root .chat-transcript{padding-bottom:20px!important}}
 @media(max-width:480px){.trean-root .chat-page.chatgpt-style{height:calc(100dvh - 155px)!important}.trean-root .chat-compose{padding:10px 12px!important}.trean-root .chat-compose-main textarea{min-height:80px!important}.trean-root .chat-compose-main .primary{width:46px!important;height:46px!important;min-width:46px!important}.trean-root .chat-prompt-grid{grid-template-columns:1fr!important}}
+
+/* Composer sizing, deletion confirmation, and auth recovery */
+.trean-root .chat-compose{width:min(100%,900px);padding:14px 16px;border-radius:26px;gap:10px}
+.trean-root .chat-compose-main textarea{min-height:58px;max-height:220px;resize:none;overflow-y:auto;line-height:1.55;padding:13px 10px;font-size:16px}
+.trean-root .chat-compose-main{gap:12px;align-items:flex-end}
+.trean-root .chat-compose-main .chat-attach-button{width:48px;height:48px;flex:0 0 48px;border-radius:50%}
+.trean-root .chat-compose-main .primary{width:48px;height:48px;flex:0 0 48px;border-radius:16px}
+.trean-root .chat-compose-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.trean-root .chat-delete-button{display:grid!important;place-items:center;color:var(--muted);border:0;background:transparent}
+.trean-root .chat-delete-button:hover{color:#ef4444;background:rgba(239,68,68,.10)}
+.trean-root .chat-delete-modal-backdrop{position:fixed;inset:0;z-index:2000;background:rgba(5,4,10,.62);backdrop-filter:blur(5px);display:grid;place-items:center;padding:20px}
+.trean-root .chat-delete-modal{width:min(100%,390px);padding:24px;border-radius:22px;background:var(--surface,#1b1729);border:1px solid rgba(145,110,205,.22);box-shadow:0 30px 90px rgba(0,0,0,.4)}
+.trean-root .chat-delete-icon{width:42px;height:42px;border-radius:13px;background:rgba(239,68,68,.12);color:#ef4444;display:grid;place-items:center}
+.trean-root .chat-delete-modal h3{margin:15px 0 8px;font-size:19px}
+.trean-root .chat-delete-modal p{color:var(--muted);font-size:14px;line-height:1.6}
+.trean-root .chat-delete-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+.trean-root .chat-delete-actions button{padding:11px 16px;border-radius:12px}
+.trean-root .chat-delete-actions .danger{background:#dc2626;color:#fff;border:0}
+.trean-root .auth-forgot{text-align:right;margin:0 0 8px!important}
+.trean-root .auth-forgot button{background:none;border:0;color:var(--purple2);font-weight:650;cursor:pointer}
+.trean-root .auth-card form{gap:12px}
+.trean-root .auth-card input{min-height:50px}
+@media(max-width:900px){.trean-root .chat-compose{position:fixed;left:12px;right:12px;bottom:calc(72px + env(safe-area-inset-bottom));width:auto;max-width:none;margin:0;padding:12px 13px;border-radius:25px;z-index:50;background:var(--surface,#171322);box-shadow:0 18px 55px rgba(0,0,0,.35)}.trean-root .chat-compose-main textarea{min-height:60px;font-size:16px}.trean-root .chat-transcript{padding-bottom:240px!important}.trean-root .chat-welcome{padding-bottom:260px!important}.trean-root .chat-compose-footer button:last-child{display:none}.trean-root .chat-compose-footer{justify-content:flex-start}.trean-root .chat-delete-button{opacity:1!important}}
+@media(max-width:480px){.trean-root .chat-compose{left:8px;right:8px;padding:10px;border-radius:22px}.trean-root .chat-compose-main .chat-attach-button,.trean-root .chat-compose-main .primary{width:44px;height:44px;flex-basis:44px}.trean-root .chat-compose-main textarea{min-height:54px;padding:10px 5px}.trean-root .chat-compose-footer{padding-top:4px}}
