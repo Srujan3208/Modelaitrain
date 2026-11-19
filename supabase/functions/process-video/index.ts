@@ -37,16 +37,22 @@ async function captions(videoId:string){
    try{const transcript=await parseTimedTextResponse(await fetch(url.toString(),{headers}));if(transcript.length>80)return transcript;}catch{}
   }
  }
- throw new Error("No accessible English captions were found. This YouTube video may not expose manual or auto-generated captions to external processing.");
+ return ""; // Captions unavailable: fall back to Gemini multimodal YouTube processing.
+}
+async function transcribeFromVideo(videoUrl:string,key:string){
+ const models=["gemini-3.8-flash","gemini-3.6-flash","gemini-3.1-flash-lite"];let last="";
+ const prompt="You are transcribing an educational video for a learning system. Carefully listen to the entire video audio. Produce a faithful, detailed transcript in the spoken language, preserving technical terms, code identifiers, formulas, examples and explanations. Include timestamps approximately every 30-60 seconds when possible. Do not invent speech. If audio is unclear, mark [unclear]. After the transcript, add a separate section called VIDEO CONTEXT with important visible slides, code, diagrams or demonstrations that complement the audio. If the video is too long to fully process, clearly state the covered time range and do not pretend it is complete.";
+ for(const model of models){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),120000);try{const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+model+":generateContent",{method:"POST",headers:{"Content-Type":"application/json","X-goog-api-key":key},body:JSON.stringify({contents:[{parts:[{fileData:{fileUri:videoUrl,mimeType:"video/*"}},{text:prompt}]}],generationConfig:{temperature:0.1}}),signal:controller.signal});const d=await r.json();if(!r.ok){last=d.error?.message??"Multimodal video transcription failed";continue;}const text=d.candidates?.[0]?.content?.parts?.map((p:any)=>p.text??"").join("").trim();if(text&&text.length>100)return text;last="Gemini returned an incomplete transcript";}catch(e){last=e instanceof Error?e.message:"Video transcription failed";}finally{clearTimeout(timer);}}
+ throw new Error("Captions unavailable and AI video/audio transcription failed: "+last);
 }
 async function processOne(db:any,job:any,key:string){
  const {data:video,error}=await db.from("videos").select("id,user_id,youtube_video_id,title,youtube_url").eq("id",job.video_id).eq("user_id",job.user_id).single();
  if(error||!video)throw new Error("Video not found or ownership mismatch");
  await db.from("videos").update({status:"processing",processing_stage:"extracting_transcript",processing_progress:10,updated_at:new Date().toISOString(),last_error:null}).eq("id",video.id).eq("user_id",video.user_id);
- const transcript=await captions(video.youtube_video_id);const chunks:string[]=[];for(let i=0;i<transcript.length;i+=1800)chunks.push(transcript.slice(i,i+1800));
- const {error:transcriptError}=await db.from("videos").update({transcript,transcript_status:"available",transcript_source:"youtube_timedtext",transcript_fetched_at:new Date().toISOString(),processing_stage:"chunking",processing_progress:30,updated_at:new Date().toISOString()}).eq("id",video.id).eq("user_id",video.user_id);if(transcriptError)throw transcriptError;
+ let transcript=await captions(video.youtube_video_id);let transcriptSource="youtube_timedtext";if(!transcript){transcript=await transcribeFromVideo(video.youtube_url||("https://www.youtube.com/watch?v="+video.youtube_video_id),key);transcriptSource="gemini_multimodal_video";}const chunks:string[]=[];for(let i=0;i<transcript.length;i+=1800)chunks.push(transcript.slice(i,i+1800));
+ const {error:transcriptError}=await db.from("videos").update({transcript,transcript_status:"available",transcript_source:transcriptSource,transcript_fetched_at:new Date().toISOString(),processing_stage:"chunking",processing_progress:30,updated_at:new Date().toISOString()}).eq("id",video.id).eq("user_id",video.user_id);if(transcriptError)throw transcriptError;
  const {error:deleteChunks}=await db.from("transcript_chunks").delete().eq("video_id",video.id);if(deleteChunks)throw deleteChunks;
- const rows=chunks.map((content,i)=>({video_id:video.id,chunk_index:i,content,language:"en",token_count:Math.ceil(content.length/4),metadata:{source:"youtube_timedtext"}}));
+ const rows=chunks.map((content,i)=>({video_id:video.id,chunk_index:i,content,language:"en",token_count:Math.ceil(content.length/4),metadata:{source:transcriptSource}}));
  const {error:insertChunks}=await db.from("transcript_chunks").insert(rows);if(insertChunks)throw insertChunks;
  await db.from("videos").update({processing_stage:"generating_embeddings",processing_progress:45,updated_at:new Date().toISOString()}).eq("id",video.id);
  for(let start=0;start<chunks.length;start+=4){await Promise.all(chunks.slice(start,start+4).map(async(chunk,offset)=>{const index=start+offset;const vector=await embed(key,chunk);const {error}=await db.from("transcript_chunks").update({embedding:vector,embedding_model:"gemini-embedding-001",embedding_version:"v1"}).eq("video_id",video.id).eq("chunk_index",index);if(error)throw error;}));}
