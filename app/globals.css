@@ -1621,3 +1621,32 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
 .trean-root .auth-card input{min-height:50px}
 @media(max-width:900px){.trean-root .chat-compose{position:fixed;left:12px;right:12px;bottom:calc(72px + env(safe-area-inset-bottom));width:auto;max-width:none;margin:0;padding:12px 13px;border-radius:25px;z-index:50;background:var(--surface,#171322);box-shadow:0 18px 55px rgba(0,0,0,.35)}.trean-root .chat-compose-main textarea{min-height:60px;font-size:16px}.trean-root .chat-transcript{padding-bottom:240px!important}.trean-root .chat-welcome{padding-bottom:260px!important}.trean-root .chat-compose-footer button:last-child{display:none}.trean-root .chat-compose-footer{justify-content:flex-start}.trean-root .chat-delete-button{opacity:1!important}}
 @media(max-width:480px){.trean-root .chat-compose{left:8px;right:8px;padding:10px;border-radius:22px}.trean-root .chat-compose-main .chat-attach-button,.trean-root .chat-compose-main .primary{width:44px;height:44px;flex-basis:44px}.trean-root .chat-compose-main textarea{min-height:54px;padding:10px 5px}.trean-root .chat-compose-footer{padding-top:4px}}
+
+/* FINAL MOBILE AI CHAT LAYOUT FIX */
+@media(max-width:900px){
+ .trean-root .chat-page.chatgpt-style{display:block!important;position:relative!important;height:calc(100dvh - 155px)!important;min-height:0!important;overflow:hidden!important;padding:0!important}
+ .trean-root .chat-welcome,.trean-root .chat-transcript{height:100%!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding:12px 14px 210px!important;box-sizing:border-box!important}
+ .trean-root .chat-welcome{justify-content:flex-start!important}
+ .trean-root .chat-welcome .robot-stage{transform:scale(.58)!important;margin:0 0 -22px!important}
+ .trean-root .chat-welcome h1{font-size:clamp(25px,7vw,31px)!important;margin:4px 0 8px!important}
+ .trean-root .chat-welcome>p{font-size:13px!important;line-height:1.5!important}
+ .trean-root .chat-prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important;margin-top:18px!important}
+ .trean-root .chat-prompt-grid button{min-height:76px!important;padding:12px!important;display:flex!important;align-items:center!important;gap:8px!important;font-size:12px!important;text-align:left!important}
+ .trean-root .chat-compose{position:fixed!important;left:12px!important;right:12px!important;bottom:calc(76px + env(safe-area-inset-bottom))!important;width:auto!important;max-width:none!important;margin:0!important;z-index:100!important;display:block!important;padding:10px 12px!important;border-radius:23px!important;background:var(--surface,#171322)!important;box-shadow:0 12px 38px rgba(0,0,0,.42)!important}
+ .trean-root .chat-compose-main{display:flex!important;align-items:flex-end!important;gap:9px!important}
+ .trean-root .chat-compose-main textarea{flex:1!important;width:0!important;min-height:48px!important;max-height:130px!important;padding:11px 7px!important;font-size:16px!important;line-height:1.45!important;resize:none!important}
+ .trean-root .chat-compose-main .chat-attach-button{width:44px!important;height:44px!important;min-width:44px!important;flex:0 0 44px!important;border-radius:50%!important}
+ .trean-root .chat-compose-main .primary{width:44px!important;height:44px!important;min-width:44px!important;flex:0 0 44px!important;border-radius:14px!important}
+ .trean-root .chat-compose-footer{display:flex!important;justify-content:flex-start!important;align-items:center!important;padding-top:8px!important;gap:7px!important}
+ .trean-root .chat-compose-footer button{min-height:34px!important;padding:7px 10px!important;font-size:11px!important;border-radius:18px!important}
+ .trean-root .chat-compose-footer button:last-child{display:none!important}
+ .trean-root .chat-delete-button{opacity:1!important}
+}
+@media(max-width:480px){
+ .trean-root .chat-page.chatgpt-style{height:calc(100dvh - 155px)!important}
+ .trean-root .chat-welcome,.trean-root .chat-transcript{padding-left:12px!important;padding-right:12px!important;padding-bottom:190px!important}
+ .trean-root .chat-prompt-grid{grid-template-columns:1fr 1fr!important}
+ .trean-root .chat-prompt-grid button{min-height:68px!important;font-size:11px!important}
+ .trean-root .chat-compose{left:8px!important;right:8px!important;bottom:calc(72px + env(safe-area-inset-bottom))!important;padding:9px 10px!important}
+ .trean-root .chat-compose-main textarea{min-height:46px!important}
+}
