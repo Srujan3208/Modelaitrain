@@ -6,44 +6,39 @@ const KEY=Deno.env.get("GEMINI_API_KEY")??"";
 // Gemini model IDs are configurable so a model retirement never requires editing application code.
 const MODEL=Deno.env.get("TREAN_CHAT_MODEL")??"gemini-3.8-flash";
 const EMBED=Deno.env.get("TREAN_EMBEDDING_MODEL")??"gemini-embedding-001";
-const GEMINI_TIMEOUT_MS=Number(Deno.env.get("TREAN_GEMINI_TIMEOUT_MS")??"25000");
+const GEMINI_TIMEOUT_MS=Number(Deno.env.get("TREAN_GEMINI_TIMEOUT_MS")??"12000");
 const RETRYABLE_STATUS=new Set([408,429,500,502,503,504]);
 const sleep=(ms:number)=>new Promise(resolve=>setTimeout(resolve,ms));
 async function gemini(path:string,body:unknown){
  const isGeneration=path.endsWith(":generateContent");
- // Do not retry retired models: the replacement model is used as the default and as the fallback.
- const models=isGeneration?[MODEL,"gemini-3.6-flash"].filter((m,i,a)=>a.indexOf(m)===i):[path.split(":")[0]];
+ // Capacity errors and timeouts fail over immediately instead of repeating a slow request.
+ const models=isGeneration?[MODEL,"gemini-3.6-flash","gemini-3.5-flash-lite"].filter((m,i,a)=>a.indexOf(m)===i):[path.split(":")[0]];
  let lastError="Gemini provider request failed";
  for(const model of models){
-  for(let attempt=0;attempt<3;attempt++){
-   const endpoint=isGeneration?model+":"+path.split(":").pop():path;
-   const controller=new AbortController();
-   const timeout=setTimeout(()=>controller.abort(),GEMINI_TIMEOUT_MS);
-   try{
-    const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+endpoint,{
-     method:"POST",
-     headers:{"Content-Type":"application/json","X-goog-api-key":KEY},
-     body:JSON.stringify(body),
-     signal:controller.signal
-    });
-    const d=await r.json().catch(()=>({}));
-    if(r.ok)return d;
-    const providerMessage=d?.error?.message??("Gemini API returned HTTP "+r.status);
-    lastError=providerMessage;
-    // A bad model or invalid request will not improve with retries/fallback to the same API shape.
-    if(!RETRYABLE_STATUS.has(r.status))break;
-    if(attempt<2)await sleep(500*(attempt+1));
-   }catch(error){
-    if(error instanceof DOMException&&error.name==="AbortError"){
-     lastError="Gemini request timed out after "+GEMINI_TIMEOUT_MS+" ms";
-    }else{
-     lastError=error instanceof Error?error.message:"Gemini network request failed";
-    }
-    if(attempt<2)await sleep(500*(attempt+1));
-   }finally{
-    clearTimeout(timeout);
-   }
+  const endpoint=isGeneration?model+":"+path.split(":").pop():path;
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),GEMINI_TIMEOUT_MS);
+  try{
+   const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+endpoint,{
+    method:"POST",
+    headers:{"Content-Type":"application/json","X-goog-api-key":KEY},
+    body:JSON.stringify(body),
+    signal:controller.signal
+   });
+   const d=await r.json().catch(()=>({}));
+   if(r.ok)return d;
+   lastError=d?.error?.message??("Gemini API returned HTTP "+r.status);
+   // Move to the next model immediately on quota/capacity errors.
+   if(!RETRYABLE_STATUS.has(r.status))break;
+  }catch(error){
+   lastError=error instanceof DOMException&&error.name==="AbortError"
+    ?"Gemini request timed out after "+GEMINI_TIMEOUT_MS+" ms"
+    :error instanceof Error?error.message:"Gemini network request failed";
+  }finally{
+   clearTimeout(timeout);
   }
+  // Brief backoff only for transient errors, then switch model.
+  await sleep(250);
  }
  throw new Error("Gemini is temporarily unavailable: "+lastError);
 }
