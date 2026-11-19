@@ -1,5 +1,5 @@
 "use client";
-import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
+import { getSupabase, isSupabaseConfigured } from "../lib/supabase/client";
 import {useState,useRef,useEffect} from "react";
 import {LayoutDashboard,Play,Layers,MessageCircle,FileText,BookOpen,History,UserRound,Settings as SettingsIcon,ArrowRight,Sun,Moon,Bell,Menu,X,Search,Paperclip,Send,ChevronDown,Video,BrainCircuit,Sparkles,Library,FolderOpen,Lightbulb,Upload,Bookmark,CircleHelp} from "lucide-react";
 const iconMap={dashboard:LayoutDashboard,learn:Play,knowledge:Layers,chat:MessageCircle,summaries:FileText,sources:BookOpen,history:History,profile:UserRound,settings:SettingsIcon,video:Video,clock:History,brain:BrainCircuit,sparkles:Sparkles,library:Library,folder:FolderOpen,idea:Lightbulb,upload:Upload,send:Send,bookmark:Bookmark,help:CircleHelp};
