@@ -143,10 +143,10 @@ export default function Home(){
   };
   load();
  },[supabaseUser]);
+ useEffect(()=>{if(!supabaseUser)return;const supabase=getSupabase();videos.filter(v=>v.status==="pending"&&!processingTriggered.current.has(v.id)).forEach(v=>{processingTriggered.current.add(v.id);supabase.functions.invoke("process-video",{body:{video_id:v.id}}).then(({error})=>{if(error)processingTriggered.current.delete(v.id)}).catch(()=>processingTriggered.current.delete(v.id));});},[supabaseUser,videos]);
  useEffect(()=>{
   if(!supabaseUser||!isSupabaseConfigured())return;
   const supabase=getSupabase();
-  videos.filter(v=>v.status==="pending"&&!processingTriggered.current.has(v.id)).forEach(v=>{processingTriggered.current.add(v.id);supabase.functions.invoke("process-video",{body:{video_id:v.id}}).then(({error})=>{if(error)processingTriggered.current.delete(v.id)}).catch(()=>processingTriggered.current.delete(v.id));});
   const timer=window.setInterval(async()=>{
    const {data,error}=await supabase.from("videos").select("id,title,channel_name,thumbnail_url,youtube_url,status,duration_seconds,created_at,processing_stage,processing_progress,last_error").eq("user_id",supabaseUser.id).order("created_at",{ascending:false});
    if(!error)setVideos(data||[]);
