@@ -2579,3 +2579,28 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
     margin-top:9px!important;
   }
 }
+
+/* History: separate chat messages and video-processing records */
+.history-switch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 18px;padding:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:16px}
+.history-switch button{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;padding:13px 10px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--text-muted);font-weight:700}
+.history-switch button.active{background:var(--surface);color:var(--text);border-color:var(--border-strong);box-shadow:0 3px 14px rgba(0,0,0,.12)}
+.history-switch button span{font-size:12px;padding:2px 7px;border-radius:99px;background:var(--accent-soft);color:var(--accent)}
+.history-panel{margin-top:0}
+.video-history-list .video-history-item{display:flex;align-items:flex-start;gap:12px;min-width:0;overflow:hidden}
+.video-history-list .history-item-main{flex:1;min-width:0;align-items:flex-start}
+.video-history-copy{display:block;min-width:0;width:100%}
+.video-history-copy b{display:block;min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;word-break:break-word;line-height:1.4}
+.video-history-status{display:block;min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;word-break:break-word;line-height:1.55;margin-top:7px}
+.video-history-status.failed{color:var(--danger,#ef7d90)}
+.video-history-status.completed{color:var(--success,#57c99b)}
+.video-history-status.processing{color:var(--accent)}
+.video-retry-button{flex:0 0 auto;align-self:center}
+@media(max-width:600px){
+ .history-switch{grid-template-columns:1fr 1fr;gap:5px;padding:4px}
+ .history-switch button{font-size:12px;padding:11px 5px;gap:5px}
+ .video-history-list .video-history-item{flex-direction:column;align-items:stretch;gap:10px}
+ .video-history-list .history-item-main{width:100%;display:flex;min-width:0}
+ .video-history-list .history-item-icon{flex:0 0 48px}
+ .video-retry-button{align-self:flex-end}
+ .video-history-status{font-size:12px}
+}
