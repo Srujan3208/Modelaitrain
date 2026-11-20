@@ -2731,3 +2731,14 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .trean-root .app-shell.chat-mode .chat-compose textarea{font-size:16px!important;min-height:40px!important}
  .trean-root .app-shell.chat-mode .chat-compose-footer button{font-size:11px!important;padding:8px 10px!important}
 }
+
+
+/* Final chat alignment: consistent left/right breathing room and attachment flow */
+.trean-root .app-shell.chat-mode .chat-transcript{padding-left:16px!important;padding-right:16px!important;box-sizing:border-box!important}
+.trean-root .app-shell.chat-mode .chat-message.assistant{margin-left:0!important;margin-right:0!important;padding-left:0!important;padding-right:0!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+.trean-root .app-shell.chat-mode .chat-message.assistant .chat-message-content,.trean-root .app-shell.chat-mode .chat-message.assistant .markdown-content,.trean-root .app-shell.chat-mode .chat-message.assistant .message-content{padding-left:0!important;padding-right:0!important;max-width:100%!important}
+.trean-root .app-shell.chat-mode .chat-message.user{margin-left:auto!important;margin-right:0!important;max-width:86%!important}
+.trean-root .app-shell.chat-mode .chat-message.assistant p,.trean-root .app-shell.chat-mode .chat-message.assistant li{overflow-wrap:anywhere!important;word-break:normal!important}
+.trean-root .app-shell.chat-mode .chat-compose{z-index:1400!important}
+.trean-root .app-shell.chat-mode .chat-file-input{pointer-events:none!important}
+.trean-root .app-shell.chat-mode .chat-attach-button{pointer-events:auto!important;position:relative!important;z-index:2!important}
