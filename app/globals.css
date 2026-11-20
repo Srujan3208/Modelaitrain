@@ -2678,3 +2678,22 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
     padding-right: 12px !important;
   }
 }
+
+
+/* ChatGPT-style source disclosure and attachment picker feedback */
+.trean-root .app-shell.chat-mode .citation-list{display:block!important;margin:14px 0 2px!important;padding:0!important;max-width:100%!important}
+.trean-root .app-shell.chat-mode .citation-list>details{border:0!important;background:transparent!important;padding:0!important;max-width:100%!important}
+.trean-root .app-shell.chat-mode .citation-list>details>summary{display:inline-flex!important;align-items:center;gap:7px!important;padding:7px 11px!important;border:1px solid rgba(160,125,220,.22)!important;border-radius:999px!important;background:rgba(125,80,205,.1)!important;color:#bda5e5!important;font-size:12px!important;font-weight:600!important;cursor:pointer!important;list-style:none!important}
+.trean-root .app-shell.chat-mode .citation-list>details>summary::-webkit-details-marker{display:none!important}
+.trean-root .app-shell.chat-mode .citation-source-list{display:grid!important;gap:9px!important;margin-top:10px!important;padding:10px!important;border:1px solid rgba(160,125,220,.18)!important;border-radius:14px!important;background:rgba(125,80,205,.055)!important}
+.trean-root .app-shell.chat-mode .citation-source-list article{min-width:0;padding:9px 10px!important;border-radius:10px!important;background:rgba(125,80,205,.07)!important}
+.trean-root .app-shell.chat-mode .citation-source-list b{display:block!important;font-size:12px!important;line-height:1.45!important;overflow-wrap:anywhere!important}
+.trean-root .app-shell.chat-mode .citation-source-list small{color:#a99abf!important;font-size:11px!important}
+.trean-root .app-shell.chat-mode .citation-source-list p{margin:5px 0!important;color:var(--text-muted,#b9adc9)!important;font-size:12px!important;line-height:1.5!important}
+.trean-root .app-shell.chat-mode .citation-source-list a{display:inline-flex!important;margin-top:3px!important;color:#b995ff!important;font-size:12px!important;text-decoration:none!important}
+.trean-root .app-shell.chat-mode .chat-attach-button{touch-action:manipulation!important;cursor:pointer!important}
+.trean-root .app-shell.chat-mode .chat-file-input{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;pointer-events:none!important}
+.trean-root .app-shell.chat-mode .chat-pending-attachments{display:flex!important;flex-wrap:wrap!important;gap:8px!important;padding:5px 0 8px!important}
+.trean-root .app-shell.chat-mode .chat-pending-file{max-width:min(100%,240px)!important;min-width:0!important}
+.trean-root .app-shell.chat-mode .chat-pending-file small{max-width:145px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+.trean-root .app-shell.chat-mode .chat-compose-main .chat-attach-button:focus-visible{outline:2px solid #b995ff!important;outline-offset:2px!important}
