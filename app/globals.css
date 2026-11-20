@@ -2742,3 +2742,10 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
 .trean-root .app-shell.chat-mode .chat-compose{z-index:1400!important}
 .trean-root .app-shell.chat-mode .chat-file-input{pointer-events:none!important}
 .trean-root .app-shell.chat-mode .chat-attach-button{pointer-events:auto!important;position:relative!important;z-index:2!important}
+
+
+/* Add breathing room to assistant response text on narrow screens */
+.trean-root .app-shell.chat-mode .chat-message.assistant .response-content{display:block!important;width:100%!important;max-width:100%!important;padding:0 8px!important;box-sizing:border-box!important}
+.trean-root .app-shell.chat-mode .chat-message.assistant{padding:0 8px!important;box-sizing:border-box!important}
+.trean-root .app-shell.chat-mode .chat-message.assistant> b{margin-left:8px!important}
+.trean-root .app-shell.chat-mode .chat-message.user{margin-right:8px!important}
