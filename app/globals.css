@@ -2026,3 +2026,37 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .app-shell.chat-mode .chat-compose-footer button{min-height:32px!important;padding:6px 10px!important;font-size:12px!important;}
  .app-shell.chat-mode .chat-footer-note{bottom:calc(64px + env(safe-area-inset-bottom));font-size:9px;}
 }
+
+
+/* ===== FINAL mobile chat layout correction: prevent composer from covering content =====
+   Content scrolls in its own region; composer and app navigation stay anchored. */
+@media(max-width:900px){
+ .trean-root .app-shell.chat-mode{display:flex!important;flex-direction:column!important;min-height:100dvh!important;height:100dvh!important;overflow:hidden!important;padding-bottom:0!important;}
+ .trean-root .app-shell.chat-mode .app-content{flex:1 1 auto!important;min-height:0!important;height:auto!important;overflow:hidden!important;padding:0!important;margin:0!important;}
+ .trean-root .app-shell.chat-mode .view{height:100%!important;min-height:0!important;overflow:hidden!important;padding:0!important;}
+ .trean-root .app-shell.chat-mode .chat-page.chatgpt-style{height:100%!important;min-height:0!important;max-height:none!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;padding:0!important;margin:0!important;width:100%!important;}
+ .trean-root .app-shell.chat-mode .chat-welcome,.trean-root .app-shell.chat-mode .chat-transcript{flex:1 1 auto!important;min-height:0!important;height:auto!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;box-sizing:border-box!important;width:100%!important;margin:0!important;padding:12px 14px calc(310px + env(safe-area-inset-bottom))!important;scrollbar-width:none!important;}
+ .trean-root .app-shell.chat-mode .chat-welcome::-webkit-scrollbar,.trean-root .app-shell.chat-mode .chat-transcript::-webkit-scrollbar{display:none!important;}
+ .trean-root .app-shell.chat-mode .chat-compose{position:fixed!important;left:8px!important;right:8px!important;bottom:calc(64px + env(safe-area-inset-bottom))!important;top:auto!important;transform:none!important;width:auto!important;max-width:none!important;margin:0!important;z-index:1002!important;box-sizing:border-box!important;}
+ .trean-root .app-shell.chat-mode .mobile-nav{position:fixed!important;left:0!important;right:0!important;bottom:0!important;height:64px!important;z-index:1003!important;}
+ .trean-root .app-shell.chat-mode .chat-welcome{justify-content:flex-start!important;}
+ .trean-root .app-shell.chat-mode .chat-welcome .robot-stage{flex:0 0 auto!important;}
+ .trean-root .app-shell.chat-mode .chat-transcript{display:flex!important;flex-direction:column!important;gap:22px!important;}
+ .trean-root .app-shell.chat-mode .chat-message{max-width:100%!important;min-width:0!important;overflow-wrap:anywhere!important;word-break:normal!important;}
+ .trean-root .app-shell.chat-mode .chat-message.user{max-width:88%!important;align-self:flex-end!important;}
+ .trean-root .app-shell.chat-mode .chat-message.assistant{align-self:stretch!important;}
+ .trean-root .app-shell.chat-mode .chat-message.assistant p,.trean-root .app-shell.chat-mode .chat-message.assistant li{overflow-wrap:anywhere!important;}
+ .trean-root .app-shell.chat-mode .chat-compose{min-height:0!important;padding:10px 11px 9px!important;border-radius:23px!important;}
+ .trean-root .app-shell.chat-mode .chat-compose-main{display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px!important;align-items:center!important;gap:8px!important;}
+ .trean-root .app-shell.chat-mode .chat-compose-main textarea{min-width:0!important;width:100%!important;min-height:44px!important;max-height:104px!important;padding:8px 4px!important;resize:none!important;box-sizing:border-box!important;font-size:16px!important;line-height:1.4!important;}
+ .trean-root .app-shell.chat-mode .chat-compose-main .chat-attach-button,.trean-root .app-shell.chat-mode .chat-compose-main .primary{width:44px!important;height:44px!important;min-width:44px!important;flex:0 0 44px!important;border-radius:15px!important;}
+ .trean-root .app-shell.chat-mode .chat-compose-footer{display:flex!important;align-items:center!important;justify-content:flex-start!important;padding-top:6px!important;gap:8px!important;}
+ .trean-root .app-shell.chat-mode .chat-compose-footer button{min-height:32px!important;padding:6px 10px!important;}
+}
+@media(max-width:480px){
+ .trean-root .app-shell.chat-mode .chat-welcome,.trean-root .app-shell.chat-mode .chat-transcript{padding-left:12px!important;padding-right:12px!important;}
+ .trean-root .app-shell.chat-mode .chat-welcome .robot-stage .robot-gif{width:146px!important;height:146px!important;max-width:146px!important;max-height:146px!important;}
+ .trean-root .app-shell.chat-mode .chat-welcome h1{font-size:clamp(25px,7vw,32px)!important;line-height:1.18!important;}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid button{min-width:0!important;overflow-wrap:anywhere!important;}
+}
