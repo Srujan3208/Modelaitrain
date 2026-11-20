@@ -2155,3 +2155,27 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .trean-root .app-shell.chat-mode .chat-compose-main textarea{min-height:40px!important;padding:8px 4px!important;}
  .trean-root .app-shell.chat-mode .chat-transcript{padding-left:12px!important;padding-right:12px!important;}
 }
+
+/* Persistent mobile chat scrollbar visibility */
+@media(max-width:900px){
+ .trean-root .app-shell.chat-mode .chat-welcome,
+ .trean-root .app-shell.chat-mode .chat-transcript{
+  overflow-y:scroll!important;
+  scrollbar-width:auto!important;
+  scrollbar-color:#a987f2 #241a38!important;
+  -webkit-overflow-scrolling:touch!important;
+ }
+ .trean-root .app-shell.chat-mode .chat-welcome::-webkit-scrollbar,
+ .trean-root .app-shell.chat-mode .chat-transcript::-webkit-scrollbar{
+  width:8px!important;
+  display:block!important;
+ }
+ .trean-root .app-shell.chat-mode .chat-welcome::-webkit-scrollbar-track,
+ .trean-root .app-shell.chat-mode .chat-transcript::-webkit-scrollbar-track{
+  background:#241a38!important;border-radius:99px!important;
+ }
+ .trean-root .app-shell.chat-mode .chat-welcome::-webkit-scrollbar-thumb,
+ .trean-root .app-shell.chat-mode .chat-transcript::-webkit-scrollbar-thumb{
+  background:#a987f2!important;border:2px solid #241a38!important;border-radius:99px!important;min-height:36px!important;
+ }
+}
