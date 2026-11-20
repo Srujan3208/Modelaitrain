@@ -2640,3 +2640,60 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
 .trean-root .app-shell .learning-empty>span{font-size:28px;color:var(--accent)}
 .trean-root .app-shell .learning-empty p{color:var(--text-muted);line-height:1.6}
 @media(max-width:600px){.trean-root .app-shell .autonomous-research-card{padding:16px;border-radius:20px}.trean-root .app-shell .research-options{display:grid;grid-template-columns:1fr;width:100%}.trean-root .app-shell .research-options label,.trean-root .app-shell .research-options .primary{min-width:0;width:100%;box-sizing:border-box}.trean-root .app-shell .learning-task-card{padding:14px}.trean-root .app-shell .task-metrics{gap:7px 10px}}
+
+/* TREAN AI — ChatGPT-inspired unified workspace redesign */
+.trean-root .app-shell.theme-dark{--bg:#0b0b0f;--surface:#17171d;--surface-2:#202027;--surface-3:#26262e;--text:#ececf1;--text-muted:#9a9aa7;--border:#2d2d36;--border-strong:#3a3a45;--accent:#a855f7;--accent-strong:#8b5cf6;--accent-soft:#2b1b42;background:var(--bg);color:var(--text)}
+.trean-root .app-shell.theme-dark .sidebar{background:#101014;border-right:1px solid #25252d;width:258px;padding:16px 12px;box-shadow:none}
+.trean-root .app-shell.theme-dark .sidebar .brand{padding:9px 10px 18px}
+.trean-root .app-shell.theme-dark .sidebar nav{gap:3px;margin-top:10px}
+.trean-root .app-shell.theme-dark .sidebar nav button{height:40px;border-radius:9px;padding:0 12px;color:#b6b6c1;font-size:13px;font-weight:500;transition:background .15s,color .15s}
+.trean-root .app-shell.theme-dark .sidebar nav button:hover{background:#222229;color:#f6f6f8}
+.trean-root .app-shell.theme-dark .sidebar nav button.active{background:#292330;color:#f2e9ff;box-shadow:inset 3px 0 #a855f7}
+.trean-root .app-shell.theme-dark .sidebar nav button.active span{color:#c084fc}
+.trean-root .app-shell.theme-dark .sidebar .pro-card{background:linear-gradient(135deg,#221632,#17141f);border:1px solid #3c2b50;border-radius:13px;margin:12px 4px;padding:14px;color:#e7d8ff}
+.trean-root .app-shell.theme-dark .app-content{background:#0b0b0f;min-width:0}
+.trean-root .app-shell.theme-dark .appbar{background:rgba(11,11,15,.88);border-bottom:1px solid #25252d;backdrop-filter:blur(16px);height:58px;padding:0 22px}
+.trean-root .app-shell.theme-dark .global-search{background:#19191f;border:1px solid #2b2b34;border-radius:10px;color:#a9a9b4}
+.trean-root .app-shell.theme-dark .global-search input{color:#ececf1}
+.trean-root .app-shell.theme-dark .app-content>div:not(.mobile-drawer):not(.toast){max-width:1040px;margin-left:auto;margin-right:auto}
+.trean-root .app-shell.theme-dark .view-heading{padding:28px 26px 18px}
+.trean-root .app-shell.theme-dark .view-heading h1{font-size:28px;letter-spacing:-.7px;color:#f3f3f5;font-weight:650}
+.trean-root .app-shell.theme-dark .view-heading p{font-size:14px;color:#a1a1ad;line-height:1.6}
+.trean-root .app-shell.theme-dark .section-head{margin:22px 26px 12px}
+.trean-root .app-shell.theme-dark .section-head h2{font-size:17px;color:#e9e9ee;font-weight:600}
+.trean-root .app-shell.theme-dark .history-section,.trean-root .app-shell.theme-dark .dashboard-card,.trean-root .app-shell.theme-dark .profile-card,.trean-root .app-shell.theme-dark .profile-details,.trean-root .app-shell.theme-dark .settings-panel,.trean-root .app-shell.theme-dark .settings-nav,.trean-root .app-shell.theme-dark .learning-task-card,.trean-root .app-shell.theme-dark .autonomous-research-card{background:#15151b;border:1px solid #282831;border-radius:14px;box-shadow:none}
+.trean-root .app-shell.theme-dark .history-list{padding:0 18px 16px}
+.trean-root .app-shell.theme-dark .history-list article{background:#19191f;border:1px solid #292932;border-radius:12px;padding:13px 14px;margin:8px 0;transition:border-color .15s,background .15s}
+.trean-root .app-shell.theme-dark .history-list article:hover{background:#202027;border-color:#4b3b5b}
+.trean-root .app-shell.theme-dark .history-item-main b{color:#e9e9ef;font-weight:550}
+.trean-root .app-shell.theme-dark .history-item-main small,.trean-root .app-shell.theme-dark .history-list small{color:#9999a6}
+.trean-root .app-shell.theme-dark .search-field,.trean-root .app-shell.theme-dark input,.trean-root .app-shell.theme-dark textarea,.trean-root .app-shell.theme-dark select{background:#1b1b22;border:1px solid #30303a;color:#e9e9ef;border-radius:11px}
+.trean-root .app-shell.theme-dark .search-field{margin:0 26px 16px;width:calc(100% - 52px);padding:12px 14px}
+.trean-root .app-shell.theme-dark .tabs,.trean-root .app-shell.theme-dark .history-switch{margin:0 26px 16px;background:#17171d;border:1px solid #292932;border-radius:11px;padding:4px}
+.trean-root .app-shell.theme-dark .tabs button,.trean-root .app-shell.theme-dark .history-switch button{color:#aaaab5;border-radius:8px;padding:9px 12px}
+.trean-root .app-shell.theme-dark .tabs button.selected,.trean-root .app-shell.theme-dark .history-switch button.active{background:#2a2232;color:#e9d8ff}
+.trean-root .app-shell.theme-dark .empty-state,.trean-root .app-shell.theme-dark .learning-empty{background:#15151b;border:1px dashed #34343f;border-radius:16px;color:#ddd}
+.trean-root .app-shell.theme-dark .primary{background:#8b5cf6;border-radius:10px;box-shadow:none;font-size:13px}
+.trean-root .app-shell.theme-dark .secondary{background:#1b1b22;border:1px solid #383843;color:#dedee7;border-radius:10px}
+.trean-root .app-shell.theme-dark .chat-mode .chat-layout{background:#0b0b0f}
+.trean-root .app-shell.theme-dark .chat-mode .chat-sidebar{background:#101014;border-right:1px solid #25252d}
+.trean-root .app-shell.theme-dark .chat-mode .chat-sidebar button{border-radius:9px}
+.trean-root .app-shell.theme-dark .chat-mode .chat-sidebar button:hover,.trean-root .app-shell.theme-dark .chat-mode .chat-sidebar .active{background:#222229}
+.trean-root .app-shell.theme-dark .chat-mode .chat-main{background:#0b0b0f}
+.trean-root .app-shell.theme-dark .chat-mode .chat-compose{background:#17171d;border:1px solid #30303a;border-radius:24px;box-shadow:0 8px 28px #0003}
+.trean-root .app-shell.theme-dark .chat-mode .chat-compose-main textarea{background:transparent;border:0;box-shadow:none;color:#f0f0f4}
+.trean-root .app-shell.theme-dark .chat-mode .chat-compose-footer{color:#9999a6}
+.trean-root .app-shell.theme-dark .chat-mode .chat-message.user .chat-message-content{background:#292932;border:1px solid #33333c;border-radius:18px}
+.trean-root .app-shell.theme-dark .chat-mode .chat-message.assistant .chat-message-content{color:#e7e7ed}
+.trean-root .app-shell.theme-dark .chat-mode .chat-top-title{color:#eee}
+.trean-root .app-shell.theme-dark .dashboard-grid,.trean-root .app-shell.theme-dark .dashboard-layout{gap:14px}
+.trean-root .app-shell.theme-dark .dashboard-stat,.trean-root .app-shell.theme-dark .stat-card,.trean-root .app-shell.theme-dark .metric-card{background:#15151b;border:1px solid #292932;border-radius:13px;padding:16px}
+.trean-root .app-shell.theme-dark .dashboard-stat strong,.trean-root .app-shell.theme-dark .stat-card strong{color:#eee}
+.trean-root .app-shell.theme-dark .knowledge-card,.trean-root .app-shell.theme-dark .video-card,.trean-root .app-shell.theme-dark .summary-card,.trean-root .app-shell.theme-dark .source-card{background:#17171d;border:1px solid #2b2b34;border-radius:13px}
+.trean-root .app-shell.theme-dark .settings-nav button{border-radius:9px;color:#a7a7b2}
+.trean-root .app-shell.theme-dark .settings-nav button.active{background:#292330;color:#e9d8ff}
+.trean-root .app-shell.theme-dark .mobile-nav{background:#111116;border-top:1px solid #282831}
+.trean-root .app-shell.theme-dark .mobile-nav button{color:#92929e}
+.trean-root .app-shell.theme-dark .mobile-nav button.active{color:#c084fc}
+@media(max-width:900px){.trean-root .app-shell.theme-dark .sidebar{width:230px}.trean-root .app-shell.theme-dark .appbar{padding:0 14px}.trean-root .app-shell.theme-dark .view-heading{padding:22px 18px 15px}.trean-root .app-shell.theme-dark .section-head{margin:18px 18px 10px}.trean-root .app-shell.theme-dark .history-list{padding:0 12px 12px}.trean-root .app-shell.theme-dark .search-field{margin-left:18px;width:calc(100% - 36px)}}
+@media(max-width:600px){.trean-root .app-shell.theme-dark .appbar{height:54px;padding:0 12px}.trean-root .app-shell.theme-dark .view-heading{padding:20px 16px 12px}.trean-root .app-shell.theme-dark .view-heading h1{font-size:23px}.trean-root .app-shell.theme-dark .view-heading p{font-size:13px}.trean-root .app-shell.theme-dark .history-section,.trean-root .app-shell.theme-dark .profile-card,.trean-root .app-shell.theme-dark .profile-details,.trean-root .app-shell.theme-dark .settings-panel{border-radius:12px;margin-left:12px;margin-right:12px}.trean-root .app-shell.theme-dark .section-head{margin:15px 14px 10px}.trean-root .app-shell.theme-dark .history-list{padding:0 9px 10px}.trean-root .app-shell.theme-dark .history-list article{padding:11px 10px}.trean-root .app-shell.theme-dark .search-field{margin:0 14px 14px;width:calc(100% - 28px)}.trean-root .app-shell.theme-dark .tabs,.trean-root .app-shell.theme-dark .history-switch{margin:0 14px 14px}}
