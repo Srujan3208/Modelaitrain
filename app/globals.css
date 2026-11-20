@@ -2060,3 +2060,49 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .trean-root .app-shell.chat-mode .chat-prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
  .trean-root .app-shell.chat-mode .chat-prompt-grid button{min-width:0!important;overflow-wrap:anywhere!important;}
 }
+
+
+/* ===== TREAN AI global theme consistency pass =====
+   Theme class is on .app-shell, which is inside .trean-root. */
+.trean-root .app-shell.theme-dark{
+ --paper:#151124;--surface:#171226;--surface-raised:#1d1730;--border:rgba(167,130,231,.22);--ink:#f5f0ff;--muted:#b8accd;--accent:#9b6af3;
+ color:#f5f0ff;
+}
+.trean-root .app-shell.theme-dark .app-content{background:radial-gradient(ellipse at 78% 4%,rgba(92,45,150,.22),transparent 38%),#0b0917!important;}
+.trean-root .app-shell.theme-dark .view-heading h1,.trean-root .app-shell.theme-dark .view-heading h2,.trean-root .app-shell.theme-dark .view-heading h3,.trean-root .app-shell.theme-dark .section-head h2{color:#f7f2ff!important;}
+.trean-root .app-shell.theme-dark .view-heading p,.trean-root .app-shell.theme-dark .section-head small{color:#b8accd!important;}
+.trean-root .app-shell.theme-dark .history-section{background:rgba(17,12,29,.42)!important;border:1px solid rgba(154,113,220,.16)!important;border-radius:24px!important;padding:18px!important;}
+.trean-root .app-shell.theme-dark .history-list{gap:12px!important;}
+.trean-root .app-shell.theme-dark .history-list>article,.trean-root .app-shell.theme-dark .history-list article,.trean-root .app-shell.theme-dark .video-card,.trean-root .app-shell.theme-dark .knowledge-card,.trean-root .app-shell.theme-dark .recent-video-list article,.trean-root .app-shell.theme-dark .activity-card,.trean-root .app-shell.theme-dark .dashboard-card,.trean-root .app-shell.theme-dark .library-card,.trean-root .app-shell.theme-dark .learn-card,.trean-root .app-shell.theme-dark .profile-card,.trean-root .app-shell.theme-dark .profile-details,.trean-root .app-shell.theme-dark .settings-panel,.trean-root .app-shell.theme-dark .settings-nav,.trean-root .app-shell.theme-dark .stat,.trean-root .app-shell.theme-dark .quick-actions,.trean-root .app-shell.theme-dark .empty-state,.trean-root .app-shell.theme-dark .url-form,.trean-root .app-shell.theme-dark .chat-history-chip,.trean-root .app-shell.theme-dark .chat-prompt-grid button{
+ background:linear-gradient(145deg,#1b1630,#151124)!important;color:#f3edff!important;border:1px solid rgba(158,119,223,.22)!important;box-shadow:0 5px 18px rgba(0,0,0,.12)!important;
+}
+.trean-root .app-shell.theme-dark .history-list>article{padding:14px 15px!important;border-radius:20px!important;}
+.trean-root .app-shell.theme-dark .history-list>article:hover,.trean-root .app-shell.theme-dark .video-card:hover,.trean-root .app-shell.theme-dark .knowledge-card:hover,.trean-root .app-shell.theme-dark .recent-video-list article:hover{background:linear-gradient(145deg,#241b3b,#1b1530)!important;border-color:rgba(177,135,255,.42)!important;transform:translateY(-1px);box-shadow:0 9px 24px rgba(79,36,139,.18)!important;}
+.trean-root .app-shell.theme-dark .history-item-main b,.trean-root .app-shell.theme-dark .video-card h3,.trean-root .app-shell.theme-dark .knowledge-card b,.trean-root .app-shell.theme-dark .recent-video-list b{color:#f5f0ff!important;}
+.trean-root .app-shell.theme-dark .history-item-main small,.trean-root .app-shell.theme-dark .video-card p,.trean-root .app-shell.theme-dark .video-card small,.trean-root .app-shell.theme-dark .knowledge-card p{color:#b9add0!important;}
+.trean-root .app-shell.theme-dark .history-item-icon{background:linear-gradient(145deg,#32224f,#25183e)!important;color:#c6a5ff!important;border:1px solid rgba(179,137,255,.16)!important;width:48px!important;height:48px!important;border-radius:15px!important;}
+.trean-root .app-shell.theme-dark .history-item-delete{color:#a998c3!important;background:transparent!important;}
+.trean-root .app-shell.theme-dark .history-item-delete:hover{color:#ff9eaa!important;background:rgba(255,91,117,.1)!important;}
+.trean-root .app-shell.theme-dark .video-card{border-radius:20px!important;padding:18px!important;margin:12px 0!important;}
+.trean-root .app-shell.theme-dark .progress-track{background:#302344!important;height:8px!important;}
+.trean-root .app-shell.theme-dark .progress-track>div{background:linear-gradient(90deg,#7540df,#b28aff)!important;box-shadow:0 0 12px rgba(158,105,255,.3)!important;}
+.trean-root .app-shell.theme-dark .url-form input,.trean-root .app-shell.theme-dark .url-form textarea,.trean-root .app-shell.theme-dark .filter-row input,.trean-root .app-shell.theme-dark .filter-row select,.trean-root .app-shell.theme-dark .search-field{background:#100d1d!important;color:#f3edff!important;border-color:#3a2b53!important;}
+.trean-root .app-shell.theme-dark .url-form input::placeholder,.trean-root .app-shell.theme-dark .filter-row input::placeholder{color:#847895!important;}
+.trean-root .app-shell.theme-dark .section-head button,.trean-root .app-shell.theme-dark .history-section .section-head button{color:#b895ff!important;background:rgba(130,80,220,.1)!important;border:1px solid rgba(158,119,223,.25)!important;border-radius:12px!important;padding:9px 12px!important;}
+.trean-root .app-shell.theme-dark .integration-note{background:rgba(31,23,47,.7)!important;color:#b8accd!important;border:1px solid rgba(154,113,220,.16)!important;border-radius:16px!important;padding:14px!important;}
+.trean-root .app-shell.theme-dark .learn-switch button{background:#171226!important;color:#b8accd!important;border:1px solid rgba(167,130,231,.22)!important;}
+.trean-root .app-shell.theme-dark .learn-switch button.chosen{background:#2a1d44!important;color:#d4baff!important;border-color:#8b5cf6!important;}
+.trean-root .app-shell.theme-dark .mobile-nav{background:rgba(15,11,25,.97)!important;border-top:1px solid rgba(158,119,223,.16)!important;backdrop-filter:blur(16px);}
+.trean-root .app-shell.theme-dark .mobile-nav button{color:#9688ad!important;}
+.trean-root .app-shell.theme-dark .mobile-nav button.active{color:#c5a4ff!important;}
+.trean-root .app-shell.theme-dark .mobile-nav button.active svg{filter:drop-shadow(0 0 8px rgba(163,111,255,.25));}
+.trean-root .app-shell.theme-dark .appbar{background:#121027!important;border-bottom-color:#302644!important;}
+.trean-root .app-shell.theme-dark .sidebar{background:#121027!important;border-right-color:#302644!important;}
+.trean-root .app-shell.theme-dark .sidebar nav button{color:#a99bbf!important;}
+.trean-root .app-shell.theme-dark .sidebar nav button.active{background:#271b40!important;color:#c6a5ff!important;border-color:#4a326c!important;}
+.trean-root .app-shell.theme-dark .sidebar nav button:hover{background:#211832!important;color:#f4efff!important;}
+.trean-root .app-shell.theme-light .history-section{background:#fff!important;border:1px solid #eee5f5!important;border-radius:24px!important;padding:18px!important;}
+.trean-root .app-shell.theme-light .history-list>article,.trean-root .app-shell.theme-light .video-card,.trean-root .app-shell.theme-light .knowledge-card,.trean-root .app-shell.theme-light .recent-video-list article,.trean-root .app-shell.theme-light .activity-card,.trean-root .app-shell.theme-light .dashboard-card,.trean-root .app-shell.theme-light .library-card,.trean-root .app-shell.theme-light .learn-card,.trean-root .app-shell.theme-light .profile-card,.trean-root .app-shell.theme-light .profile-details,.trean-root .app-shell.theme-light .settings-panel,.trean-root .app-shell.theme-light .settings-nav,.trean-root .app-shell.theme-light .stat,.trean-root .app-shell.theme-light .quick-actions,.trean-root .app-shell.theme-light .empty-state,.trean-root .app-shell.theme-light .url-form,.trean-root .app-shell.theme-light .chat-history-chip,.trean-root .app-shell.theme-light .chat-prompt-grid button{background:#fff!important;color:#302243!important;border-color:#e8def2!important;}
+.trean-root .app-shell.theme-light .history-item-main b,.trean-root .app-shell.theme-light .video-card h3,.trean-root .app-shell.theme-light .knowledge-card b,.trean-root .app-shell.theme-light .recent-video-list b{color:#302243!important;}
+.trean-root .app-shell.theme-light .history-item-main small,.trean-root .app-shell.theme-light .video-card p,.trean-root .app-shell.theme-light .video-card small,.trean-root .app-shell.theme-light .knowledge-card p{color:#766784!important;}
+@media(max-width:600px){.trean-root .app-shell.theme-dark .history-section,.trean-root .app-shell.theme-light .history-section{padding:14px!important;border-radius:20px!important}.trean-root .app-shell.theme-dark .history-list>article,.trean-root .app-shell.theme-light .history-list>article{padding:12px!important;border-radius:18px!important}.trean-root .app-shell.theme-dark .history-item-icon,.trean-root .app-shell.theme-light .history-item-icon{width:44px!important;height:44px!important;border-radius:14px!important}.trean-root .app-shell.theme-dark .history-item-main b,.trean-root .app-shell.theme-light .history-item-main b{font-size:14px!important;line-height:1.4!important}}
