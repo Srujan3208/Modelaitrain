@@ -147,7 +147,8 @@ const googleLogin=async()=>{
   const timer=window.setInterval(async()=>{
    const {data,error}=await supabase.from("videos").select("id,title,channel_name,thumbnail_url,youtube_url,status,duration_seconds,created_at,processing_stage,processing_progress,last_error").eq("user_id",supabaseUser.id).order("created_at",{ascending:false});
    if(!error)setVideos(data||[]);
-   const {data:taskRows,error:taskError}=await supabase.from("learning_tasks").select("id,title,instruction,status,progress,stage,sources_discovered,sources_processed,knowledge_items_created,result_summary,error,created_at,updated_at").eq("user_id",supabaseUser.id).order("created_at",{ascending:false}).limit(30);if(!taskError)setLearningTasks(taskRows||[]);\n   const {data:items,error:knowledgeError}=await supabase.from("knowledge_items").select("id,title,content,knowledge_type,video_id,created_at").eq("user_id",supabaseUser.id).order("created_at",{ascending:false});
+   const {data:taskRows,error:taskError}=await supabase.from("learning_tasks").select("id,title,instruction,status,progress,stage,sources_discovered,sources_processed,knowledge_items_created,result_summary,error,created_at,updated_at").eq("user_id",supabaseUser.id).order("created_at",{ascending:false}).limit(30);if(!taskError)setLearningTasks(taskRows||[]);
+   const {data:items,error:knowledgeError}=await supabase.from("knowledge_items").select("id,title,content,knowledge_type,video_id,created_at").eq("user_id",supabaseUser.id).order("created_at",{ascending:false});
    if(!knowledgeError)setKnowledge(items||[]);
     const {data:playlistRows,error:playlistError}=await supabase.from("video_playlists").select("id,title,channel_name,thumbnail_url,total_videos,status,created_at").eq("user_id",supabaseUser.id).order("created_at",{ascending:false});
     if(!playlistError)setPlaylists(playlistRows||[]);
