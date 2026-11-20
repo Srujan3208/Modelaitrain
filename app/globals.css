@@ -2188,3 +2188,66 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
  .trean-root .appbar{position:sticky!important;top:0!important;z-index:1200!important;height:58px!important;min-height:58px!important;}
  .trean-root .app-shell.chat-mode .appbar{position:sticky!important;top:0!important;}
 }
+
+
+/* ===== Compact, polished mobile UI + history rename controls ===== */
+.trean-root .history-actions{display:flex;align-items:center;gap:6px;flex:none}
+.trean-root .history-item-rename,.trean-root .history-item-delete{width:34px;height:34px;display:grid;place-items:center;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--muted,#b8accd);cursor:pointer}
+.trean-root .history-item-rename:hover{background:rgba(155,106,243,.12);color:#c9aaff;border-color:rgba(155,106,243,.2)}
+.trean-root .history-actions .history-item-delete:hover{background:rgba(255,80,110,.1);color:#ff9eaa}
+.trean-root .chat-history-chip{position:relative}
+.trean-root .chat-history-chip .chat-rename-button{border:0;background:transparent;color:inherit;opacity:.7;padding:6px;cursor:pointer;display:grid;place-items:center}
+.trean-root .chat-history-chip .chat-rename-button:hover{opacity:1;color:#c9aaff}
+.trean-root .chat-history-chip .chat-delete-button{opacity:.7!important}
+.trean-root .chat-history-chip>button:first-child{max-width:calc(100% - 64px)!important}
+@media(max-width:600px){
+ .trean-root .view{padding:18px 16px 28px!important}
+ .trean-root .view-heading{margin:0 0 18px!important}
+ .trean-root .view-heading h1{font-size:24px!important;line-height:1.2!important}
+ .trean-root .view-heading p{font-size:13px!important;line-height:1.5!important}
+ .trean-root .history-section{margin:16px 0 22px!important;padding:14px!important;border-radius:18px!important}
+ .trean-root .section-head{gap:8px!important;margin-bottom:12px!important}
+ .trean-root .section-head h2{font-size:17px!important}
+ .trean-root .history-list{gap:8px!important}
+ .trean-root .history-list>article{padding:10px 11px!important;border-radius:15px!important;gap:8px!important}
+ .trean-root .history-item-main{gap:9px!important}
+ .trean-root .history-item-main b{font-size:13px!important;line-height:1.35!important}
+ .trean-root .history-item-main small{font-size:10px!important;line-height:1.4!important}
+ .trean-root .history-item-icon{width:40px!important;height:40px!important;border-radius:12px!important}
+ .trean-root .history-actions{gap:2px!important}
+ .trean-root .history-item-rename,.trean-root .history-item-delete{width:30px!important;height:30px!important;border-radius:8px!important}
+ .trean-root .dashboard-welcome{min-height:unset!important;padding:16px!important;border-radius:18px!important}
+ .trean-root .dashboard-welcome h1{font-size:22px!important;line-height:1.2!important}
+ .trean-root .dashboard-welcome p{font-size:13px!important;line-height:1.5!important}
+ .trean-root .stat,.trean-root .dashboard-card,.trean-root .quick-actions,.trean-root .learn-card,.trean-root .library-card,.trean-root .profile-card,.trean-root .settings-panel,.trean-root .knowledge-card,.trean-root .video-card{padding:13px!important;border-radius:16px!important}
+ .trean-root .appbar{padding-left:12px!important;padding-right:12px!important}
+ .trean-root .mobile-logo img{width:30px!important;height:30px!important}
+ .trean-root .mobile-logo b{font-size:16px!important}
+ .trean-root .appbar button{min-width:36px!important}
+ .trean-root .chat-page.chatgpt-style{height:calc(100dvh - 122px)!important}
+ .trean-root .chat-history-strip{width:min(300px,84vw)!important;padding:14px 12px!important}
+ .trean-root .chat-history-label{padding:14px 8px 6px!important}
+ .trean-root .chat-history-chip>button:first-child{padding:9px 8px!important;font-size:12px!important}
+ .trean-root .chat-compose{left:12px!important;right:12px!important;bottom:calc(66px + env(safe-area-inset-bottom))!important;border-radius:23px!important;padding:9px 10px 8px!important}
+ .trean-root .chat-compose-main textarea{font-size:15px!important;min-height:38px!important;max-height:90px!important}
+ .trean-root .chat-compose-main .chat-attach-button{width:38px!important;height:38px!important;min-width:38px!important}
+ .trean-root .chat-compose-main .primary{width:40px!important;height:40px!important;min-width:40px!important}
+ .trean-root .chat-compose-footer button{font-size:11px!important}
+ .trean-root .chat-welcome .robot-stage .robot-gif{width:150px!important;height:150px!important;max-width:150px!important;max-height:150px!important}
+ .trean-root .chat-welcome h1{font-size:clamp(24px,6.4vw,30px)!important;line-height:1.2!important;margin:12px 0!important}
+ .trean-root .chat-welcome>p{font-size:14px!important;line-height:1.55!important;margin:0 auto 18px!important}
+ .trean-root .chat-prompt-grid{gap:10px!important}
+ .trean-root .chat-prompt-grid button{padding:13px!important;min-height:108px!important;border-radius:17px!important;font-size:13px!important;line-height:1.35!important}
+ .trean-root .chat-prompt-grid button>span{width:34px!important;height:34px!important;margin-bottom:8px!important}
+ .trean-root .chat-transcript{padding:16px 14px 150px!important}
+ .trean-root .chat-message{font-size:15px!important;line-height:1.65!important}
+ .trean-root .chat-message.user{padding:11px 13px!important;border-radius:17px!important}
+ .trean-root .chat-message.assistant{padding:4px 0 12px!important}
+ .trean-root .response-content h3{font-size:19px!important;margin:18px 0 8px!important}
+ .trean-root .response-content h4{font-size:16px!important;margin:14px 0 6px!important}
+ .trean-root .response-content p,.trean-root .response-content li{font-size:15px!important;line-height:1.65!important}
+}
+@media(min-width:601px){
+ .trean-root .view{padding:24px 28px 36px!important}
+ .trean-root .history-section{padding:20px!important}
+}
