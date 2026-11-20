@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./trean-redesign.css";
 
 export const metadata = {
   title: "TREAN AI — Learn from every video",
