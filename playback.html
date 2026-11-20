@@ -1,23 +1,504 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#100d1b"><title>TREAN AI</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playback</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d0b15;--side:#100e19;--panel:#191522;--panel2:#211a2e;--line:#30283f;--text:#f5f2fb;--muted:#b6abc9;--purple:#8b35f4;--p2:#b45aff}*{box-sizing:border-box}html,body{height:100%;margin:0}body{background:var(--bg);color:var(--text);font:14px Inter,system-ui,sans-serif;overflow:hidden}button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}.app{height:100dvh;display:grid;grid-template-columns:370px 1fr}.sidebar{background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;min-width:0;overflow:hidden}.sidebar-head{padding:18px;display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:700}.brand b{color:#b45aff}.logo{width:38px;height:38px}.icon{background:none;border:1px solid transparent;border-radius:11px;width:38px;height:38px;display:grid;place-items:center;color:var(--muted)}.icon:hover{background:var(--panel2);border-color:var(--line)}.actions{padding:4px 18px 14px;display:grid;gap:9px}.new{height:48px;background:linear-gradient(110deg,#5620a5,#772bd2);border:1px solid #803de2;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 15px;font-weight:600}.search{height:44px;border:1px solid #403452;border-radius:12px;background:#171321;display:flex;align-items:center;gap:9px;padding:0 11px}.search input{background:none;border:0;outline:0;width:100%;font-size:13px}.kbd{font-size:10px;color:#8c7d9e;border:1px solid var(--line);border-radius:5px;padding:3px 5px;white-space:nowrap}.nav{padding:0 18px 12px;display:grid;gap:4px}.nav button{height:42px;border:0;background:none;border-radius:10px;text-align:left;padding:0 13px;display:flex;align-items:center;gap:12px;color:#e0d9e9}.nav button:hover{background:#211a2e}.nav button.active{background:linear-gradient(90deg,#52239b99,#36185c99)}.nav svg{width:19px;color:#c9b7de}.history{margin:0 10px;border-top:1px solid var(--line);padding:12px 9px;overflow:auto;flex:1;min-height:0}.history-title{margin:5px;font-size:13px}.group-label{font-size:12px;color:var(--muted);margin:12px 5px 7px}.history-item{display:flex;gap:9px;align-items:center;width:100%;height:36px;border:0;background:transparent;border-radius:8px;padding:0 8px;text-align:left;font-size:12px;color:#d3c9e0;white-space:nowrap;overflow:hidden}.history-item:hover{background:#251b36}.history-item svg{width:16px;flex-shrink:0;color:#a98bc5}.history-item span{overflow:hidden;text-overflow:ellipsis}.upgrade{margin:12px 18px 18px;padding:13px;border:1px solid #55318b;border-radius:13px;background:linear-gradient(130deg,#57258f44,#191322);display:flex;gap:10px}.upgrade .crown{color:#c477ff;font-size:23px}.upgrade b{font-size:13px}.upgrade small{display:block;color:var(--muted);font-size:11px;line-height:1.4;margin-top:4px}.main{height:100dvh;min-width:0;display:flex;flex-direction:column}.topbar{height:70px;flex-shrink:0;border-bottom:1px solid #33283f;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#0d0b15dd;backdrop-filter:blur(14px)}.left,.right{display:flex;align-items:center;gap:10px}.model{height:44px;border:1px solid #392d4c;background:#191425;border-radius:13px;padding:0 12px;display:flex;align-items:center;gap:9px;font-weight:600}.model svg{width:25px}.right .icon{color:var(--muted)}.chat-scroll{flex:1;overflow:auto;padding:22px 20px 8px;scroll-behavior:smooth}.welcome{max-width:1040px;margin:6vh auto 0;text-align:center;padding:0 12px}.hero-logo{width:92px;height:92px;margin:0 auto 18px;filter:drop-shadow(0 0 24px #aa52ff33)}h1{font-size:clamp(27px,3vw,40px);letter-spacing:-1.2px;margin:0 0 12px;line-height:1.2}.welcome p{font-size:17px;color:#c6b9d9;line-height:1.55;max-width:750px;margin:0 auto}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:40px auto 0;max-width:1040px}.card{border:1px solid #403650;background:linear-gradient(150deg,#1d1929,#171321);border-radius:17px;padding:21px 14px;min-height:143px;transition:.18s}.card:hover{transform:translateY(-3px);border-color:#8851bd;background:#211a31}.card svg{width:35px;height:35px;color:#bb6aff;margin-bottom:10px}.card b{display:block;font-size:15px;margin-bottom:6px}.card small{font-size:13px;color:#c5b6da;line-height:1.4}.messages{max-width:900px;width:100%;margin:0 auto;padding:10px 18px 30px}.message{display:flex;gap:14px;margin:24px 0;align-items:flex-start}.message.user{justify-content:flex-end}.avatar{width:32px;height:32px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#8e3af6,#561ac1);font-weight:700;font-size:12px}.assistant-avatar{background:none;color:#b45aff}.body{max-width:calc(100% - 45px);line-height:1.72;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}.user .body{background:#2b2438;border:1px solid #403550;border-radius:20px;padding:11px 16px;max-width:80%}.body pre{background:#15111f;border:1px solid var(--line);border-radius:12px;padding:14px;overflow:auto}.sources{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.chip{border:1px solid var(--line);border-radius:20px;padding:3px 9px;color:var(--muted);font-size:11px}.composer-area{padding:9px 24px 17px;background:linear-gradient(transparent,#0d0b15 20%);flex-shrink:0}.composer{max-width:1040px;margin:auto;border:1px solid #7451a0;border-radius:23px;background:#191522;padding:12px 14px 10px;box-shadow:0 0 0 1px #af64ff1f,0 8px 38px #6624a322;position:relative}.composer:focus-within{border-color:#b57aff;box-shadow:0 0 0 2px #a656ff24,0 8px 40px #6624a322}.textarea{width:100%;min-height:38px;max-height:160px;resize:none;background:none;border:0;outline:0;color:var(--text);padding:4px 8px 8px;font-size:16px;line-height:1.5}.textarea::placeholder{color:#b7a8ca}.controls{display:flex;align-items:center;gap:8px}.ctrl{height:40px;min-width:40px;border:1px solid #443751;background:#211a2c;color:#d6c8e8;border-radius:50%;display:grid;place-items:center;padding:0 10px}.ctrl:hover{background:#332346}.pill{border-radius:22px;display:flex;align-items:center;gap:7px;font-size:12px;white-space:nowrap}.pill.on{border-color:#8d50d0;background:#302044}.model-pill{height:40px;border:1px solid #443751;border-radius:22px;background:#211a2d;display:flex;align-items:center;gap:7px;padding:0 11px;font-size:12px;white-space:nowrap}.green{color:#7bd65c}.spacer{flex:1}.mic{height:38px;width:38px;border:0;border-radius:50%;background:none;color:#c9b8dc}.mic:hover{background:#2b2238}.send{width:44px;height:44px;border:0;border-radius:50%;background:linear-gradient(140deg,#bb63ff,#7427dd);display:grid;place-items:center;box-shadow:0 0 20px #9134f54d}.send:disabled{opacity:.5}.note{text-align:center;color:#8e829d;font-size:11px;padding:9px 0 0}.files{display:flex;gap:7px;flex-wrap:wrap;padding:0 7px 7px}.file{border:1px solid #49385f;background:#2b2238;border-radius:9px;padding:5px 8px;font-size:12px}.dropdown{position:absolute;bottom:65px;left:50%;transform:translateX(-50%);min-width:220px;background:#20192d;border:1px solid #4a3a60;border-radius:12px;padding:7px;box-shadow:0 16px 40px #0008;z-index:10}.dropdown button{width:100%;border:0;background:none;text-align:left;border-radius:8px;padding:10px}.dropdown button:hover{background:#322442}.hide{display:none!important}.mobile-toggle{display:none}.scrim{display:none}
-@media(max-width:1080px){.app{grid-template-columns:300px 1fr}.cards{grid-template-columns:repeat(2,1fr);max-width:700px;margin-top:28px}.welcome{margin-top:4vh}}
-@media(max-width:760px){.app{display:block}.sidebar{position:fixed;inset:0 auto 0 0;width:min(86vw,340px);z-index:30;transform:translateX(-102%);transition:transform .23s;box-shadow:20px 0 50px #0007}.sidebar.open{transform:translateX(0)}.scrim.show{display:block;position:fixed;inset:0;background:#0009;z-index:25}.main{height:100dvh;width:100%}.topbar{height:58px;padding:0 9px}.mobile-toggle{display:grid}.model{height:38px;padding:0 8px;font-size:13px}.right{gap:4px}.hide-mobile{display:none}.chat-scroll{padding:12px 10px 0}.welcome{margin:5vh auto 0;padding:0 3px}.hero-logo{width:65px;height:65px;margin-bottom:12px}h1{font-size:27px;letter-spacing:-.7px}.welcome p{font-size:14px;line-height:1.5}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px}.card{min-height:120px;padding:15px 9px;border-radius:14px}.card b{font-size:13px}.card small{font-size:11px}.card svg{width:29px;height:29px;margin-bottom:8px}.messages{padding:0 3px 18px}.message{gap:9px;margin:20px 0}.avatar{width:28px;height:28px}.body{font-size:14px;max-width:calc(100% - 37px)}.user .body{max-width:87%;padding:10px 13px}.composer-area{padding:8px 9px calc(10px + env(safe-area-inset-bottom))}.composer{border-radius:20px;padding:10px 9px 8px}.textarea{font-size:15px;min-height:34px;padding:4px 5px 7px}.controls{gap:5px}.ctrl{height:36px;min-width:36px;padding:0 8px}.pill{font-size:11px}.model-pill{height:36px;padding:0 8px;font-size:10.5px;gap:5px}.mic{width:32px;height:34px}.send{width:40px;height:40px}.note{font-size:10px;padding-top:7px}.spacer{min-width:0}.brand{font-size:20px}.sidebar-head{padding:17px 16px}.actions{padding:5px 14px 14px}.nav{padding:0 14px 12px}.history{margin:0 8px;padding:12px 10px}.upgrade{margin:12px 14px 16px}.dropdown{bottom:60px}.files{padding:0 4px 6px}}
-@media(max-width:390px){.card{min-height:112px;padding:12px 7px}.card b{font-size:12px}.card small{font-size:10.5px}.model-pill{max-width:135px}.model-pill span:nth-child(2){overflow:hidden;text-overflow:ellipsis}.controls{gap:4px}.pill{padding:0 7px}.topbar{padding:0 6px}}
-</style></head><body><div class="app"><div class="scrim" id="scrim"></div>
-<aside class="sidebar" id="sidebar"><div class="sidebar-head"><div class="brand"><svg class="logo" viewBox="0 0 48 48"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d178ff"/><stop offset="1" stop-color="#7628e9"/></linearGradient></defs><path d="M24 3.8 40 13v22L24 44.2 8 35V13L24 3.8Z" fill="none" stroke="url(#lg)" stroke-width="3.2"/><path d="m18 15 14 9-14 9V15Z" fill="none" stroke="url(#lg)" stroke-width="3"/></svg><div>TREAN <b>AI</b></div></div><button class="icon" id="collapse" aria-label="Close sidebar">▣</button></div>
-<div class="actions"><button class="new" id="newChat"><span style="font-size:21px">＋</span>New Chat</button><label class="search"><span>⌕</span><input id="search" placeholder="Search chats..."><span class="kbd">Ctrl K</span></label></div>
-<nav class="nav"><button class="active" data-page="chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H5l1.7-3A7.5 7.5 0 1 1 20 11.5Z"/></svg>Chat</button><button data-page="learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 8 5 4-5 4V8Z"/></svg>Learn from Video</button><button data-page="knowledge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg>Knowledge Base</button><button data-page="summaries"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg>Summaries</button><button data-page="sources"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a3 3 0 0 1 3-3h13v19H7a3 3 0 0 0-3 3V5Z"/><path d="M4 5v16"/></svg>Learning Sources</button><button data-page="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</button></nav>
-<div class="history"><div class="history-title">Chat History</div><div id="historyList"></div></div><div class="upgrade"><div class="crown">♛</div><div><b>Upgrade to TREAN Pro</b><small>Unlock higher limits, longer videos, and advanced features.</small></div></div></aside>
-<main class="main"><header class="topbar"><div class="left"><button class="icon mobile-toggle" id="openSidebar">☰</button><button class="model" id="modelMenu"><svg viewBox="0 0 48 48"><path d="M24 3.8 40 13v22L24 44.2 8 35V13L24 3.8Z" fill="none" stroke="#b75bff" stroke-width="3"/><path d="m18 15 14 9-14 9V15Z" fill="none" stroke="#b75bff" stroke-width="3"/></svg>TREAN AI <span>⌄</span></button></div><div class="right"><button class="icon hide-mobile" title="Share">⇧</button><button class="icon" title="More">•••</button><button class="icon" style="border-radius:50%;background:#6f28e7;color:white">S</button></div></header>
-<section class="chat-scroll" id="scroll"><div class="welcome" id="welcome"><svg class="hero-logo" viewBox="0 0 48 48"><defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d178ff"/><stop offset="1" stop-color="#7628e9"/></linearGradient></defs><path d="M24 3.8 40 13v22L24 44.2 8 35V13L24 3.8Z" fill="none" stroke="url(#wg)" stroke-width="3.2"/><path d="m18 15 14 9-14 9V15Z" fill="none" stroke="url(#wg)" stroke-width="3"/></svg><h1>What can I help you learn today?</h1><p>Ask anything, analyze your videos, summarize content, or explore your knowledge base.</p><div class="cards"><button class="card" data-prompt="Help me learn from a YouTube video."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 8 5 4-5 4V8Z"/></svg><b>Learn from a Video</b><small>Convert video to knowledge</small></button><button class="card" data-prompt="Search my knowledge base for relevant information."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg><b>Search Knowledge</b><small>Find from your library</small></button><button class="card" data-prompt="Summarize the content I provide into key takeaways."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg><b>Summarize Content</b><small>Get key takeaways</small></button><button class="card" data-prompt="Explain a concept clearly with examples."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5a3 3 0 0 1 3-3h5v18H6a3 3 0 0 0-3 3V5ZM21 5a3 3 0 0 0-3-3h-5v18h5a3 3 0 0 1 3 3V5Z"/></svg><b>Explain a Concept</b><small>Understand with examples</small></button></div></div><div class="messages" id="messages"></div></section>
-<div class="composer-area"><div class="composer"><div class="files" id="files"></div><textarea class="textarea" id="input" rows="1" placeholder="Message TREAN AI..."></textarea><div class="controls"><button class="ctrl" id="attach" title="Attach">＋</button><button class="ctrl" id="clip" title="Attach file">⌁</button><button class="ctrl pill on" id="knowledge"><span>◎</span> Knowledge <span>⌄</span></button><button class="model-pill" id="nim"><span class="green">▣</span><span>NVIDIA NIM (Auto)</span><span>⌄</span></button><div class="spacer"></div><button class="mic" id="mic" title="Voice input">♩</button><button class="send" id="send" aria-label="Send">↑</button></div><div class="dropdown hide" id="dropdown"><button>▣ NVIDIA NIM (Auto)　✓</button><button>⚡ Fast model</button><button>✦ Advanced model</button><button>⚙ Model settings</button></div></div><div class="note">TREAN AI can make mistakes. Verify important information.</div><input type="file" id="fileInput" multiple hidden></div></main></div>
+  :root {
+    --bg: #121309;
+    --panel: #1B1C13;
+    --panel-raised: #232419;
+    --line: #33341f;
+    --gold: #C9A227;
+    --gold-dim: #8a7220;
+    --text: #EDEAE0;
+    --text-muted: #9A9887;
+    --text-faint: #6B6957;
+    --danger: #B5563F;
+    --good: #7FA05C;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.5;
+    overflow: hidden;
+  }
+  .app {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    height: 100vh;
+  }
+  @media (max-width: 720px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar { position: fixed; inset: 0 0 0 auto; width: 82%; max-width: 320px; z-index: 20;
+      transform: translateX(100%); transition: transform .25s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-scrim { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 15; display: none; }
+    .sidebar-scrim.show { display: block; }
+    .mobile-toggle { display: flex !important; }
+  }
+
+  .sidebar {
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .brand { padding: 22px 18px 14px; border-bottom: 1px solid var(--line); }
+  .brand-mark { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand-mark .dot { color: var(--gold); }
+  .brand-sub { color: var(--text-faint); font-size: 12px; margin-top: 3px; }
+
+  .kb-stats {
+    display: flex;
+    gap: 14px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .kb-stat { }
+  .kb-stat .n { font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: var(--gold); }
+  .kb-stat .l { font-size: 10.5px; color: var(--text-faint); margin-top: 1px; }
+
+  .sources-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px 8px;
+  }
+  .sources-label { font-size: 11px; color: var(--text-faint); font-weight: 500; }
+  .add-btn {
+    background: none; border: 1px solid var(--line); color: var(--text-muted);
+    border-radius: 5px; width: 22px; height: 22px; font-size: 15px; line-height: 1; cursor: pointer;
+  }
+  .add-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+  .sources-list {
+    flex: 1; overflow-y: auto; padding: 0 12px 12px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .source-card { background: var(--panel-raised); border: 1px solid var(--line); border-radius: 6px; padding: 10px 11px; }
+  .source-title { font-size: 13px; font-weight: 500; color: var(--text); word-break: break-word; }
+  .source-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .source-len { font-size: 11px; color: var(--text-faint); font-family: 'IBM Plex Mono', monospace; }
+  .remove-btn { background: none; border: none; color: var(--text-faint); font-size: 11px; cursor: pointer; padding: 0; }
+  .remove-btn:hover { color: var(--danger); }
+  .empty-sources { color: var(--text-faint); font-size: 12.5px; padding: 10px 6px; line-height: 1.6; }
+  .empty-sources button { color: var(--gold); background: none; border: none; padding: 0; font: inherit; cursor: pointer; }
+
+  .add-form {
+    padding: 12px 18px 16px; border-top: 1px solid var(--line);
+    display: none; flex-direction: column; gap: 8px;
+  }
+  .add-form.open { display: flex; }
+  .add-form label { font-size: 11px; color: var(--text-faint); }
+  .add-form input, .add-form textarea {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 5px;
+    color: var(--text); padding: 8px 9px; font-family: inherit; font-size: 13px; resize: vertical;
+  }
+  .add-form textarea { min-height: 90px; }
+  .add-form input:focus, .add-form textarea:focus { outline: none; border-color: var(--gold-dim); }
+  .add-form-actions { display: flex; gap: 8px; margin-top: 2px; align-items: center; }
+  .btn-primary {
+    background: var(--gold); color: #17150a; border: none; border-radius: 5px;
+    padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-ghost {
+    background: none; border: 1px solid var(--line); color: var(--text-muted);
+    border-radius: 5px; padding: 7px 14px; font-size: 13px; cursor: pointer;
+  }
+  .indexed-note { font-size: 11.5px; color: var(--good); }
+  .hint { color: var(--text-faint); font-size: 11px; line-height: 1.5; }
+
+  .main { display: flex; flex-direction: column; min-height: 0; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+  .topbar-title { font-size: 13px; color: var(--text-muted); }
+  .topbar-title strong { color: var(--text); font-weight: 500; }
+  .mobile-toggle { display: none; background: none; border: 1px solid var(--line); color: var(--text-muted); border-radius: 5px; padding: 5px 9px; font-size: 12px; cursor: pointer; }
+  .clear-btn { background: none; border: none; color: var(--text-faint); font-size: 12px; cursor: pointer; }
+  .clear-btn:hover { color: var(--danger); }
+
+  .messages { flex: 1; overflow-y: auto; padding: 24px 0 10px; }
+  .msg-wrap { max-width: 680px; margin: 0 auto 22px; padding: 0 24px; }
+  .msg-role { font-size: 11px; color: var(--text-faint); margin-bottom: 5px; font-family: 'IBM Plex Mono', monospace; }
+  .msg-role.user { color: var(--gold-dim); }
+  .msg-body { white-space: pre-wrap; word-break: break-word; }
+  .msg-body code { font-family: 'IBM Plex Mono', monospace; background: var(--panel-raised); padding: 1px 5px; border-radius: 3px; font-size: 12.5px; }
+  .msg-body pre { background: #0d0e08; border: 1px solid var(--line); border-radius: 7px; padding: 12px 14px; overflow-x: auto; margin: 8px 0; }
+  .msg-body pre code { background: none; padding: 0; font-size: 12.5px; line-height: 1.55; }
+  .msg-sources {
+    margin-top: 8px; display: flex; flex-wrap: wrap; gap: 5px;
+  }
+  .msg-source-chip {
+    font-size: 10.5px; font-family: 'IBM Plex Mono', monospace; color: var(--text-faint);
+    border: 1px solid var(--line); border-radius: 10px; padding: 2px 8px;
+  }
+  .welcome { max-width: 560px; margin: 8vh auto 0; padding: 0 24px; text-align: center; }
+  .welcome h1 { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 500; margin: 0 0 10px; }
+  .welcome p { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin: 0 auto; max-width: 420px; }
+  .welcome .go { margin-top: 18px; }
+
+  .typing { display: inline-flex; gap: 4px; align-items: center; padding: 2px 0; }
+  .typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--text-faint); animation: blink 1.1s infinite ease-in-out; }
+  .typing span:nth-child(2) { animation-delay: .18s; }
+  .typing span:nth-child(3) { animation-delay: .36s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+
+  .composer { border-top: 1px solid var(--line); padding: 14px 24px 18px; }
+  .composer-inner {
+    max-width: 680px; margin: 0 auto; display: flex; gap: 10px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 8px 8px 14px;
+  }
+  .composer-inner textarea { flex: 1; background: none; border: none; color: var(--text); font-family: inherit; font-size: 14px; resize: none; max-height: 140px; padding: 6px 0; }
+  .composer-inner textarea:focus { outline: none; }
+  .send-btn { background: var(--gold); color: #17150a; border: none; border-radius: 7px; padding: 0 16px; font-weight: 600; font-size: 13px; cursor: pointer; align-self: flex-end; height: 36px; }
+  .send-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .composer-foot { max-width: 680px; margin: 8px auto 0; font-size: 11px; color: var(--text-faint); display: flex; justify-content: space-between; }
+  .err-banner { max-width: 680px; margin: 0 auto 10px; padding: 8px 14px; background: rgba(181,86,63,.12); border: 1px solid rgba(181,86,63,.4); color: #E0A392; border-radius: 6px; font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar-scrim" id="scrim"></div>
+  <div class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">Playback<span class="dot">.</span></div>
+      <div class="brand-sub">Paste videos in. It studies them, then builds.</div>
+    </div>
+    <div class="kb-stats">
+      <div class="kb-stat"><div class="n" id="statVideos">0</div><div class="l">videos</div></div>
+      <div class="kb-stat"><div class="n" id="statChunks">0</div><div class="l">chunks indexed</div></div>
+      <div class="kb-stat"><div class="n" id="statWords">0</div><div class="l">words learned</div></div>
+    </div>
+    <div class="sources-head">
+      <span class="sources-label">SOURCES</span>
+      <button class="add-btn" id="toggleAdd" title="Add a video">+</button>
+    </div>
+    <div class="sources-list" id="sourcesList"></div>
+
+    <div class="add-form" id="addForm">
+      <label>Video link (optional, just for your reference)</label>
+      <input type="text" id="srcUrl" placeholder="https://youtube.com/watch?v=...">
+      <label>Transcript / notes from the video</label>
+      <textarea id="srcContent" placeholder="Paste the transcript here — open the video's ⋯ menu → Show transcript → copy the text."></textarea>
+      <div class="hint">It'll be chunked and indexed automatically — no title needed.</div>
+      <div class="add-form-actions">
+        <button class="btn-primary" id="saveSource">Add &amp; index</button>
+        <button class="btn-ghost" id="cancelSource">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button class="mobile-toggle" id="openSidebar">Sources</button>
+        <div class="topbar-title"><strong id="srcCount">0</strong> <span id="srcCountLabel">videos indexed</span></div>
+      </div>
+      <button class="clear-btn" id="clearChat">Clear chat</button>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="welcome" id="welcome">
+        <h1>What did you watch?</h1>
+        <p>Paste video transcripts on the left — each one gets chunked and indexed. Then ask questions, or ask it to build an app or site, and it pulls the relevant pieces from everything you've fed it.</p>
+        <div class="go"><button class="btn-primary" id="welcomeAdd">Add your first video</button></div>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div id="errBanner"></div>
+      <div class="composer-inner">
+        <textarea id="chatInput" placeholder="Ask about your videos, or ask it to build something…" rows="1"></textarea>
+        <button class="send-btn" id="sendBtn">Send</button>
+      </div>
+      <div class="composer-foot">
+        <span>Shift+Enter for a new line</span>
+        <span id="retrievalNote"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-const K1='sources',K2='chunks',K3='chat';let sources=[],chunks=[],chat=[],busy=false,know=true,files=[];const $=x=>document.getElementById(x);function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}function fmt(s){return esc(s).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>')}
-async function read(k){try{if(window.storage){let x=await window.storage.get(k,false);return x?.value}return localStorage.getItem(k)}catch(e){return localStorage.getItem(k)}}async function write(k,v){try{if(window.storage)await window.storage.set(k,v,false);else localStorage.setItem(k,v)}catch(e){try{localStorage.setItem(k,v)}catch(x){}}}function save(){write(K1,JSON.stringify(sources));write(K2,JSON.stringify(chunks));write(K3,JSON.stringify(chat))}
-async function init(){try{sources=JSON.parse(await read(K1)||'[]');chunks=JSON.parse(await read(K2)||'[]');chat=JSON.parse(await read(K3)||'[]')}catch(e){sources=[];chunks=[];chat=[]}history();render()}function history(q=''){let u=chat.filter(m=>m.role==='user').map(m=>m.content).filter(s=>s.toLowerCase().includes(q.toLowerCase()));$('historyList').innerHTML=u.length?'<div class="group-label">Today</div>'+u.map(s=>'<button class="history-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H5l1.7-3A7.5 7.5 0 1 1 20 11.5Z"/></svg><span>'+esc(s.slice(0,45))+'</span></button>'):'<div class="group-label">Your conversations will appear here.</div>'}function render(){if(!chat.length){$('welcome').classList.remove('hide');$('messages').innerHTML='';return}$('welcome').classList.add('hide');$('messages').innerHTML=chat.map(m=>'<div class="message '+m.role+'">'+(m.role==='assistant'?'<div class="avatar assistant-avatar">✦</div>':'')+'<div class="body">'+fmt(m.content)+(m.used?.length?'<div class="sources">'+m.used.map(s=>'<span class="chip">'+esc(s)+'</span>').join('')+'</div>':'')+'</div>'+(m.role==='user'?'<div class="avatar">S</div>':'')+'</div>').join('');$('scroll').scrollTop=$('scroll').scrollHeight}
-function getContext(q){if(!chunks.length)return{context:'',used:[]};let words=(q.toLowerCase().match(/[a-z0-9]+/g)||[]).filter(w=>w.length>2),rank=chunks.map(c=>({c,s:words.reduce((a,w)=>a+(c.text.toLowerCase().includes(w)?1:0),0)})).sort((a,b)=>b.s-a.s).slice(0,6).filter(x=>x.s);let used=[],context=rank.map(x=>{if(!used.includes(x.c.sourceTitle))used.push(x.c.sourceTitle);return'[Source: '+x.c.sourceTitle+']\n'+x.c.text}).join('\n\n');return{context,used}}
-function fresh(){chat=[];save();history();render();$('input').focus()}$('newChat').onclick=fresh;$('collapse').onclick=close;$('openSidebar').onclick=()=>{$('sidebar').classList.add('open');$('scrim').classList.add('show')};$('scrim').onclick=close;function close(){$('sidebar').classList.remove('open');$('scrim').classList.remove('show')}$('search').oninput=e=>history(e.target.value);document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('search').focus()}if(e.key==='Escape')close()});document.querySelectorAll('.card').forEach(b=>b.onclick=()=>{$('input').value=b.dataset.prompt;$('input').focus()});document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('input').placeholder=b.dataset.page==='learn'?'Paste a YouTube URL or transcript...':'Message TREAN AI...';if(innerWidth<761)close()});$('knowledge').onclick=()=>{know=!know;$('knowledge').classList.toggle('on',know)};$('nim').onclick=$('modelMenu').onclick=()=> $('dropdown').classList.toggle('hide');$('attach').onclick=$('clip').onclick=()=> $('fileInput').click();$('fileInput').onchange=e=>{files=Array.from(e.target.files||[]);$('files').innerHTML=files.map(f=>'<span class="file">📎 '+esc(f.name)+'</span>').join('')};$('input').oninput=e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,160)+'px'};$('input').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};$('send').onclick=send;$('mic').onclick=()=>{let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Voice input unavailable in this browser');return}let r=new SR();r.lang='en-IN';r.onresult=e=>$('input').value+=e.results[0][0].transcript;r.start()};
-async function send(){let q=$('input').value.trim();if(!q||busy)return;busy=true;$('send').disabled=true;chat.push({role:'user',content:q});$('input').value='';$('input').style.height='auto';render();save();let t=document.createElement('div');t.className='message assistant';t.innerHTML='<div class="avatar assistant-avatar">✦</div><div class="body" style="color:#bca8d0">TREAN AI is thinking…</div>';$('messages').appendChild(t);$('scroll').scrollTop=$('scroll').scrollHeight;try{let ctx=getContext(q),res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:chat.map(m=>({role:m.role,content:m.content})),system:'You are TREAN AI, a learning assistant. Use provided knowledge excerpts where relevant. Be clear when knowledge sources do not support an answer.\n'+ctx.context,model:'nvidia-nim-auto',knowledgeMode:know,attachments:files.map(f=>({name:f.name,type:f.type,size:f.size}))})});if(!res.ok)throw new Error(await res.text()||'API returned '+res.status);let d=await res.json(),answer=d.reply||d.content||d.message||d.choices?.[0]?.message?.content;if(!answer)throw new Error('No response returned by the API');t.remove();chat.push({role:'assistant',content:answer,used:ctx.used});render();save()}catch(e){t.remove();chat.pop();render();let err=document.createElement('div');err.style.cssText='padding:11px;border:1px solid #75404d;background:#2b1720;color:#efb6bd;border-radius:10px;font-size:13px';err.textContent='Unable to connect to TREAN AI: '+e.message+' — verify API setup and retry.';$('messages').appendChild(err)}finally{busy=false;$('send').disabled=false;files=[];$('files').innerHTML='';$('fileInput').value='';$('scroll').scrollTop=$('scroll').scrollHeight}}init();
-</script></body></html>
+const SOURCES_KEY = 'sources';
+const CHUNKS_KEY = 'chunks';
+const CHAT_KEY = 'chat';
+
+let sources = [];   // {id, title, url, wordCount, chunkCount}
+let chunks = [];    // {id, sourceId, sourceTitle, text}
+let chat = [];       // {role, content, usedSources?}
+let sending = false;
+
+const $ = (id) => document.getElementById(id);
+const STOPWORDS = new Set(['the','a','an','is','are','was','were','be','been','being','to','of','and','or','but','in','on','at','for','with','by','from','as','that','this','these','those','it','its','i','you','he','she','they','we','me','him','her','them','us','my','your','his','their','our','what','which','who','how','why','when','where','do','does','did','have','has','had','will','would','can','could','should','so','if','not','no','yes','then','than','just','about','into','over','out','up','down','also','like','get','got','can','more','most','some','such','only','very','too','can','one','two','make','made','use','using']);
+
+function tokenize(text) {
+  return (text.toLowerCase().match(/[a-z0-9']+/g) || []).filter(w => w.length > 2 && !STOPWORDS.has(w));
+}
+
+function chunkText(text, sourceId, sourceTitle) {
+  const words = text.split(/\s+/).filter(Boolean);
+  const CHUNK_WORDS = 130;
+  const OVERLAP = 25;
+  const result = [];
+  let i = 0;
+  while (i < words.length) {
+    const slice = words.slice(i, i + CHUNK_WORDS).join(' ');
+    if (slice.trim()) {
+      result.push({ id: sourceId + '-' + result.length, sourceId, sourceTitle, text: slice });
+    }
+    if (i + CHUNK_WORDS >= words.length) break;
+    i += (CHUNK_WORDS - OVERLAP);
+  }
+  return result.length ? result : [{ id: sourceId + '-0', sourceId, sourceTitle, text: text.trim() }];
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderMarkdownLite(text) {
+  const parts = text.split(/```(\w*)\n?([\s\S]*?)```/g);
+  let html = '';
+  for (let i = 0; i < parts.length; i += 3) {
+    const plain = parts[i] || '';
+    html += escapeHtml(plain).replace(/`([^`]+)`/g, '<code>$1</code>');
+    if (i + 2 < parts.length) {
+      const code = parts[i + 2] || '';
+      html += `<pre><code>${escapeHtml(code)}</code></pre>`;
+    }
+  }
+  return html;
+}
+
+async function loadState() {
+  try { const s = await window.storage.get(SOURCES_KEY, false); sources = s ? JSON.parse(s.value) : []; } catch (e) { sources = []; }
+  try { const c = await window.storage.get(CHUNKS_KEY, false); chunks = c ? JSON.parse(c.value) : []; } catch (e) { chunks = []; }
+  try { const h = await window.storage.get(CHAT_KEY, false); chat = h ? JSON.parse(h.value) : []; } catch (e) { chat = []; }
+  renderSources();
+  renderStats();
+  renderMessages();
+}
+async function saveSources() { try { await window.storage.set(SOURCES_KEY, JSON.stringify(sources), false); } catch (e) { console.error(e); } }
+async function saveChunks() { try { await window.storage.set(CHUNKS_KEY, JSON.stringify(chunks), false); } catch (e) { console.error(e); } }
+async function saveChat() { try { await window.storage.set(CHAT_KEY, JSON.stringify(chat), false); } catch (e) { console.error(e); } }
+
+function renderStats() {
+  const totalWords = sources.reduce((sum, s) => sum + s.wordCount, 0);
+  $('statVideos').textContent = sources.length;
+  $('statChunks').textContent = chunks.length;
+  $('statWords').textContent = totalWords >= 1000 ? (totalWords/1000).toFixed(1) + 'k' : totalWords;
+  $('srcCount').textContent = sources.length;
+  $('srcCountLabel').textContent = sources.length === 1 ? 'video indexed' : 'videos indexed';
+}
+
+function renderSources() {
+  const list = $('sourcesList');
+  if (sources.length === 0) {
+    list.innerHTML = `<div class="empty-sources">No videos yet. <button id="emptyAdd">Add one</button> to get started.</div>`;
+    const b = document.getElementById('emptyAdd');
+    if (b) b.onclick = openAddForm;
+    return;
+  }
+  list.innerHTML = sources.map(s => `
+    <div class="source-card">
+      <div class="source-title">${escapeHtml(s.title)}</div>
+      <div class="source-meta">
+        <span class="source-len">${s.chunkCount} chunks · ${s.wordCount} words</span>
+        <button class="remove-btn" data-id="${s.id}">remove</button>
+      </div>
+    </div>
+  `).join('');
+  list.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.onclick = () => {
+      sources = sources.filter(s => s.id !== btn.dataset.id);
+      chunks = chunks.filter(c => c.sourceId !== btn.dataset.id);
+      saveSources(); saveChunks();
+      renderSources(); renderStats();
+    };
+  });
+}
+
+function renderMessages() {
+  const box = $('messages');
+  if (chat.length === 0) {
+    box.innerHTML = '';
+    box.appendChild($('welcome'));
+    return;
+  }
+  box.innerHTML = chat.map(m => `
+    <div class="msg-wrap">
+      <div class="msg-role ${m.role === 'user' ? 'user' : ''}">${m.role === 'user' ? 'you' : 'playback'}</div>
+      <div class="msg-body">${renderMarkdownLite(m.content)}</div>
+      ${m.usedSources && m.usedSources.length ? `<div class="msg-sources">${m.usedSources.map(t => `<span class="msg-source-chip">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+    </div>
+  `).join('');
+  box.scrollTop = box.scrollHeight;
+}
+
+function openAddForm() { $('addForm').classList.add('open'); $('srcUrl').focus(); }
+function closeAddForm() { $('addForm').classList.remove('open'); $('srcUrl').value = ''; $('srcContent').value = ''; }
+
+$('toggleAdd').onclick = () => { $('addForm').classList.contains('open') ? closeAddForm() : openAddForm(); };
+$('welcomeAdd').onclick = openAddForm;
+$('cancelSource').onclick = closeAddForm;
+
+$('saveSource').onclick = () => {
+  const url = $('srcUrl').value.trim();
+  const content = $('srcContent').value.trim();
+  if (!content) { $('srcContent').focus(); return; }
+  const firstLine = content.split('\n').find(l => l.trim().length > 0) || 'Untitled video';
+  const title = url || firstLine.slice(0, 60);
+  const id = Date.now().toString(36);
+  const wordCount = content.split(/\s+/).filter(Boolean).length;
+  const newChunks = chunkText(content, id, title);
+  sources.push({ id, title, url, wordCount, chunkCount: newChunks.length });
+  chunks = chunks.concat(newChunks);
+  saveSources(); saveChunks();
+  renderSources(); renderStats();
+  closeAddForm();
+};
+
+$('openSidebar').onclick = () => { $('sidebar').classList.add('open'); $('scrim').classList.add('show'); };
+$('scrim').onclick = () => { $('sidebar').classList.remove('open'); $('scrim').classList.remove('show'); };
+
+$('clearChat').onclick = () => { chat = []; saveChat(); location.reload(); };
+
+const input = $('chatInput');
+input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 140) + 'px'; });
+input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+$('sendBtn').onclick = sendMessage;
+
+// ---- Retrieval: simple TF-IDF style keyword search over indexed chunks ----
+function retrieveChunks(query, maxChunks, broadFallback) {
+  if (!chunks.length) return [];
+  const qTokens = tokenize(query);
+  const N = chunks.length;
+  if (!qTokens.length) return broadSample(maxChunks);
+
+  const df = {};
+  qTokens.forEach(t => df[t] = 0);
+  const tokenized = chunks.map(c => tokenize(c.text));
+  tokenized.forEach(tokens => {
+    const uniq = new Set(tokens);
+    qTokens.forEach(t => { if (uniq.has(t)) df[t]++; });
+  });
+
+  const scored = chunks.map((c, idx) => {
+    const tf = {};
+    tokenized[idx].forEach(t => tf[t] = (tf[t] || 0) + 1);
+    let score = 0;
+    qTokens.forEach(t => {
+      if (tf[t]) score += tf[t] * (Math.log((N + 1) / (df[t] + 1)) + 1);
+    });
+    return { chunk: c, score };
+  }).sort((a, b) => b.score - a.score);
+
+  const top = scored.filter(s => s.score > 0).slice(0, maxChunks).map(s => s.chunk);
+  if (top.length === 0 && broadFallback) return broadSample(maxChunks);
+  return top;
+}
+
+// used when a query is broad ("build something with everything you know") — sample across every source
+function broadSample(maxChunks) {
+  const bySource = {};
+  chunks.forEach(c => { (bySource[c.sourceId] = bySource[c.sourceId] || []).push(c); });
+  const ids = Object.keys(bySource);
+  const perSource = Math.max(1, Math.floor(maxChunks / Math.max(ids.length, 1)));
+  let out = [];
+  ids.forEach(id => out = out.concat(bySource[id].slice(0, perSource)));
+  return out.slice(0, maxChunks);
+}
+
+const BROAD_HINTS = /\ball (of )?(the |your |my )?(videos|content|sources)\b|\beverything\b|\boverall\b|\bin general\b|\bsummar(y|ize)\b/i;
+
+function buildContext(userText) {
+  const CHAR_BUDGET = 11000;
+  const isBroad = BROAD_HINTS.test(userText);
+  let picked = retrieveChunks(userText, isBroad ? 16 : 8, true);
+
+  let used = [];
+  let total = 0;
+  const included = [];
+  for (const c of picked) {
+    if (total + c.text.length > CHAR_BUDGET) continue;
+    included.push(c);
+    total += c.text.length;
+    if (!used.includes(c.sourceTitle)) used.push(c.sourceTitle);
+  }
+  const context = included.map(c => `[from: ${c.sourceTitle}]\n${c.text}`).join('\n\n---\n\n');
+  return { context, used };
+}
+
+function buildSystemPrompt(context) {
+  return `You are Playback, an assistant with a knowledge base built from YouTube video transcripts the user has pasted in and indexed. Below is the set of transcript excerpts retrieved as most relevant to the user's current message — not the full library, just the relevant slice of it.
+
+Answer questions, and when asked to build an app, website, or code, actually write complete, working code using what these excerpts teach (patterns, techniques, structure, specific facts) rather than generic boilerplate. If the retrieved excerpts don't really cover what's being asked, say so plainly and then help with general knowledge instead of pretending the videos said something they didn't.
+
+${context ? `RETRIEVED EXCERPTS:\n\n${context}` : 'No relevant excerpts were retrieved (the knowledge base may be empty, or nothing indexed matches this request).'}`;
+}
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text || sending) return;
+  sending = true;
+  $('sendBtn').disabled = true;
+  $('errBanner').innerHTML = '';
+
+  chat.push({ role: 'user', content: text });
+  input.value = ''; input.style.height = 'auto';
+  renderMessages(); saveChat();
+
+  const box = $('messages');
+  const typingEl = document.createElement('div');
+  typingEl.className = 'msg-wrap';
+  typingEl.innerHTML = `<div class="msg-role">playback</div><div class="typing"><span></span><span></span><span></span></div>`;
+  box.appendChild(typingEl);
+  box.scrollTop = box.scrollHeight;
+
+  try {
+    const { context, used } = buildContext(text);
+    $('retrievalNote').textContent = chunks.length ? `pulled from ${used.length} video(s)` : '';
+
+    const apiMessages = chat.map(m => ({ role: m.role, content: m.content }));
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: buildSystemPrompt(context),
+        messages: apiMessages
+      })
+    });
+    const data = await response.json();
+    typingEl.remove();
+
+    if (!response.ok || !data.content) throw new Error(data?.error?.message || 'Request failed');
+
+    const textBlocks = data.content.filter(b => b.type === 'text').map(b => b.text);
+    const reply = textBlocks.join('\n').trim() || '(no response)';
+    chat.push({ role: 'assistant', content: reply, usedSources: used });
+    renderMessages(); saveChat();
+  } catch (err) {
+    typingEl.remove();
+    $('errBanner').innerHTML = `<div class="err-banner">Something went wrong reaching Playback: ${escapeHtml(err.message || 'unknown error')}. Try again.</div>`;
+    chat.pop();
+    renderMessages();
+  } finally {
+    sending = false;
+    $('sendBtn').disabled = false;
+  }
+}
+
+loadState();
+</script>
+</body>
+</html>
