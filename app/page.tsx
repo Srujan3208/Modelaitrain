@@ -1,82 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
-  Activity, ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Bell, BookOpen,
-  BrainCircuit, Check, ChevronDown, Clock3, FileText, FolderOpen, Home,
-  Layers3, LogOut, Menu, MessageCircle, MoreHorizontal, Paperclip, Play,
-  Plus, Search, Send, Settings, Sparkles, UserRound, Video, WandSparkles,
-  X, Zap
+  Activity, ArrowUp, Bell, BookOpen, Brain, ChevronDown, CircleHelp, Clock3,
+  FileText, FolderOpen, History, Home, Library, Menu, MessageSquare,
+  Mic, MoreHorizontal, Paperclip, Play, Plus, Search, Settings, Sparkles,
+  User, Video, X, Zap
 } from "lucide-react";
 
-const nav = [
-  { label: "Dashboard", icon: Home },
-  { label: "Learn from Video", icon: Play },
-  { label: "Knowledge Base", icon: Layers3 },
-  { label: "AI Chat", icon: MessageCircle },
-  { label: "Summaries", icon: FileText },
-  { label: "Learning Sources", icon: BookOpen },
-  { label: "History", icon: Clock3 },
+type Screen = "Chat" | "Dashboard" | "Learn from Video" | "Knowledge Base" | "Summaries" | "Learning Sources" | "History" | "Profile" | "Settings";
+const items: {name:Screen; icon:any}[] = [
+  {name:"Chat",icon:MessageSquare},{name:"Learn from Video",icon:Video},{name:"Knowledge Base",icon:Library},
+  {name:"Summaries",icon:FileText},{name:"Learning Sources",icon:BookOpen},{name:"Dashboard",icon:Activity}
 ];
-const suggestions = ["Explain CPU scheduling", "Summarize OS in brief", "Difference between FCFS and SJF", "Give examples from my videos"];
-
-function Sidebar({ active, setActive, open, setOpen }: any) {
-  return <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
-    <div className="brand"><div className="brand-mark"><BrainCircuit size={27}/></div><div><b>TREAN <span>AI</span></b><small>Persistent Learning Agent</small></div><button className="mobile-close" onClick={()=>setOpen(false)}><X size={18}/></button></div>
-    <div className="nav-label">WORKSPACE</div>
-    <nav>{nav.map(({label,icon:Icon})=><button key={label} className={`nav-item ${active===label?"active":""}`} onClick={()=>{setActive(label);setOpen(false)}}><Icon size={19}/><span>{label}</span>{label==="AI Chat"&&<i className="nav-dot"/>}</button>)}</nav>
-    <div className="nav-divider"/>
-    <div className="nav-label">PERSONAL</div>
-    { [{label:"Profile",icon:UserRound},{label:"Settings",icon:Settings}].map(({label,icon:Icon})=><button key={label} className={`nav-item ${active===label?"active":""}`} onClick={()=>{setActive(label);setOpen(false)}}><Icon size={19}/><span>{label}</span></button>)}
-    <div className="pro-card"><div className="pro-icon"><Sparkles size={17}/></div><b>TREAN Pro</b><p>Unlock higher limits, longer videos & more.</p><button onClick={()=>setActive("Pricing")}>Explore Pro <ArrowUpRight size={15}/></button></div>
-    <div className="sidebar-bottom"><div className="avatar avatar-small">S</div><div><b>Srujan</b><small>Free plan</small></div><button aria-label="Sign out"><LogOut size={17}/></button></div>
-  </aside>
+const recent = ["Explain CPU Scheduling","Difference between FCFS and SJF","Memory Management in OS","DBMS Normalization"];
+const videos = [
+  {title:"Operating Systems — Introduction",author:"Neso Academy",time:"42:17",color:"blue"},
+  {title:"CPU Scheduling Algorithms",author:"Gate Smashers",time:"28:10",color:"purple"},
+  {title:"Memory Management in OS",author:"Jenny's Lectures",time:"36:45",color:"green"},
+];
+function Logo(){return <div className="brand"><div className="brand-symbol"><Brain size={21}/></div><div className="brand-word">TREAN <span>AI</span><small>Persistent Learning Agent</small></div></div>}
+function Sidebar({screen,setScreen,open,setOpen}:{screen:Screen;setScreen:(s:Screen)=>void;open:boolean;setOpen:(v:boolean)=>void}){
+ return <><aside className={`sidebar ${open?"open":""}`}><div className="sidebar-head"><Logo/><button className="icon-button" onClick={()=>setOpen(false)}><X size={18}/></button></div>
+ <button className="new-chat" onClick={()=>setScreen("Chat")}><Plus size={17}/> New chat <span>⌘ K</span></button>
+ <button className="side-search"><Search size={16}/> Search <kbd>⌘ K</kbd></button>
+ <div className="side-label">WORKSPACE</div>{items.map(({name,icon:Icon})=><button key={name} className={`nav-item ${screen===name?"selected":""}`} onClick={()=>{setScreen(name);setOpen(false)}}><Icon size={17}/>{name}</button>)}
+ <div className="side-label personal">PERSONAL</div>{(["History","Profile","Settings"] as Screen[]).map((name,i)=>{const Icon=[History,User,Settings][i];return <button key={name} className={`nav-item ${screen===name?"selected":""}`} onClick={()=>{setScreen(name);setOpen(false)}}><Icon size={17}/>{name}</button>})}
+ <div className="recent-label">RECENT CHATS</div>{recent.map((t,i)=><button className="recent-chat" key={t} onClick={()=>setScreen("Chat")}><MessageSquare size={14}/><span>{t}</span></button>)}
+ <button className="see-more">See more <ChevronDown size={14}/></button>
+ <div className="upgrade-card"><div className="upgrade-title"><Sparkles size={16}/> TREAN Pro</div><p>Unlock longer videos, more learning and advanced AI.</p><button>Upgrade plan <Zap size={14}/></button></div>
+ <button className="profile-row" onClick={()=>setScreen("Profile")}><div className="user-avatar">S</div><div><b>Srujan</b><small>Free plan</small></div><MoreHorizontal size={18}/></button>
+ </aside>{open&&<button className="sidebar-scrim" onClick={()=>setOpen(false)}/>}</>
 }
-
-function ChatView() {
- const [question,setQuestion]=useState("");
- const [scope,setScope]=useState("Knowledge");
- const [sent,setSent]=useState<string[]>([]);
- const send=()=>{if(question.trim()){setSent([...sent,question.trim()]);setQuestion("")}};
- return <div className="chat-page">
-   <div className="chat-hero">
-     <div className="bot-orbit"><div className="bot-face"><span className="bot-ear left"/><span className="bot-ear right"/><div className="bot-eyes"><i/><i/></div><div className="bot-smile"/></div><span className="orbit-dot"/></div>
-     <div className="eyebrow"><span className="pulse"/> YOUR PERSONAL LEARNING COPILOT</div>
-     <h1>Chat with <span>TREAN AI</span></h1>
-     <p className="hero-sub">Ask anything from your learned videos, notes, and knowledge base.</p>
-   </div>
-   <div className="value-grid">
-    <div className="value-card"><div className="value-icon youtube">▶</div><div><b>From Your Videos</b><p>Get answers from processed<br/>YouTube videos</p></div></div>
-    <div className="value-card"><div className="value-icon purple"><FileText size={25}/></div><div><b>Source-Grounded</b><p>See exact video & timestamp<br/>references</p></div></div>
-    <div className="value-card"><div className="value-icon violet"><Zap size={25}/></div><div><b>Learn Deeper</b><p>Understand concepts, examples,<br/>and explanations</p></div></div>
-   </div>
-   {sent.length>0&&<div className="sent-list">{sent.map((s,i)=><div className="sent-bubble" key={i}>{s}<span>Sent · TREAN is ready to answer when AI is connected</span></div>)}</div>}
-   <div className="composer">
-     <textarea value={question} onChange={e=>setQuestion(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}}} placeholder="Ask a question about your learned content..."/>
-     <div className="composer-actions"><button className="soft-btn"><Paperclip size={16}/> Attach</button><div className="scope-wrap"><select value={scope} onChange={e=>setScope(e.target.value)}><option>Knowledge</option><option>All sources</option><option>Current video</option></select><BookOpen size={16}/><ChevronDown size={13}/></div><button className="send-btn" onClick={send} aria-label="Send question"><Send size={19}/></button></div>
-   </div>
-   <div className="suggestions"><span>TRY ASKING</span><div>{suggestions.map(s=><button key={s} onClick={()=>setQuestion(s)}>{s}<ArrowUpRight size={13}/></button>)}</div></div>
-   <p className="chat-footnote"><Sparkles size={13}/> Answers are generated from your personal learning library.</p>
- </div>
+function Chat({messages,setMessages}:{messages:string[];setMessages:(m:string[])=>void}){
+ const [draft,setDraft]=useState(""); const [scope,setScope]=useState("Knowledge"); const [showScope,setShowScope]=useState(false);
+ const submit=()=>{if(!draft.trim())return;setMessages([...messages,draft.trim()]);setDraft("")};
+ return <section className="chat-screen"><div className="chat-center">
+ {messages.length===0?<><div className="chat-mark"><Brain size={34}/></div><h1>How can I help you learn today?</h1><p className="chat-sub">Ask anything, analyze your videos, or explore your knowledge base.</p>
+ <div className="starter-grid">{[{icon:Video,title:"Learn from a Video",desc:"Convert video to knowledge",screen:"Learn from Video"},{icon:Library,title:"Search Knowledge",desc:"Find from your library",screen:"Knowledge Base"},{icon:FileText,title:"Summarize Content",desc:"Get key takeaways",screen:"Summaries"},{icon:BookOpen,title:"Explain a Concept",desc:"Understand with examples",screen:"Chat"}].map(({icon:Icon,title,desc,screen})=><button key={title} className="starter-card" onClick={()=>title==="Explain a Concept"?setDraft("Explain a concept with examples"):setMessages([...messages,"Open "+screen])}><Icon size={19}/><b>{title}</b><small>{desc}</small></button>)}</div></>:<div className="conversation">{messages.map((m,i)=><div key={i} className="message-pair"><div className="user-message">{m}</div><div className="ai-message"><div className="ai-avatar"><Brain size={16}/></div><div><b>TREAN AI</b><p>I'm ready to help you learn about <strong>{m}</strong>. Connect your AI provider and knowledge library to generate source-grounded answers, summaries, and explanations here.</p><div className="answer-tools"><button>Copy</button><button>Helpful</button><button>Sources</button></div></div></div></div>)}</div>}
+ <div className="composer"><textarea value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();submit()}}} placeholder="Message TREAN AI..." rows={1}/><div className="composer-bottom"><div className="composer-left"><button className="composer-icon"><Plus size={18}/></button><button className="knowledge-chip" onClick={()=>setShowScope(!showScope)}><BookOpen size={15}/>{scope}<ChevronDown size={13}/></button>{showScope&&<div className="scope-menu">{["Knowledge","All sources","Current video"].map(x=><button key={x} onClick={()=>{setScope(x);setShowScope(false)}}>{x}</button>)}</div>}<button className="composer-icon attachment"><Paperclip size={16}/></button></div><div className="composer-right"><button className="composer-icon mic"><Mic size={17}/></button><button className="send-button" onClick={submit} disabled={!draft.trim()}><ArrowUp size={19}/></button></div></div></div>
+ <div className="disclaimer">TREAN AI can make mistakes. Verify important information with your sources.</div>
+ </div></section>
 }
-
-function DashboardView({setActive}:any) {
- return <div className="content-page"><div className="welcome-row"><div><div className="eyebrow">YOUR LEARNING SPACE</div><h1>Welcome back, Srujan <span>✦</span></h1><p>Turn videos into structured knowledge, ask questions, and build your personal learning space.</p></div><button className="primary-btn" onClick={()=>setActive("Learn from Video")}><Plus size={17}/> Add a video</button></div>
- <div className="stats-grid">{[{n:"28",l:"Videos learned",c:"+6 this week",i:Video},{n:"3,742",l:"Knowledge items",c:"+12% this month",i:Layers3},{n:"18.4 hrs",l:"Learning time",c:"This month",i:Clock3},{n:"12",l:"Topics explored",c:"Across 5 subjects",i:BrainCircuit}].map(({n,l,c,i:Icon})=><div className="stat-card" key={l}><div className="stat-top"><span>{l}</span><Icon size={18}/></div><strong>{n}</strong><small>{c}</small></div>)}</div>
- <div className="quick-add"><div><div className="eyebrow">START LEARNING</div><b>What would you like to learn today?</b><p>Paste a YouTube video or playlist to get started.</p></div><button className="primary-btn" onClick={()=>setActive("Learn from Video")}>Process & Learn <ArrowRight size={16}/></button></div>
- <div className="section-heading"><div><h2>Continue learning</h2><p>Pick up where you left off</p></div><button className="text-btn" onClick={()=>setActive("History")}>View history <ArrowRight size={15}/></button></div>
- <div className="video-grid">{["Operating Systems — Introduction","CPU Scheduling Algorithms","Memory Management in OS"].map((t,i)=><div className="video-card" key={t}><div className={`video-thumb thumb-${i}`}><Play size={24} fill="currentColor"/></div><div className="video-info"><b>{t}</b><small>{["Neso Academy · 42:17","Gate Smashers · 28:10","Jenny's Lectures · 36:05"][i]}</small><span className="status"><Check size={12}/> Learned</span></div></div>)}</div>
- </div>
-}
-
-function GenericView({active}:any) {
- const descriptions:any={"Learn from Video":"Turn any educational YouTube video or playlist into structured knowledge.","Knowledge Base":"Your personal, searchable library of everything you have learned.","Summaries":"AI-generated summaries and key takeaways from your processed videos.","Learning Sources":"All your video sources, playlists, and references in one place.","History":"Track your recent learning activity and processed content.","Profile":"Manage your account, learning plan, and preferences.","Settings":"Customize your TREAN AI experience.","Pricing":"Choose the learning plan that works for you."};
- return <div className="content-page"><div className="eyebrow">TREAN AI WORKSPACE</div><h1>{active}</h1><p className="page-desc">{descriptions[active]||"Explore your personal learning workspace."}</p><div className="placeholder-panel"><div className="placeholder-icon"><WandSparkles size={28}/></div><h2>{active==="Learn from Video"?"Bring a video into your knowledge library":`Your ${active.toLowerCase()} workspace`}</h2><p>{active==="Learn from Video"?"Paste a YouTube link to generate a summary, key concepts, and searchable notes.":"This section is ready for the next integration step. Your learning workspace will appear here."}</p><div className="input-line"><Search size={17}/><input placeholder={active==="Learn from Video"?"Paste a YouTube video or playlist URL...":`Search ${active.toLowerCase()}...`}/><button className="primary-btn">Continue <ArrowRight size={15}/></button></div></div></div>
-}
-
-export default function HomePage(){
- const [active,setActive]=useState("AI Chat");
- const [open,setOpen]=useState(false);
- const [search,setSearch]=useState("");
- return <main className="app-shell"><Sidebar active={active} setActive={setActive} open={open} setOpen={setOpen}/><section className="main-area"><header className="topbar"><div className="top-left"><button className="mobile-menu" onClick={()=>setOpen(true)}><Menu size={21}/></button><span className="breadcrumb">Workspace</span><span className="crumb-slash">/</span><b>{active}</b></div><div className="top-right"><div className="global-search"><Search size={16}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search your knowledge, videos, or topics..."/><kbd>⌘ K</kbd></div><button className="icon-btn notification"><Bell size={19}/><i/></button><button className="avatar">S</button></div></header><div className="page-scroll">{active==="AI Chat"?<ChatView/>:active==="Dashboard"?<DashboardView setActive={setActive}/>:<GenericView active={active}/>}</div></section></main>
-}
+function Dashboard(){return <div className="content-view"><div className="page-heading"><div><div className="eyebrow">YOUR LEARNING SPACE</div><h1>Dashboard</h1><p>Your personalized learning overview</p></div><button className="period-button">Last 7 Days <ChevronDown size={15}/></button></div><div className="stats">{[{n:"28",l:"Videos Learned",c:"+12%"},{n:"3,742",l:"Knowledge Chunks",c:"+8%"},{n:"18.4 hrs",l:"Learning Time",c:"+20%"},{n:"12",l:"Topics Covered",c:"+3%"}].map(x=><div className="stat" key={x.l}><span>{x.l}</span><strong>{x.n}</strong><small>{x.c} this week</small></div>)}</div><div className="dashboard-grid"><div className="panel progress-panel"><h3>Learning Progress</h3><p>Hours spent learning this week</p><div className="chart"><div className="chart-lines"><span>20h</span><span>15h</span><span>10h</span><span>5h</span><span>0h</span></div><svg viewBox="0 0 600 190" preserveAspectRatio="none"><defs><linearGradient id="fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#9b5cff" stopOpacity=".35"/><stop offset="1" stopColor="#9b5cff" stopOpacity="0"/></linearGradient></defs><path d="M0 160 L85 150 L170 130 L255 100 L340 80 L425 60 L510 28 L600 20 L600 190 L0 190 Z" fill="url(#fill)"/><path d="M0 160 L85 150 L170 130 L255 100 L340 80 L425 60 L510 28 L600 20" fill="none" stroke="#bd78ff" strokeWidth="3"/>{[0,85,170,255,340,425,510,600].map((x,i)=><circle key={i} cx={x} cy={[160,150,130,100,80,60,28,20][i]} r="4" fill="#c58cff"/>)}</svg></div><div className="chart-days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div><div className="panel recent-panel"><h3>Recent Learning</h3>{videos.map((v,i)=><div className="recent-video" key={v.title}><div className={`video-art ${v.color}`}><Play size={17} fill="currentColor"/></div><div><b>{v.title}</b><small>{v.author} · {v.time}</small></div><MoreHorizontal size={17}/></div>)}</div></div></div>}
+function Generic({screen}:{screen:Screen}){const [url,setUrl]=useState("");const [search,setSearch]=useState("");const titleMap:Record<Screen,string>={"Learn from Video":"Learn from Video","Knowledge Base":"Knowledge Base","Summaries":"Summaries","Learning Sources":"Learning Sources","History":"History","Profile":"Profile","Settings":"Settings","Chat":"Chat","Dashboard":"Dashboard"};const desc:Record<Screen,string>={"Learn from Video":"Add a YouTube video or playlist and turn it into structured knowledge.","Knowledge Base":"Your organized, searchable library of everything you've learned.","Summaries":"AI-generated summaries and key takeaways from your videos.","Learning Sources":"All your video sources, playlists, and reference links in one place.","History":"Your past learning activity and conversations.","Profile":"Your account and learning statistics.","Settings":"Customize your learning experience and connected services.","Chat":"Ask anything about your learning library.","Dashboard":"Your personalized learning overview."};return <div className="content-view"><div className="page-heading"><div><h1>{titleMap[screen]}</h1><p>{desc[screen]}</p></div></div>{screen==="Learn from Video"?<div className="panel learn-panel"><div className="tabs"><button className="active">Single Video</button><button>Playlist</button><button>Channel</button></div><label>YouTube URL</label><div className="url-input"><Video size={17}/><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="Paste YouTube video URL here..."/><button className="primary" disabled={!url}>Process Video <ArrowUp size={15}/></button></div><h3>What you'll get</h3><div className="features">{["AI Summary","Key Concepts","Q&A","Save to Library"].map((x,i)=><div key={x}><Sparkles size={18}/><b>{x}</b><small>{["Concise overview","Important points","Ask questions","Add to knowledge base"][i]}</small></div>)}</div></div>:screen==="Dashboard"?<Dashboard/>:screen==="Profile"?<div className="panel profile-panel"><div className="large-avatar">S</div><h2>Srujan</h2><p>srujan@example.com</p><button className="primary">Edit Profile</button></div>:screen==="Settings"?<div className="settings-list">{["Account","Preferences","Integrations","AI Model","Notifications","Security"].map(x=><button className="panel setting-row" key={x}><div><b>{x}</b><small>Manage your {x.toLowerCase()} settings</small></div><ChevronDown size={17}/></button>)}</div>:<div className="panel library-panel"><div className="search-box"><Search size={17}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder={`Search ${screen.toLowerCase()}...`}/></div>{screen==="Knowledge Base"?["Operating Systems","Computer Networks","DBMS","Data Structures"].map((x,i)=><div className="library-row" key={x}><div className="folder-icon"><FolderOpen size={22}/></div><div><b>{x}</b><small>{[642,518,427,391][i]} chunks · {[6,4,5,4][i]} videos</small></div><MoreHorizontal size={18}/></div>):screen==="Summaries"?videos.map(v=><div className="library-row" key={v.title}><div className="video-art small"><Play size={15}/></div><div><b>{v.title}</b><small>{v.author} · {v.time}</small><div className="tag-row"><span>Summary</span><span>Key Concepts</span><span>Notes</span></div></div><MoreHorizontal size={18}/></div>):screen==="Learning Sources"?videos.map(v=><div className="library-row" key={v.title}><div className="video-art small"><Play size={15}/></div><div><b>{v.title}</b><small>YouTube · Added recently</small></div><MoreHorizontal size={18}/></div>):<div className="empty-state"><Clock3 size={27}/><h3>No activity yet</h3><p>Your recent learning and chats will appear here.</p></div>}</div>}</div>}
+export default function HomePage(){const [screen,setScreen]=useState<Screen>("Chat");const [open,setOpen]=useState(false);const [messages,setMessages]=useState<string[]>([]);const filtered=useMemo(()=>screen,[screen]);return <main className="app-shell"><Sidebar screen={filtered} setScreen={setScreen} open={open} setOpen={setOpen}/><div className="main-area"><header className="topbar"><button className="menu-button" onClick={()=>setOpen(true)}><Menu size={20}/></button><div className="model-selector"><Brain size={17}/><b>TREAN AI</b><ChevronDown size={14}/></div><div className="top-actions"><button><Bell size={18}/></button><button className="top-avatar" onClick={()=>setScreen("Profile")}>S</button></div></header><div className="page-content">{screen==="Chat"?<Chat messages={messages} setMessages={setMessages}/>:<Generic screen={screen}/>}</div><nav className="mobile-nav">{[{name:"Home",icon:Home,s:"Dashboard"},{name:"Learn",icon:Video,s:"Learn from Video"},{name:"Chat",icon:MessageSquare,s:"Chat"},{name:"Library",icon:Library,s:"Knowledge Base"},{name:"Profile",icon:User,s:"Profile"}].map(({name,icon:Icon,s})=><button className={screen===s?"active":""} key={name} onClick={()=>setScreen(s as Screen)}><Icon size={19}/><span>{name}</span></button>)}</nav></div></main>}
