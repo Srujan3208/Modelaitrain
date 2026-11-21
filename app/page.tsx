@@ -25,7 +25,7 @@ function MarkdownBlocks({text}:{text:string}){
  const flushList=()=>{if(list.length){blocks.push({type:listType,text:list});list=[];listType=null;}};
  const flushQuote=()=>{if(quote.length){blocks.push({type:"quote",text:quote.join(" ")});quote=[];}};
  const flushTable=()=>{if(tableRows.length){const rows=tableRows.filter(r=>!r.every(c=>/^:?-{3,}:?$/.test(c.trim())));if(rows.length>1)blocks.push({type:"table",rows});tableRows=[];}};
- const isTableLine=(line:string)=>/^\\s*\\|?.+\\|.+\\|?\\s*$/.test(line)&&line.includes("|");
+ const isTableLine=(line:string)=>/^\s*\|?.+\|.+\|?\s*$/.test(line)&&line.includes("|");
  for(let i=0;i<lines.length;i++){const line=lines[i];const h=line.match(/^\\s{0,3}(#{1,6})\\s+(.+)$/);const ul=line.match(/^\\s*[-*+]\\s+(.+)$/);const ol=line.match(/^\\s*\\d+[.)]\\s+(.+)$/);const q=line.match(/^\\s*>\\s?(.*)$/);
  if(h){flushParagraph();flushList();flushQuote();flushTable();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
  if(/^\\s*(---+|\\*\\*\\*|___)\\s*$/.test(line)){flushParagraph();flushList();flushQuote();flushTable();blocks.push({type:"hr"});continue;}
