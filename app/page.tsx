@@ -20,14 +20,14 @@ function renderAssistantContent(raw:string){
  return <div className="markdown-response">{parts.map((part,i)=>part.type==="code"?<div className="code-block" key={i}><div className="code-header"><span>{part.lang}</span><button onClick={()=>navigator.clipboard?.writeText(part.text)}><Copy/> Copy code</button></div><pre><code>{part.text}</code></pre></div>:<MarkdownBlocks key={i} text={part.text}/>)}</div>;
 }
 function MarkdownBlocks({text}:{text:string}){
- const normalized=text.replace(/\\r/g,"").replace(/\\n/g,"\n").replace(/\\\\n/g,"\n");
+ const normalized=text.replace(/\r/g,"").replace(/\\n/g,"\n");
  const lines=normalized.split("\n");const blocks:any[]=[];let para:string[]=[];let list:string[]=[];let lt:"ul"|"ol"|null=null;let rows:string[][]=[];let quote:string[]=[];
  const flushP=()=>{if(para.length){blocks.push({type:"p",text:para.join(" ")});para=[];}};const flushL=()=>{if(list.length){blocks.push({type:lt,text:list});list=[];lt=null;}};const flushQ=()=>{if(quote.length){blocks.push({type:"quote",text:quote.join(" ")});quote=[];}};const flushT=()=>{if(rows.length){const clean=rows.filter(r=>!r.every(c=>/^:?-{3,}:?$/.test(c.trim())));if(clean.length>1)blocks.push({type:"table",rows:clean});else clean.forEach(r=>blocks.push({type:"p",text:r.join(" · ")}));rows=[];}};
- for(const line of lines){const h=line.match(/^\\s{0,3}(#{1,6})\\s+(.+)$/),ul=line.match(/^\\s*[-*+]\\s+(.+)$/),ol=line.match(/^\\s*\\d+[.)]\\s+(.+)$/),q=line.match(/^\\s*>\\s?(.*)$/);
+ for(const line of lines){const h=line.match(/^\s{0,3}(#{1,6})\s+(.+)$/),ul=line.match(/^\s*[-*+]\s+(.+)$/),ol=line.match(/^\s*\d+[.)]\s+(.+)$/),q=line.match(/^\s*>\s?(.*)$/);
  if(h){flushP();flushL();flushQ();flushT();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
- if(/^\\s*(---+|\\*\\*\\*|___)\\s*$/.test(line)){flushP();flushL();flushQ();flushT();blocks.push({type:"hr"});continue;}
+ if(/^\s*(---+|\*\*\*|___)\s*$/.test(line)){flushP();flushL();flushQ();flushT();blocks.push({type:"hr"});continue;}
  if(q){flushP();flushL();flushT();quote.push(q[1]);continue;}
- if(line.includes("|")&&line.trim().startsWith("|")&&line.trim().endsWith("|")){flushP();flushL();flushQ();rows.push(line.trim().replace(/^\\|/,"").replace(/\\|$/,"").split("|").map(c=>c.trim()));continue;}
+ if(line.includes("|")&&line.trim().startsWith("|")&&line.trim().endsWith("|")){flushP();flushL();flushQ();rows.push(line.trim().replace(/^\|/,"").replace(/\|$/,"").split("|").map(c=>c.trim()));continue;}
  if(ul||ol){flushP();flushQ();flushT();const next=ul?"ul":"ol";if(lt&&lt!==next)flushL();lt=next;list.push((ul||ol)![1]);continue;}
  if(!line.trim()){flushP();flushL();flushQ();flushT();continue;}
  flushL();flushQ();flushT();para.push(line.trim());
