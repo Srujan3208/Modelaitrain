@@ -82,3 +82,80 @@ html,body,.trean-root{background:var(--bg)!important;color:var(--text)!important
  .trean-root .chatgpt-messages{padding:3px 0 16px!important}.trean-root .chatgpt-message{padding:15px 0!important}.trean-root .chatgpt-message-inner{grid-template-columns:28px minmax(0,1fr)!important;gap:9px!important}.trean-root .chatgpt-message-avatar{width:27px;height:27px;font-size:12px}.trean-root .chatgpt-message-avatar img{width:24px;height:24px}.trean-root .chatgpt-message-body,.trean-root .chatgpt-message-body .response-content{font-size:13px!important;line-height:1.62!important}.trean-root .chatgpt-message-body>b{font-size:11px!important}
  .trean-root .chatgpt-composer-dock{padding:6px 10px max(8px,env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,transparent,#0b0b12 13%)!important}.trean-root .chatgpt-composer{border-radius:19px!important;padding:9px 10px 9px!important}.trean-root .chatgpt-composer textarea{min-height:38px!important;max-height:125px!important;font-size:14px!important;padding:4px 2px 8px!important}.trean-root .chatgpt-composer-tools{gap:5px!important}.trean-root .chatgpt-tools-left,.trean-root .chatgpt-tools-right{gap:5px!important}.trean-root .chatgpt-tools-left>button,.trean-root .chatgpt-tools-right>button{height:35px!important;min-height:35px!important;padding:0 8px!important;font-size:10px!important;gap:4px!important}.trean-root .chatgpt-tools-left>button svg{width:15px;height:15px}.trean-root .chatgpt-tools-left .chatgpt-model-select{max-width:138px!important;overflow:hidden!important}.trean-root .chatgpt-model-select span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.trean-root .chatgpt-tools-right>button:first-child{width:30px!important}.trean-root .chatgpt-tools-right .chatgpt-send{width:39px!important;height:39px!important;min-height:39px!important}.trean-root .chatgpt-disclaimer{font-size:9px!important;padding-top:6px!important}
 }
+
+
+/* PIXEL-PERFECT REFERENCE PASS — desktop chat workspace + responsive app shell */
+.trean-root .app-shell.chat-mode{height:100dvh!important;min-height:100dvh!important;overflow:hidden!important;padding:0!important;background:#0b0b12!important}
+.trean-root .app-shell.chat-mode>.app-content{height:100dvh!important;min-height:0!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;padding:0!important}
+.trean-root .chat-workspace{height:100dvh!important;min-height:0!important;display:flex!important;overflow:hidden!important;background:#0b0b12!important}
+.trean-root .chatgpt-sidebar{width:370px!important;flex-basis:370px!important;padding:18px 19px 17px!important;gap:12px!important;background:#0d0d16!important;border-right:1px solid #302c3b!important}
+.trean-root .chatgpt-brand-row{height:48px!important;margin:0 3px 8px!important}
+.trean-root .chatgpt-brand{font-size:22px!important;gap:10px!important}
+.trean-root .chatgpt-brand img{width:42px!important;height:42px!important}
+.trean-root .chatgpt-new{height:49px!important;min-height:49px!important;border-radius:11px!important;font-size:14px!important;background:linear-gradient(110deg,#6b27cf,#8d2de7)!important}
+.trean-root .chatgpt-search{height:43px!important;border-radius:10px!important;background:#15141f!important}
+.trean-root .chatgpt-nav{gap:4px!important;padding:3px 0 14px!important}
+.trean-root .chatgpt-nav button{height:43px!important;border-radius:9px!important;font-size:14px!important;padding:0 14px!important}
+.trean-root .chatgpt-history-title{font-size:13px!important;padding:10px 12px!important}
+.trean-root .chatgpt-history-item{min-height:37px!important;padding:0 8px!important}
+.trean-root .chatgpt-history-open{font-size:13px!important;min-height:36px!important}
+.trean-root .chatgpt-upgrade{min-height:100px!important;padding:15px!important;border-radius:13px!important}
+.trean-root .chatgpt-main{background:radial-gradient(ellipse at 50% 34%,#1a1029 0,transparent 48%),#0b0b12!important}
+.trean-root .chatgpt-topbar{height:72px!important;min-height:72px!important;padding:0 28px!important;background:#0c0b14!important}
+.trean-root .chatgpt-model-pill{height:43px!important;border-radius:13px!important;background:#191522!important;font-size:15px!important}
+.trean-root .chatgpt-conversation{padding:24px 32px 20px!important}
+.trean-root .chatgpt-welcome{width:min(1120px,100%)!important;padding:36px 0 22px!important;margin:auto auto 8vh!important}
+.trean-root .chatgpt-welcome-logo{width:100px!important;height:100px!important;margin-bottom:17px!important}
+.trean-root .chatgpt-welcome h1{font-size:44px!important;letter-spacing:-1.35px!important;line-height:1.12!important}
+.trean-root .chatgpt-welcome p{font-size:19px!important;line-height:1.5!important;margin-bottom:38px!important;max-width:760px!important}
+.trean-root .chatgpt-quick-actions{gap:18px!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.trean-root .chatgpt-quick-actions button{min-height:145px!important;border-radius:18px!important;padding:20px 14px!important;background:linear-gradient(145deg,#1a1826,#171420)!important;border-color:#3d354c!important}
+.trean-root .chatgpt-quick-actions b{font-size:16px!important}
+.trean-root .chatgpt-quick-actions small{font-size:13px!important}
+.trean-root .chatgpt-composer-dock{padding:8px 30px max(16px,env(safe-area-inset-bottom))!important}
+.trean-root .chatgpt-composer{width:min(1030px,100%)!important;border-radius:25px!important;padding:15px 20px 12px!important;border-color:#bd80ff!important;background:#171320!important;box-shadow:0 0 0 1px #a85cff25,0 10px 35px #0005!important}
+.trean-root .chatgpt-composer textarea{font-size:17px!important;min-height:47px!important}
+.trean-root .chatgpt-tools-left>button,.trean-root .chatgpt-tools-right>button{min-height:43px!important}
+.trean-root .chatgpt-tools-right .chatgpt-send{width:50px!important;height:50px!important;min-height:50px!important}
+.trean-root .chatgpt-disclaimer{font-size:12px!important;padding-top:12px!important}
+@media(max-width:1200px){.trean-root .chatgpt-sidebar{width:300px!important;flex-basis:300px!important}.trean-root .chatgpt-welcome h1{font-size:36px!important}.trean-root .chatgpt-welcome p{font-size:16px!important}.trean-root .chatgpt-quick-actions{gap:12px!important}.trean-root .chatgpt-quick-actions button{min-height:128px!important}}
+@media(max-width:700px){
+ .trean-root .app-shell.chat-mode,.trean-root .app-shell.chat-mode>.app-content,.trean-root .chat-workspace,.trean-root .chatgpt-main{height:100dvh!important;min-height:100dvh!important;max-height:100dvh!important;overflow:hidden!important;padding:0!important}
+ .trean-root .chatgpt-sidebar{width:min(86vw,330px)!important;flex-basis:min(86vw,330px)!important;padding:17px 15px max(16px,env(safe-area-inset-bottom))!important;gap:10px!important}
+ .trean-root .chatgpt-brand-row{height:44px!important;margin-bottom:4px!important}.trean-root .chatgpt-brand{font-size:19px!important}.trean-root .chatgpt-brand img{width:36px!important;height:36px!important}
+ .trean-root .chatgpt-new{height:46px!important;min-height:46px!important;font-size:13px!important}
+ .trean-root .chatgpt-search{height:41px!important}.trean-root .chatgpt-nav button{height:39px!important;font-size:13px!important}
+ .trean-root .chatgpt-topbar{height:56px!important;min-height:56px!important;padding:0 10px!important;gap:7px!important}
+ .trean-root .chatgpt-mobile-menu{width:38px!important;height:38px!important;flex:0 0 38px!important}
+ .trean-root .chatgpt-model-pill{height:38px!important;max-width:calc(100vw - 145px)!important;font-size:12px!important;padding:0 8px!important;gap:5px!important}
+ .trean-root .chatgpt-model-pill img{width:23px!important;height:23px!important}
+ .trean-root .chatgpt-top-actions button{width:33px!important;height:33px!important}
+ .trean-root .chatgpt-avatar{width:32px!important;height:32px!important}
+ .trean-root .chatgpt-conversation{padding:9px 12px 10px!important}
+ .trean-root .chatgpt-welcome{margin:auto 0!important;padding:18px 0 14px!important;width:100%!important}
+ .trean-root .chatgpt-welcome-logo{width:62px!important;height:62px!important;margin-bottom:12px!important}
+ .trean-root .chatgpt-welcome h1{font-size:24px!important;line-height:1.18!important;letter-spacing:-.55px!important;margin:0 0 9px!important}
+ .trean-root .chatgpt-welcome p{font-size:12px!important;line-height:1.48!important;margin:0 auto 20px!important;max-width:350px!important}
+ .trean-root .chatgpt-quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .trean-root .chatgpt-quick-actions button{min-height:105px!important;padding:12px 8px!important;border-radius:13px!important;gap:7px!important}
+ .trean-root .chatgpt-quick-actions svg{width:25px!important;height:25px!important}
+ .trean-root .chatgpt-quick-actions b{font-size:11px!important;line-height:1.25!important}
+ .trean-root .chatgpt-quick-actions small{font-size:9px!important;line-height:1.25!important;text-align:center!important}
+ .trean-root .chatgpt-messages{width:100%!important;padding:0 0 12px!important}
+ .trean-root .chatgpt-message{padding:13px 0!important}
+ .trean-root .chatgpt-message-inner{grid-template-columns:27px minmax(0,1fr)!important;gap:8px!important}
+ .trean-root .chatgpt-message-avatar{width:26px!important;height:26px!important}
+ .trean-root .chatgpt-message-body,.trean-root .chatgpt-message-body .response-content{font-size:13px!important;line-height:1.62!important}
+ .trean-root .chatgpt-composer-dock{padding:5px 8px max(8px,env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,transparent,#0b0b12 10%)!important}
+ .trean-root .chatgpt-composer{border-radius:18px!important;padding:9px 10px 8px!important}
+ .trean-root .chatgpt-composer textarea{min-height:38px!important;max-height:125px!important;font-size:14px!important;padding:3px 1px 7px!important}
+ .trean-root .chatgpt-composer-tools{gap:4px!important}
+ .trean-root .chatgpt-tools-left,.trean-root .chatgpt-tools-right{gap:4px!important}
+ .trean-root .chatgpt-tools-left>button,.trean-root .chatgpt-tools-right>button{height:34px!important;min-height:34px!important;padding:0 7px!important;font-size:10px!important;gap:4px!important}
+ .trean-root .chatgpt-tools-left>button svg{width:15px!important;height:15px!important}
+ .trean-root .chatgpt-tools-left .chatgpt-model-select{max-width:128px!important;overflow:hidden!important}
+ .trean-root .chatgpt-model-select span:nth-child(2){overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+ .trean-root .chatgpt-tools-right>button:first-child{width:28px!important;padding:0!important}
+ .trean-root .chatgpt-tools-right .chatgpt-send{width:38px!important;height:38px!important;min-height:38px!important}
+ .trean-root .chatgpt-disclaimer{font-size:9px!important;padding-top:5px!important}
+}
