@@ -190,3 +190,34 @@ html,body,.trean-root{background:var(--bg)!important;color:var(--text)!important
  .trean-root .chatgpt-tools-right>button:first-child{width:32px!important;flex-basis:32px!important}
  .trean-root .chatgpt-model-dropdown{left:auto!important;right:0!important;width:min(320px,calc(100vw - 24px))!important}
 }
+
+/* Chat usability refinement: accessible, non-overlapping popovers and readable response rhythm. */
+.trean-root .chatgpt-plus-wrap,.trean-root .chat-model-menu-wrap{position:relative;display:flex;align-items:center}
+.trean-root .chatgpt-plus-button{width:40px;height:40px;display:grid;place-items:center;border:1px solid #343344;border-radius:13px;background:#242231;color:#f5efff;font-size:29px;line-height:1;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+.trean-root .chatgpt-plus-button:hover{background:#332742;border-color:#a46aff;transform:translateY(-1px)}
+.trean-root .chatgpt-add-menu,.trean-root .knowledge-popover,.trean-root .chat-model-dropdown{z-index:2000;box-shadow:0 22px 55px #000b,0 0 0 1px #ffffff0a;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.trean-root .chatgpt-add-menu{position:absolute;left:0;bottom:calc(100% + 12px);width:min(290px,calc(100vw - 32px));padding:8px;border:1px solid #393448;border-radius:18px;background:#171621;display:grid;gap:3px}
+.trean-root .chatgpt-add-menu button{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;padding:10px 12px;border:0;border-radius:11px;background:transparent;color:#f5f3fa;text-align:left;font-size:14px;font-weight:550;cursor:pointer}
+.trean-root .chatgpt-add-menu button:hover{background:#29243a;color:#d8b4fe}
+.trean-root .knowledge-popover{position:fixed!important;left:12px!important;right:12px!important;bottom:calc(92px + env(safe-area-inset-bottom))!important;width:auto!important;max-width:420px!important;margin:auto!important;max-height:min(52dvh,420px)!important;overflow:auto!important;padding:14px!important;border:1px solid #4b405d!important;border-radius:18px!important;background:#171621!important;color:#f7f4fb!important}
+.trean-root .knowledge-popover label{display:flex!important;align-items:center!important;gap:11px!important;min-height:44px!important;padding:9px 10px!important;border-radius:10px!important;color:#f2edf8!important;font-size:14px!important;line-height:1.35!important;white-space:normal!important;overflow-wrap:anywhere!important}
+.trean-root .knowledge-popover label:hover{background:#282338!important}
+.trean-root .knowledge-popover input{width:18px!important;height:18px!important;flex:0 0 18px!important;accent-color:#a855f7!important}
+.trean-root .chat-model-dropdown{position:fixed!important;left:12px!important;right:12px!important;bottom:calc(92px + env(safe-area-inset-bottom))!important;width:auto!important;max-width:420px!important;margin:auto!important;max-height:min(55dvh,460px)!important;overflow:auto!important;padding:14px!important;border:1px solid #4b405d!important;border-radius:18px!important;background:#171621!important;color:#f7f4fb!important}
+.trean-root .chat-model-dropdown>b{display:block;padding:4px 8px 10px;font-size:14px;font-weight:700;color:#f8f4ff}
+.trean-root .chat-model-dropdown button{display:flex!important;align-items:center!important;gap:12px!important;width:100%!important;min-height:58px!important;padding:10px!important;border:0!important;border-radius:12px!important;background:transparent!important;color:#f5f1fa!important;text-align:left!important;white-space:normal!important}
+.trean-root .chat-model-dropdown button:hover,.trean-root .chat-model-dropdown button.selected{background:#292338!important}
+.trean-root .chat-model-dropdown button strong{display:block;font-size:14px!important;line-height:1.35!important;color:#fff!important}
+.trean-root .chat-model-dropdown button small{display:block;margin-top:3px;font-size:12px!important;line-height:1.4!important;color:#bdb3cb!important}
+.trean-root .chat-model-dropdown .model-option-check{width:22px;height:22px;flex:0 0 22px;border:1px solid #6e5b88;border-radius:50%;display:grid;place-items:center;color:#d8b4fe;font-size:12px}
+.trean-root .chatgpt-composer textarea{font-family:Inter,system-ui,sans-serif!important;font-size:16px!important;line-height:1.55!important;letter-spacing:0!important}
+.trean-root .response-content{font-family:Inter,system-ui,sans-serif!important;font-size:15.5px!important;line-height:1.78!important;letter-spacing:0!important;color:#eeeaf5!important;max-width:78ch}
+.trean-root .response-content p{margin:0 0 1.05em!important;line-height:1.78!important}
+.trean-root .response-content h3{font-size:1.22em!important;line-height:1.4!important;margin:1.35em 0 .65em!important;font-weight:750!important;letter-spacing:-.025em!important}
+.trean-root .response-content h4{font-size:1.08em!important;line-height:1.45!important;margin:1.15em 0 .55em!important;font-weight:700!important}
+.trean-root .response-content ul,.trean-root .response-content ol{padding-left:1.45em!important;margin:.55em 0 1.15em!important}
+.trean-root .response-content li{padding-left:.25em!important;margin:.35em 0!important;line-height:1.72!important}
+.trean-root .response-content pre{max-width:100%;overflow:auto;border:1px solid #343044;border-radius:14px;padding:14px;background:#111019!important;line-height:1.55!important;font-size:13px!important}
+.trean-root .response-content blockquote{border-left:3px solid #a855f7;padding:8px 14px;margin:1em 0;background:#171320;border-radius:0 10px 10px 0;color:#d7cce5}
+.trean-root .response-content table{font-size:14px!important;line-height:1.55!important}
+@media(max-width:700px){.trean-root .chatgpt-add-menu{position:fixed!important;left:12px!important;bottom:calc(100px + env(safe-area-inset-bottom))!important;width:min(300px,calc(100vw - 24px))!important}.trean-root .chatgpt-plus-button{width:38px;height:38px}.trean-root .chatgpt-composer{padding:12px 13px 10px!important}.trean-root .chatgpt-tools-left{gap:7px!important}.trean-root .chatgpt-model-select{max-width:min(44vw,190px)!important}.trean-root .response-content{font-size:15px!important;line-height:1.75!important}}
