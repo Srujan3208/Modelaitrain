@@ -2749,3 +2749,121 @@ h1,h2,h3,h4,.page-title,.section-title,.brand b{font-family:'Manrope',sans-serif
 .trean-root .app-shell.chat-mode .chat-message.assistant{padding:0 8px!important;box-sizing:border-box!important}
 .trean-root .app-shell.chat-mode .chat-message.assistant> b{margin-left:8px!important}
 .trean-root .app-shell.chat-mode .chat-message.user{margin-right:8px!important}
+
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TREAN AI reference redesign — Chat workspace
+   ───────────────────────────────────────────────────────────────────────── */
+.trean-root .app-shell.chat-mode{background:#0d0b16!important;color:#f7f5fb!important;height:100dvh!important;min-height:0!important;overflow:hidden!important}
+.trean-root .app-shell.chat-mode .sidebar,.trean-root .app-shell.chat-mode .appbar,.trean-root .app-shell.chat-mode .mobile-nav{display:none!important}
+.trean-root .app-shell.chat-mode .app-content{width:100%!important;max-width:none!important;height:100dvh!important;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#0d0b16!important}
+.trean-root .app-shell.chat-mode .view{height:100dvh!important;min-height:0!important;width:100%!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#0d0b16!important}
+.trean-root .app-shell.chat-mode .chat-page.chatgpt-style{position:relative!important;display:flex!important;flex-direction:column!important;max-width:none!important;width:100%!important;height:100%!important;min-height:0!important;margin:0!important;padding:0!important;text-align:left!important;overflow:hidden!important;background:#0d0b16!important}
+.trean-root .app-shell.chat-mode .chat-floating-controls{display:none!important}
+.trean-root .app-shell.chat-mode .chat-workspace-header{height:72px;flex:0 0 72px;display:flex;align-items:center;gap:18px;padding:0 22px 0 394px;border-bottom:1px solid rgba(255,255,255,.1);background:#0d0b16;z-index:5}
+.trean-root .app-shell.chat-mode .chat-sidebar-toggle{display:grid;place-items:center;width:34px;height:34px;border:0;background:transparent;color:#eee;cursor:pointer}
+.trean-root .app-shell.chat-mode .chat-model-brand{display:flex;align-items:center;gap:9px;padding:9px 14px;border:1px solid rgba(183,142,255,.22);border-radius:14px;background:rgba(140,90,220,.1);color:#f8f5ff;font-size:15px;font-weight:700}
+.trean-root .app-shell.chat-mode .chat-model-brand img{width:28px;height:28px;object-fit:contain}
+.trean-root .app-shell.chat-mode .chat-header-actions{display:flex;align-items:center;gap:20px;margin-left:auto}
+.trean-root .app-shell.chat-mode .chat-header-actions button{display:grid;place-items:center;width:38px;height:38px;border:0;background:transparent;color:#f0edf5;cursor:pointer}
+.trean-root .app-shell.chat-mode .chat-profile-avatar{border-radius:50%!important;background:#6d28d9!important;color:#fff!important;font-size:16px;font-weight:700}
+.trean-root .app-shell.chat-mode .chat-history-strip{position:fixed!important;left:0!important;top:0!important;bottom:0!important;width:370px!important;max-width:370px!important;z-index:20!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;padding:18px 18px 16px!important;margin:0!important;border:0!important;border-right:1px solid rgba(255,255,255,.12)!important;border-radius:0!important;background:#0d0b16!important;overflow:hidden!important;transform:none!important;box-shadow:none!important}
+.trean-root .app-shell.chat-mode .chat-sidebar-brand{display:flex;align-items:center;justify-content:space-between;margin:0 4px 22px}
+.trean-root .app-shell.chat-mode .chat-sidebar-brand .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.trean-root .app-shell.chat-mode .chat-sidebar-brand .brand img{width:36px;height:36px;object-fit:contain}
+.trean-root .app-shell.chat-mode .chat-sidebar-brand .brand b{font-size:22px!important;letter-spacing:-.5px}
+.trean-root .app-shell.chat-mode .chat-sidebar-brand .brand i{color:#c36bff;font-style:normal}
+.trean-root .app-shell.chat-mode .chat-sidebar-brand .brand small{display:none!important}
+.trean-root .app-shell.chat-mode .chat-sidebar-brand>button{display:grid;place-items:center;width:36px;height:36px;border:0;background:transparent;color:#eee;cursor:pointer}
+.trean-root .app-shell.chat-mode .chat-new-full{display:flex!important;align-items:center;gap:12px;width:100%;height:50px;padding:0 18px;margin:0 0 14px;border:1px solid rgba(183,142,255,.35)!important;border-radius:12px!important;background:linear-gradient(110deg,#6928c9,#4d1a99)!important;color:#fff!important;font-size:15px!important;font-weight:700!important;box-shadow:0 6px 22px rgba(88,33,170,.22)}
+.trean-root .app-shell.chat-mode .chat-new-full span{font-size:24px;font-weight:400}
+.trean-root .app-shell.chat-mode .chat-sidebar-top-minimal{display:none!important}
+.trean-root .app-shell.chat-mode .chat-history-search{display:flex!important;align-items:center;gap:10px;height:44px;margin:0 0 18px;padding:0 12px;border:1px solid rgba(183,142,255,.24);border-radius:12px;background:#171321;color:#b7a8cf}
+.trean-root .app-shell.chat-mode .chat-history-search input{background:transparent;color:#f5f1fb;font-size:14px;outline:none}
+.trean-root .app-shell.chat-mode .chat-history-search input::placeholder{color:#a99bbd}
+.trean-root .app-shell.chat-mode .chat-history-list{display:flex!important;flex:1;flex-direction:column;align-items:stretch;gap:3px;overflow-y:auto;overflow-x:hidden;padding:0 0 14px;scrollbar-width:thin}
+.trean-root .app-shell.chat-mode .chat-history-chip{display:flex!important;align-items:center;width:100%;max-width:none!important;flex:0 0 auto!important;border:0!important;border-radius:9px!important;background:transparent!important;position:relative}
+.trean-root .app-shell.chat-mode .chat-history-chip.active{background:rgba(120,67,205,.28)!important}
+.trean-root .app-shell.chat-mode .chat-history-chip>button:first-child{flex:1!important;max-width:none!important;width:100%!important;padding:11px 13px!important;color:#e8e1f2!important;font-size:13px!important}
+.trean-root .app-shell.chat-mode .chat-history-chip .chat-session-more{display:grid!important;place-items:center;width:32px;height:32px;flex:0 0 32px;border:0;background:transparent;color:#aaa0b8}
+.trean-root .app-shell.chat-mode .chat-history-chip .chat-session-menu{right:4px;top:34px}
+.trean-root .app-shell.chat-mode .chat-page .chat-welcome{flex:1!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;width:calc(100% - 370px)!important;max-width:1100px!important;margin:0 0 0 370px!important;padding:18px 48px 180px!important;text-align:center!important;overflow:auto!important}
+.trean-root .app-shell.chat-mode .chat-welcome .robot-stage{display:none!important}
+.trean-root .app-shell.chat-mode .chat-welcome:before{content:"";display:block;width:100px;height:100px;margin:0 auto 24px;background:url('/trean-logo.svg') center/contain no-repeat;filter:drop-shadow(0 0 16px rgba(160,90,255,.4))}
+.trean-root .app-shell.chat-mode .chat-welcome h1{font-size:clamp(32px,3vw,44px)!important;font-weight:800!important;line-height:1.2!important;letter-spacing:-1.3px!important;color:#f8f6fb!important;margin:0 0 12px!important}
+.trean-root .app-shell.chat-mode .chat-welcome>p{font-size:19px!important;line-height:1.55!important;color:#c4b8d8!important;max-width:760px!important;margin:0 auto 42px!important}
+.trean-root .app-shell.chat-mode .chat-prompt-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:18px!important;width:min(100%,1060px)!important}
+.trean-root .app-shell.chat-mode .chat-prompt-grid button{min-height:145px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:12px!important;padding:18px 12px!important;border:1px solid rgba(172,145,215,.25)!important;border-radius:20px!important;background:linear-gradient(145deg,#1b1728,#15121f)!important;color:#f4effb!important;text-align:center!important;box-shadow:none!important}
+.trean-root .app-shell.chat-mode .chat-prompt-grid button:hover{border-color:#a16cf0!important;background:linear-gradient(145deg,#231a38,#191322)!important;transform:translateY(-2px)}
+.trean-root .app-shell.chat-mode .chat-prompt-grid .chat-quick-icon{display:grid;place-items:center;width:44px;height:44px;background:transparent!important;color:#c277ff!important}
+.trean-root .app-shell.chat-mode .chat-prompt-grid button b{font-size:16px!important;font-weight:700!important}
+.trean-root .app-shell.chat-mode .chat-prompt-grid button small{font-size:14px!important;color:#c3b4dc!important}
+.trean-root .app-shell.chat-mode .chat-prompt-grid button>svg{display:none!important}
+.trean-root .app-shell.chat-mode .chat-transcript{position:absolute!important;left:370px!important;right:0!important;top:72px!important;bottom:170px!important;width:auto!important;max-width:860px!important;margin:0 auto!important;padding:28px 24px 24px!important;overflow-y:auto!important;scrollbar-width:thin!important}
+.trean-root .app-shell.chat-mode .chat-compose{position:fixed!important;left:calc(370px + 5vw)!important;right:5vw!important;bottom:54px!important;width:auto!important;max-width:1028px!important;margin:0 auto!important;padding:18px 22px 12px!important;border:1px solid #9e65e9!important;border-radius:24px!important;background:rgba(25,21,38,.96)!important;box-shadow:0 0 0 1px rgba(164,100,255,.12),0 0 30px rgba(130,70,230,.18)!important;z-index:40!important}
+.trean-root .app-shell.chat-mode .chat-compose-main{display:flex!important;align-items:center!important;gap:14px!important}
+.trean-root .app-shell.chat-mode .chat-compose-main .chat-attach-button{display:none!important}
+.trean-root .app-shell.chat-mode .chat-compose textarea{min-height:38px!important;max-height:150px!important;resize:none!important;padding:5px 6px!important;font-size:17px!important;line-height:1.5!important;color:#f5efff!important;background:transparent!important}
+.trean-root .app-shell.chat-mode .chat-compose textarea::placeholder{color:#b7a7d4!important}
+.trean-root .app-shell.chat-mode .chat-compose-main>button.primary{display:grid!important;place-items:center!important;width:48px!important;height:48px!important;min-width:48px!important;border-radius:50%!important;background:linear-gradient(135deg,#a34cff,#6e24dc)!important;color:#fff!important;margin:0!important}
+.trean-root .app-shell.chat-mode .chat-compose-footer{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;margin-top:8px!important}
+.trean-root .app-shell.chat-mode .chat-compose-left{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important}
+.trean-root .app-shell.chat-mode .chat-compose-footer button{display:inline-flex!important;align-items:center!important;gap:8px!important;height:38px!important;padding:0 14px!important;border:1px solid rgba(173,140,220,.2)!important;border-radius:999px!important;background:#201a31!important;color:#eee4fa!important;font-size:14px!important}
+.trean-root .app-shell.chat-mode .chat-compose-footer .chat-add-button{width:42px!important;height:42px!important;padding:0!important;border-radius:50%!important;font-size:25px!important}
+.trean-root .app-shell.chat-mode .chat-knowledge-mode{background:#211a32!important}
+.trean-root .app-shell.chat-mode .chat-model-selector{background:#211a32!important}
+.trean-root .app-shell.chat-mode .nvidia-mark{color:#76b900;font-size:16px}
+.trean-root .app-shell.chat-mode .chat-mic-button{width:38px!important;height:38px!important;padding:0!important;border:0!important;background:transparent!important;color:#cbb7e9!important}
+.trean-root .app-shell.chat-mode .chat-footer-note{position:fixed!important;left:370px!important;right:0!important;bottom:15px!important;text-align:center!important;color:#9d91b1!important;font-size:12px!important}
+.trean-root .app-shell.chat-mode .chat-sidebar-backdrop{display:none!important}
+.trean-root .app-shell.chat-mode .chat-history-strip .chat-sidebar-options{display:none!important}
+.trean-root .app-shell.chat-mode .chat-history-strip .chat-session-menu,.trean-root .app-shell.chat-mode .chat-history-strip .chat-floating-menu{z-index:50}
+.trean-root .app-shell.chat-mode .chat-message.assistant{color:#f4f0fb!important}
+.trean-root .app-shell.chat-mode .chat-message.user{background:#252136!important;border:1px solid rgba(175,140,220,.16)!important;color:#f7f2ff!important}
+.trean-root .app-shell.chat-mode .chat-message p,.trean-root .app-shell.chat-mode .chat-message li{color:#e9e2f4!important}
+.trean-root .app-shell.chat-mode .chat-response-actions button{color:#bca7d8!important}
+@media(max-width:1000px){
+ .trean-root .app-shell.chat-mode .chat-workspace-header{padding-left:24px}
+ .trean-root .app-shell.chat-mode .chat-history-strip{width:310px!important;max-width:310px!important}
+ .trean-root .app-shell.chat-mode .chat-page .chat-welcome{width:calc(100% - 310px)!important;margin-left:310px!important;padding-left:24px!important;padding-right:24px!important}
+ .trean-root .app-shell.chat-mode .chat-transcript{left:310px!important}
+ .trean-root .app-shell.chat-mode .chat-compose{left:calc(310px + 3vw)!important;right:3vw!important}
+ .trean-root .app-shell.chat-mode .chat-footer-note{left:310px!important}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:700px){
+ .trean-root .app-shell.chat-mode .chat-workspace-header{height:60px!important;flex-basis:60px!important;padding:0 12px!important;gap:8px!important}
+ .trean-root .app-shell.chat-mode .chat-sidebar-toggle{width:34px!important}
+ .trean-root .app-shell.chat-mode .chat-model-brand{padding:7px 10px!important;font-size:14px!important}
+ .trean-root .app-shell.chat-mode .chat-model-brand img{width:24px!important;height:24px!important}
+ .trean-root .app-shell.chat-mode .chat-header-actions{gap:4px!important}
+ .trean-root .app-shell.chat-mode .chat-header-actions button{width:34px!important;height:34px!important}
+ .trean-root .app-shell.chat-mode .chat-history-strip{width:min(86vw,330px)!important;max-width:min(86vw,330px)!important;transform:translateX(-105%)!important;transition:transform .25s ease!important;box-shadow:18px 0 40px rgba(0,0,0,.3)!important}
+ .trean-root .app-shell.chat-mode .chat-history-strip.open{transform:translateX(0)!important}
+ .trean-root .app-shell.chat-mode .chat-sidebar-backdrop{display:block!important;position:fixed!important;inset:0!important;background:rgba(0,0,0,.55)!important;z-index:19!important}
+ .trean-root .app-shell.chat-mode .chat-page .chat-welcome{width:100%!important;margin:0!important;padding:20px 16px 160px!important;justify-content:center!important}
+ .trean-root .app-shell.chat-mode .chat-welcome:before{width:76px!important;height:76px!important;margin-bottom:20px!important}
+ .trean-root .app-shell.chat-mode .chat-welcome h1{font-size:28px!important;letter-spacing:-.6px!important}
+ .trean-root .app-shell.chat-mode .chat-welcome>p{font-size:15px!important;margin:0 auto 28px!important}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid button{min-height:118px!important;padding:13px 8px!important;border-radius:16px!important;gap:8px!important}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid button b{font-size:13px!important}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid button small{font-size:11px!important}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid .chat-quick-icon{width:36px!important;height:36px!important}
+ .trean-root .app-shell.chat-mode .chat-transcript{left:0!important;right:0!important;top:60px!important;bottom:150px!important;padding:18px 14px!important}
+ .trean-root .app-shell.chat-mode .chat-compose{left:12px!important;right:12px!important;bottom:14px!important;padding:12px 12px 10px!important;border-radius:20px!important}
+ .trean-root .app-shell.chat-mode .chat-compose textarea{font-size:16px!important;min-height:42px!important}
+ .trean-root .app-shell.chat-mode .chat-compose-footer{margin-top:6px!important}
+ .trean-root .app-shell.chat-mode .chat-compose-footer button{height:34px!important;padding:0 10px!important;font-size:12px!important}
+ .trean-root .app-shell.chat-mode .chat-compose-footer .chat-add-button{width:34px!important;height:34px!important;font-size:22px!important}
+ .trean-root .app-shell.chat-mode .chat-model-selector{display:none!important}
+ .trean-root .app-shell.chat-mode .chat-compose-main>button.primary{width:42px!important;height:42px!important;min-width:42px!important}
+ .trean-root .app-shell.chat-mode .chat-footer-note{display:none!important}
+}
+@media(max-width:420px){
+ .trean-root .app-shell.chat-mode .chat-welcome h1{font-size:25px!important}
+ .trean-root .app-shell.chat-mode .chat-welcome>p{font-size:14px!important}
+ .trean-root .app-shell.chat-mode .chat-prompt-grid button{min-height:105px!important}
+ .trean-root .app-shell.chat-mode .chat-compose-left{gap:6px!important}
+ .trean-root .app-shell.chat-mode .chat-knowledge-mode{font-size:11px!important}
+}
