@@ -284,3 +284,20 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
  .code-block pre{font-size:12px;padding:13px;line-height:1.65}
  .message-actions{opacity:1}
 }
+
+
+/* ChatGPT-style markdown block rhythm and responsive tables */
+.markdown-response .markdown-chunk{display:flex;flex-direction:column;gap:1rem;line-height:1.78;overflow-wrap:anywhere}
+.markdown-response .markdown-chunk p{margin:0 0 .45rem;line-height:1.78}
+.markdown-response .markdown-chunk h2{margin:1.5rem 0 .45rem;font-size:1.28em;line-height:1.35;font-weight:700}
+.markdown-response .markdown-chunk h2:first-child{margin-top:.25rem}
+.markdown-response .markdown-chunk ul,.markdown-response .markdown-chunk ol{margin:.15rem 0 .75rem;padding-left:1.45rem;display:flex;flex-direction:column;gap:.5rem}
+.markdown-response .markdown-chunk li{padding-left:.2rem;line-height:1.75}
+.markdown-response .markdown-chunk blockquote{margin:.35rem 0;padding:.65rem 1rem;border-left:3px solid var(--accent,#a78bfa);background:rgba(167,139,250,.07);border-radius:0 .65rem .65rem 0}
+.markdown-response .markdown-chunk hr{border:0;border-top:1px solid var(--border,rgba(255,255,255,.12));margin:.6rem 0}
+.markdown-table-wrap{width:100%;overflow-x:auto;margin:.35rem 0 .8rem;border:1px solid var(--border,rgba(255,255,255,.12));border-radius:12px}
+.markdown-table-wrap table{border-collapse:collapse;width:100%;min-width:420px;font-size:.92em}
+.markdown-table-wrap th,.markdown-table-wrap td{text-align:left;padding:.75rem .85rem;border-bottom:1px solid var(--border,rgba(255,255,255,.1));vertical-align:top}
+.markdown-table-wrap th{font-weight:650;background:rgba(255,255,255,.045)}
+.markdown-table-wrap tr:last-child td{border-bottom:0}
+@media(max-width:600px){.markdown-response .markdown-chunk{gap:.85rem;line-height:1.75}.markdown-response .markdown-chunk h2{font-size:1.2em;margin-top:1.15rem}.markdown-table-wrap table{font-size:.86em}}
