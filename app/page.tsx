@@ -1,5 +1,5 @@
 "use client";
-import {useState,useEffect,useRef} from "react";
+import React, {useState,useEffect,useRef} from "react";
 import {ArrowUp,BookOpen,Brain,ChevronDown,FileText,Folder,History,Home,Library,Menu,MessageSquare,Plus,Search,Settings,User,Video,X,Mic,Paperclip,Layers,Sparkles,Play,PanelLeft,Link2,Clock,Send,Share2,Copy,Pencil,Trash2} from "lucide-react";
 type Screen="Landing"|"Sign In"|"Create Account"|"Chat"|"Dashboard"|"Learn from Video"|"Processing Video"|"Knowledge Base"|"Summaries"|"Learning Sources"|"History"|"Profile"|"Settings";
 const nav:[Screen,any,string][]=[["Chat",MessageSquare,"Workspace"],["Learn from Video",Video,"Learning"],["Knowledge Base",Library,"Library"],["Summaries",FileText,"Library"],["Learning Sources",BookOpen,"Library"],["Dashboard",Home,"Overview"],["History",History,"Personal"],["Profile",User,"Personal"],["Settings",Settings,"Personal"]];
