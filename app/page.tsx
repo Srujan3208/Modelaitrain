@@ -20,17 +20,17 @@ function renderAssistantContent(raw:string){
  return <div className="markdown-response">{parts.map((part,i)=>part.type==="code"?<div className="code-block" key={i}><div className="code-header"><span>{part.lang}</span><button onClick={()=>navigator.clipboard?.writeText(part.text)}><Copy/> Copy code</button></div><pre><code>{part.text}</code></pre></div>:<MarkdownBlocks key={i} text={part.text}/>)}</div>;
 }
 function MarkdownBlocks({text}:{text:string}){
- const lines=text.replace(/\\r/g,"").split("\\n");const blocks:any[]=[];let paragraph:string[]=[];let list:string[]=[];let listType:"ul"|"ol"|null=null;let tableRows:string[][]=[];let quote:string[]=[];
+ const lines=text.replace(/\r/g,"").split("\n");const blocks:any[]=[];let paragraph:string[]=[];let list:string[]=[];let listType:"ul"|"ol"|null=null;let tableRows:string[][]=[];let quote:string[]=[];
  const flushParagraph=()=>{if(paragraph.length){blocks.push({type:"p",text:paragraph.join(" ")});paragraph=[];}};
  const flushList=()=>{if(list.length){blocks.push({type:listType,text:list});list=[];listType=null;}};
  const flushQuote=()=>{if(quote.length){blocks.push({type:"quote",text:quote.join(" ")});quote=[];}};
  const flushTable=()=>{if(tableRows.length){const rows=tableRows.filter(r=>!r.every(c=>/^:?-{3,}:?$/.test(c.trim())));if(rows.length>1)blocks.push({type:"table",rows});tableRows=[];}};
  const isTableLine=(line:string)=>/^\s*\|?.+\|.+\|?\s*$/.test(line)&&line.includes("|");
- for(let i=0;i<lines.length;i++){const line=lines[i];const h=line.match(/^\\s{0,3}(#{1,6})\\s+(.+)$/);const ul=line.match(/^\\s*[-*+]\\s+(.+)$/);const ol=line.match(/^\\s*\\d+[.)]\\s+(.+)$/);const q=line.match(/^\\s*>\\s?(.*)$/);
+ for(const line of lines){const h=line.match(/^\s{0,3}(#{1,6})\s+(.+)$/);const ul=line.match(/^\s*[-*+]\s+(.+)$/);const ol=line.match(/^\s*\d+[.)]\s+(.+)$/);const q=line.match(/^\s*>\s?(.*)$/);
  if(h){flushParagraph();flushList();flushQuote();flushTable();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
- if(/^\\s*(---+|\\*\\*\\*|___)\\s*$/.test(line)){flushParagraph();flushList();flushQuote();flushTable();blocks.push({type:"hr"});continue;}
+ if(/^\s*(---+|\*\*\*|___)\s*$/.test(line)){flushParagraph();flushList();flushQuote();flushTable();blocks.push({type:"hr"});continue;}
  if(q){flushParagraph();flushList();flushTable();quote.push(q[1]);continue;}
- if(isTableLine(line)){flushParagraph();flushList();flushQuote();tableRows.push(line.trim().replace(/^\\|/,"").replace(/\\|$/,"").split("|").map(c=>c.trim()));continue;}
+ if(isTableLine(line)){flushParagraph();flushList();flushQuote();tableRows.push(line.trim().replace(/^\|/,"").replace(/\|$/,"").split("|").map(c=>c.trim()));continue;}
  if(ul||ol){flushParagraph();flushQuote();flushTable();const next=ul?"ul":"ol";if(listType&&listType!==next)flushList();listType=next;list.push((ul||ol)![1]);continue;}
  if(!line.trim()){flushParagraph();flushList();flushQuote();flushTable();continue;}
  flushList();flushQuote();flushTable();paragraph.push(line.trim());
