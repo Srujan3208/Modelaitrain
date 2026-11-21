@@ -154,3 +154,25 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 .profile-panel-edit .profile-fields input{width:100%;box-sizing:border-box;min-height:52px;padding:12px 14px;border:1px solid var(--border);border-radius:14px;background:var(--surface-dark,#090910);color:var(--text);font:inherit}
 .profile-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
 @media(max-width:640px){.model-menu{top:66px;left:50%;min-width:240px}.chat-plus-menu{top:66px;left:10px;min-width:230px}.knowledge-menu{left:64px;bottom:82px}.setting-content{padding:15px}.settings-toggle-row{align-items:flex-start}.settings-toggle-row .toggle-switch{flex:none}.profile-actions .btn{width:100%}}
+
+/* Mobile chat popover and readable response refinement */
+.composer-functional{position:relative}
+.composer-functional .knowledge-menu{position:absolute;left:12px;bottom:calc(100% + 10px);top:auto;z-index:120;min-width:220px;width:min(280px,calc(100vw - 36px));max-width:calc(100vw - 36px);padding:7px;background:#191923;border:1px solid #393747;border-radius:16px;box-shadow:0 18px 50px #0009;max-height:min(50vh,360px);overflow:auto}
+.composer-functional .knowledge-menu button{min-height:46px;padding:11px 12px;font-size:14px;line-height:1.25;white-space:normal}
+.composer-functional .knowledge-menu button svg{width:19px;height:19px;flex-shrink:0}
+.composer-functional .knowledge-menu button span{margin-left:auto;flex-shrink:0}
+.composer-functional .chat-plus-menu{position:absolute;left:10px;bottom:calc(100% + 10px);top:auto;z-index:120;width:min(280px,calc(100vw - 36px));max-width:calc(100vw - 36px);max-height:min(55vh,420px);overflow:auto}
+.composer-functional .model-menu{position:absolute;left:50%;top:auto;bottom:calc(100% + 10px);z-index:120;transform:translateX(-50%);width:min(340px,calc(100vw - 36px));max-width:calc(100vw - 36px);max-height:min(55vh,420px);overflow:auto}
+.assistant-message{font-family:inherit;font-size:15.5px;line-height:1.78;letter-spacing:.005em;color:#e8e7ef;overflow-wrap:anywhere}
+.message-assistant{padding-bottom:18px}
+.message-author{font-size:13px;letter-spacing:.01em;margin-bottom:12px}
+.user-message{font-size:14.5px;line-height:1.72;letter-spacing:.005em}
+@media(max-width:700px){
+ .composer-functional{position:sticky;bottom:68px;z-index:10}
+ .composer-functional .knowledge-menu{left:0;bottom:calc(100% + 8px);width:min(260px,calc(100vw - 28px));max-height:45dvh}
+ .composer-functional .chat-plus-menu{left:0;bottom:calc(100% + 8px);width:min(280px,calc(100vw - 28px))}
+ .composer-functional .model-menu{left:50%;bottom:calc(100% + 8px);top:auto}
+ .chat-functional .messages{gap:24px}
+ .assistant-message{font-size:15px;line-height:1.78}
+ .user-message{font-size:14px;line-height:1.7}
+}
