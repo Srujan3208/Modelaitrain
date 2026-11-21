@@ -20,22 +20,18 @@ function renderAssistantContent(raw:string){
  return <div className="markdown-response">{parts.map((part,i)=>part.type==="code"?<div className="code-block" key={i}><div className="code-header"><span>{part.lang}</span><button onClick={()=>navigator.clipboard?.writeText(part.text)}><Copy/> Copy code</button></div><pre><code>{part.text}</code></pre></div>:<MarkdownBlocks key={i} text={part.text}/>)}</div>;
 }
 function MarkdownBlocks({text}:{text:string}){
- const lines=text.replace(/\r/g,"").split("\n");const blocks:any[]=[];let paragraph:string[]=[];let list:string[]=[];let listType:"ul"|"ol"|null=null;let tableRows:string[][]=[];let quote:string[]=[];
- const flushParagraph=()=>{if(paragraph.length){blocks.push({type:"p",text:paragraph.join(" ")});paragraph=[];}};
- const flushList=()=>{if(list.length){blocks.push({type:listType,text:list});list=[];listType=null;}};
- const flushQuote=()=>{if(quote.length){blocks.push({type:"quote",text:quote.join(" ")});quote=[];}};
- const flushTable=()=>{if(tableRows.length){const rows=tableRows.filter(r=>!r.every(c=>/^:?-{3,}:?$/.test(c.trim())));if(rows.length>1)blocks.push({type:"table",rows});tableRows=[];}};
- const isTableLine=(line:string)=>/^\s*\|?.+\|.+\|?\s*$/.test(line)&&line.includes("|");
- for(const line of lines){const h=line.match(/^\s{0,3}(#{1,6})\s+(.+)$/);const ul=line.match(/^\s*[-*+]\s+(.+)$/);const ol=line.match(/^\s*\d+[.)]\s+(.+)$/);const q=line.match(/^\s*>\s?(.*)$/);
- if(h){flushParagraph();flushList();flushQuote();flushTable();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
- if(/^\s*(---+|\*\*\*|___)\s*$/.test(line)){flushParagraph();flushList();flushQuote();flushTable();blocks.push({type:"hr"});continue;}
- if(q){flushParagraph();flushList();flushTable();quote.push(q[1]);continue;}
- if(isTableLine(line)){flushParagraph();flushList();flushQuote();tableRows.push(line.trim().replace(/^\|/,"").replace(/\|$/,"").split("|").map(c=>c.trim()));continue;}
- if(ul||ol){flushParagraph();flushQuote();flushTable();const next=ul?"ul":"ol";if(listType&&listType!==next)flushList();listType=next;list.push((ul||ol)![1]);continue;}
- if(!line.trim()){flushParagraph();flushList();flushQuote();flushTable();continue;}
- flushList();flushQuote();flushTable();paragraph.push(line.trim());
- }flushParagraph();flushList();flushQuote();flushTable();
- return <div className="markdown-chunk">{blocks.map((b:any,i:number)=>b.type==="h"?<h2 key={i}>{formatInline(b.text)}</h2>:b.type==="p"?<p key={i}>{formatInline(b.text)}</p>:b.type==="ul"?<ul key={i}>{b.text.map((v:string,j:number)=><li key={j}>{formatInline(v)}</li>)}</ul>:b.type==="ol"?<ol key={i}>{b.text.map((v:string,j:number)=><li key={j}>{formatInline(v)}</li>)}</ol>:b.type==="quote"?<blockquote key={i}>{formatInline(b.text)}</blockquote>:b.type==="hr"?<hr key={i}/>:<div className="markdown-table-wrap" key={i}><table><thead><tr>{b.rows[0].map((c:string,j:number)=><th key={j}>{formatInline(c)}</th>)}</tr></thead><tbody>{b.rows.slice(1).map((row:string[],j:number)=><tr key={j}>{b.rows[0].map((_:string,k:number)=><td key={k}>{formatInline(row[k]||"")}</td>)}</tr>)}</tbody></table></div>)}</div>;
+ const lines=text.replace(/\\r/g,"").split("\\n");const blocks:any[]=[];let para:string[]=[];let list:string[]=[];let lt:"ul"|"ol"|null=null;let rows:string[][]=[];let quote:string[]=[];
+ const flushP=()=>{if(para.length){blocks.push({type:"p",text:para.join(" ")});para=[];}};const flushL=()=>{if(list.length){blocks.push({type:lt,text:list});list=[];lt=null;}};const flushQ=()=>{if(quote.length){blocks.push({type:"quote",text:quote.join(" ")});quote=[];}};const flushT=()=>{if(rows.length){const clean=rows.filter(r=>!r.every(c=>/^:?-{3,}:?$/.test(c.trim())));if(clean.length>1)blocks.push({type:"table",rows:clean});else clean.forEach(r=>blocks.push({type:"p",text:r.join(" · ")}));rows=[];}};
+ for(const line of lines){const h=line.match(/^\\s{0,3}(#{1,6})\\s+(.+)$/),ul=line.match(/^\\s*[-*+]\\s+(.+)$/),ol=line.match(/^\\s*\\d+[.)]\\s+(.+)$/),q=line.match(/^\\s*>\\s?(.*)$/);
+ if(h){flushP();flushL();flushQ();flushT();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
+ if(/^\\s*(---+|\\*\\*\\*|___)\\s*$/.test(line)){flushP();flushL();flushQ();flushT();blocks.push({type:"hr"});continue;}
+ if(q){flushP();flushL();flushT();quote.push(q[1]);continue;}
+ if(line.includes("|")&&/^\\s*\\|?.+\\|.+\\|?\\s*$/.test(line)){flushP();flushL();flushQ();rows.push(line.trim().replace(/^\\|/,"").replace(/\\|$/,"").split("|").map(c=>c.trim()));continue;}
+ if(ul||ol){flushP();flushQ();flushT();const next=ul?"ul":"ol";if(lt&&lt!==next)flushL();lt=next;list.push((ul||ol)![1]);continue;}
+ if(!line.trim()){flushP();flushL();flushQ();flushT();continue;}
+ flushL();flushQ();flushT();para.push(line.trim());
+ }flushP();flushL();flushQ();flushT();
+ return <div className="markdown-chunk">{blocks.map((b:any,i:number)=>b.type==="h"?React.createElement("h"+Math.min(b.level,6),{key:i},formatInline(b.text)):b.type==="p"?<p key={i}>{formatInline(b.text)}</p>:b.type==="ul"?<ul key={i}>{b.text.map((v:string,j:number)=><li key={j}>{formatInline(v)}</li>)}</ul>:b.type==="ol"?<ol key={i}>{b.text.map((v:string,j:number)=><li key={j}>{formatInline(v)}</li>)}</ol>:b.type==="quote"?<blockquote key={i}>{formatInline(b.text)}</blockquote>:b.type==="hr"?<hr key={i}/>:<div className="markdown-table-wrap" key={i}><table><thead><tr>{b.rows[0].map((c:string,j:number)=><th key={j}>{formatInline(c)}</th>)}</tr></thead><tbody>{b.rows.slice(1).map((row:string[],j:number)=><tr key={j}>{b.rows[0].map((_:string,k:number)=><td key={k}>{formatInline(row[k]||"")}</td>)}</tr>)}</tbody></table></div>)}</div>;
 }
 function formatInline(text:string){
  const parts=text.split(/(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\*[^*]+\*)/g);
