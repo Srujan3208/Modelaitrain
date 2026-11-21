@@ -217,3 +217,17 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 .thinking-indicator span:nth-child(2){animation-delay:.15s}.thinking-indicator span:nth-child(3){animation-delay:.3s}
 @keyframes thinking-pulse{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1.1)}}
 @media(max-width:700px){.chat-functional .chat-body{padding-bottom:145px}.chat-functional .assistant-message{font-size:15px;line-height:1.8}.markdown-response{gap:13px}.code-block pre{font-size:11px;padding:12px}.markdown-response h3{font-size:1.12em}}
+
+/* Auto-scroll correction: use the chat viewport itself, not document scroll */
+.chat-functional .chat-body{height:calc(100dvh - 220px);min-height:0;flex:1 1 auto;overflow-y:auto;overflow-x:hidden;padding:14px 14px 24px;scroll-behavior:smooth;overscroll-behavior:contain}
+.chat-functional .chat-welcome-hidden{display:none!important}
+.chat-functional .messages{margin:0 auto;padding:10px 0 30px}
+.chat-functional .chat-body:has(.messages){display:flex;flex-direction:column;justify-content:flex-start}
+.chat-functional .chat-body:has(.messages) .messages{width:100%;flex:0 0 auto}
+.chat-functional .chat-body:has(.messages) .message:last-child{margin-bottom:10px}
+.chat-functional .composer-functional{flex:0 0 auto}
+@media(max-width:700px){
+ .chat-functional .chat-body{height:calc(100dvh - 250px);max-height:calc(100dvh - 250px);padding:8px 8px 18px}
+ .chat-functional .messages{padding-top:6px;gap:18px}
+ .chat-functional .chat-welcome-hidden{display:none!important}
+}
