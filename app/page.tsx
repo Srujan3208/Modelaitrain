@@ -13,17 +13,17 @@ function renderAssistantContent(raw:string){
  const content=(raw||"").trim();
  if(!content)return null;
  try{const parsed=JSON.parse(content);if(parsed&&typeof parsed==="object"&&("User Safety" in parsed||"Response Safety" in parsed)){return <div className="safety-result"><span className="safety-dot"/>Response safety check completed</div>;}}catch{}
- const parts:any[]=[];const fence=/```([\\w+-]*)\\n([\\s\\S]*?)```/g;let last=0;let match:any;
- while((match=fence.exec(content))!==null){if(match.index>last)parts.push({type:"markdown",text:content.slice(last,match.index)});parts.push({type:"code",lang:match[1]||"Code",text:match[2].replace(/\\n$/,"")});last=fence.lastIndex;}
+ const parts:any[]=[];const fence=/```([\w+-]*)\n([\s\S]*?)```/g;let last=0;let match:any;
+ while((match=fence.exec(content))!==null){if(match.index>last)parts.push({type:"markdown",text:content.slice(last,match.index)});parts.push({type:"code",lang:match[1]||"Code",text:match[2].replace(/\n$/,"")});last=fence.lastIndex;}
  if(last<content.length)parts.push({type:"markdown",text:content.slice(last)});
  if(!parts.length)parts.push({type:"markdown",text:content});
  return <div className="markdown-response">{parts.map((part,i)=>part.type==="code"?<div className="code-block" key={i}><div className="code-header"><span>{part.lang}</span><button onClick={()=>navigator.clipboard?.writeText(part.text)}><Copy/> Copy code</button></div><pre><code>{part.text}</code></pre></div>:<MarkdownBlocks key={i} text={part.text}/>)}</div>;
 }
 function MarkdownBlocks({text}:{text:string}){
- const lines=text.split("\\n");const blocks:any[]=[];let paragraph:string[]=[];let list:string[]=[];let listType:"ul"|"ol"|null=null;
+ const lines=text.split("\n");const blocks:any[]=[];let paragraph:string[]=[];let list:string[]=[];let listType:"ul"|"ol"|null=null;
  const flushParagraph=()=>{if(paragraph.length){blocks.push({type:"p",text:paragraph.join(" ")});paragraph=[];}};
  const flushList=()=>{if(list.length){blocks.push({type:listType,text:list});list=[];listType=null;}};
- for(const line of lines){const h=line.match(/^\\s{0,3}(#{1,6})\\s+(.+)$/);const ul=line.match(/^\\s*[-*+]\\s+(.+)$/);const ol=line.match(/^\\s*\\d+[.)]\\s+(.+)$/);
+ for(const line of lines){const h=line.match(/^\s{0,3}(#{1,6})\s+(.+)$/);const ul=line.match(/^\s*[-*+]\s+(.+)$/);const ol=line.match(/^\s*\d+[.)]\s+(.+)$/);
  if(h){flushParagraph();flushList();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
  if(ul||ol){flushParagraph();const next=ul?"ul":"ol";if(listType&&listType!==next)flushList();listType=next;list.push((ul||ol)![1]);continue;}
  if(!line.trim()){flushParagraph();flushList();continue;}
@@ -32,7 +32,7 @@ function MarkdownBlocks({text}:{text:string}){
  return <div className="markdown-chunk">{blocks.map((b:any,i:number)=>b.type==="h"?<h2 key={i}>{formatInline(b.text)}</h2>:b.type==="p"?<p key={i}>{formatInline(b.text)}</p>:b.type==="ul"?<ul key={i}>{b.text.map((v:string,j:number)=><li key={j}>{formatInline(v)}</li>)}</ul>:<ol key={i}>{b.text.map((v:string,j:number)=><li key={j}>{formatInline(v)}</li>)}</ol>)}</div>;
 }
 function formatInline(text:string){
- const parts=text.split(/(\\*\\*[^*]+\\*\\*|__[^_]+__|`[^`]+`|\\*[^*]+\\*)/g);
+ const parts=text.split(/(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\*[^*]+\*)/g);
  return parts.map((part,i)=>part.startsWith("**")&&part.endsWith("**")||part.startsWith("__")&&part.endsWith("__")?<strong key={i}>{part.slice(2,-2)}</strong>:part.startsWith("`")&&part.endsWith("`")?<code key={i}>{part.slice(1,-1)}</code>:part.startsWith("*")&&part.endsWith("*")?<em key={i}>{part.slice(1,-1)}</em>:part);
 }
 function Chat(){
