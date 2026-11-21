@@ -13,20 +13,25 @@ function renderAssistantContent(raw:string){
  const content=(raw||"").trim();
  if(!content)return null;
  try{const parsed=JSON.parse(content);if(parsed&&typeof parsed==="object"&&("User Safety" in parsed||"Response Safety" in parsed)){return <div className="safety-result"><span className="safety-dot"/>Response safety check completed</div>;}}catch{}
- const blocks=content.split(/\n\s*\n/);
- return <div className="markdown-response">{blocks.map((block,bi)=>{
-  const code=block.match(/^\s*```([\w+-]*)\n([\s\S]*?)\n?```\s*$/);
-  if(code)return <div className="code-block" key={bi}><div className="code-header"><span>{code[1]||"Code"}</span><button onClick={()=>navigator.clipboard?.writeText(code[2])}><Copy/> Copy code</button></div><pre><code>{code[2]}</code></pre></div>;
-  if(/^#{1,6}\s/.test(block))return <h3 key={bi}>{block.replace(/^#{1,6}\s+/,"")}</h3>;
-  const lines=block.split("\n");
-  if(lines.every(x=>/^\s*[-*+]\s+/.test(x)))return <ul key={bi}>{lines.map((x,i)=><li key={i}>{formatInline(x.replace(/^\s*[-*+]\s+/,""))}</li>)}</ul>;
-  if(lines.every(x=>/^\s*\d+[.)]\s+/.test(x)))return <ol key={bi}>{lines.map((x,i)=><li key={i}>{formatInline(x.replace(/^\s*\d+[.)]\s+/,""))}</li>)}</ol>;
-  return <p key={bi}>{lines.map((line,i)=><span key={i}>{formatInline(line)}{i<lines.length-1&&<br/>}</span>)}</p>;
+ const chunks=content.split(/\n(?=\s*```)/g);
+ return <div className="markdown-response">{chunks.map((chunk,ci)=>{
+  const fenced=chunk.match(/^\s*```([\w+-]*)\n([\s\S]*?)\n?\s*```\s*$/);
+  if(fenced)return <div className="code-block" key={ci}><div className="code-header"><span>{fenced[1]||"Code"}</span><button onClick={()=>navigator.clipboard?.writeText(fenced[2])}><Copy/> Copy code</button></div><pre><code>{fenced[2]}</code></pre></div>;
+  const lines=chunk.split("\n");const blocks:any[]=[];let paragraph:string[]=[];let list:string[]=[];let listType:"ul"|"ol"|null=null;
+  const flushParagraph=()=>{if(paragraph.length){blocks.push({type:"p",text:paragraph.join("\n")});paragraph=[];}};
+  const flushList=()=>{if(list.length){blocks.push({type:listType,text:list});list=[];listType=null;}};
+  for(const line of lines){const h=line.match(/^\s{0,3}(#{1,6})\s+(.+)$/);const ul=line.match(/^\s*[-*+]\s+(.+)$/);const ol=line.match(/^\s*\d+[.)]\s+(.+)$/);
+   if(h){flushParagraph();flushList();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
+   if(ul||ol){flushParagraph();const next=ul?"ul":"ol";if(listType&&listType!==next)flushList();listType=next;list.push((ul||ol)![1]);continue;}
+   if(!line.trim()){flushParagraph();flushList();continue;}
+   flushList();paragraph.push(line);
+  }flushParagraph();flushList();
+  return <div className="markdown-chunk" key={ci}>{blocks.map((b:any,bi:number)=>b.type==="h"?<h2 key={bi}>{formatInline(b.text)}</h2>:b.type==="p"?<p key={bi}>{b.text.split("\n").map((line:string,i:number)=><span key={i}>{formatInline(line)}{i<b.text.split("\n").length-1&&<br/>}</span>)}</p>:b.type==="ul"?<ul key={bi}>{b.text.map((line:string,i:number)=><li key={i}>{formatInline(line)}</li>)}</ul>:<ol key={bi}>{b.text.map((line:string,i:number)=><li key={i}>{formatInline(line)}</li>)}</ol>)}</div>;
  })}</div>;
 }
 function formatInline(text:string){
- const parts=text.split(/(\*\*[^*]+\*\*|`[^\`]+`|\*[^*]+\*)/g);
- return parts.map((part,i)=>part.startsWith("**")&&part.endsWith("**")?<strong key={i}>{part.slice(2,-2)}</strong>:part.startsWith("`")&&part.endsWith("`")?<code key={i}>{part.slice(1,-1)}</code>:part.startsWith("*")&&part.endsWith("*")?<em key={i}>{part.slice(1,-1)}</em>:part);
+ const parts=text.split(/(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\*[^*]+\*)/g);
+ return parts.map((part,i)=>part.startsWith("**")&&part.endsWith("**")||part.startsWith("__")&&part.endsWith("__")?<strong key={i}>{part.slice(2,-2)}</strong>:part.startsWith("`")&&part.endsWith("`")?<code key={i}>{part.slice(1,-1)}</code>:part.startsWith("*")&&part.endsWith("*")?<em key={i}>{part.slice(1,-1)}</em>:part);
 }
 function Chat(){
  const [draft,setDraft]=useState("");const [messages,setMessages]=useState<any[]>([]);const [sessions,setSessions]=useState<any[]>([]);const [sessionId,setSessionId]=useState<string|null>(null);const [loading,setLoading]=useState(false);const [sessionLoading,setSessionLoading]=useState(true);const [error,setError]=useState("");const [historyOpen,setHistoryOpen]=useState(false);const [historyQuery,setHistoryQuery]=useState("");const [background,setBackground]=useState(false);const [taskStatus,setTaskStatus]=useState("");const [modelMenu,setModelMenu]=useState(false);const [selectedModel,setSelectedModel]=useState("Auto");const [plusMenu,setPlusMenu]=useState(false);const [knowledgeMenu,setKnowledgeMenu]=useState(false);const [knowledgeMode,setKnowledgeMode]=useState("Knowledge");const [attachments,setAttachments]=useState<any[]>([]);const [uploading,setUploading]=useState(false);const [editing,setEditing]=useState<string|null>(null);const bottomRef=useRef<HTMLDivElement|null>(null);const chatBodyRef=useRef<HTMLDivElement|null>(null);const textareaRef=useRef<HTMLTextAreaElement|null>(null);const fileRef=useRef<HTMLInputElement|null>(null);const [sb,setSb]=useState<any>(null);const [user,setUser]=useState<any>(null);
