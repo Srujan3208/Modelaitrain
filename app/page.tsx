@@ -61,19 +61,18 @@ function VideoPage({go}:{go:(s:Screen)=>void}){
  const [url,setUrl]=useState(""),[mode,setMode]=useState("Video"),[busy,setBusy]=useState(false),[notice,setNotice]=useState("");
  async function startProcessing(){
   const clean=url.trim();if(!clean){setNotice("Paste a YouTube video URL.");return;}
-  const match=clean.match(/(?:youtu\\.be\\/|youtube\\.com\\/(?:watch\\?v=|embed\\/|shorts\\/|live\\/))([A-Za-z0-9_-]{11})/);
+  const match=clean.match(/(?:youtu.be\/|youtube.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{11})/);
   if(!match){setNotice("Enter a valid YouTube video link.");return;}
+  if(mode!=="Video"){setNotice("Playlist and channel processing is not enabled yet. Choose Video.");return;}
   setBusy(true);setNotice("");
   try{
    const {createClient}=await import("@supabase/supabase-js");
    const sb=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!,process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
    const {data:{session},error:sessionError}=await sb.auth.getSession();
    if(sessionError)throw sessionError;if(!session?.user)throw new Error("Sign in before processing learning sources.");
-   if(mode!=="Video")throw new Error("Playlist and channel processing is not enabled yet. Choose Video.");
-   const videoId=match[1];
-   const {data:existing,error:lookupError}=await sb.from("videos").select("id,status").eq("user_id",session.user.id).eq("youtube_video_id",videoId).maybeSingle();
-   if(lookupError)throw lookupError;
-   let id=existing?.id;
+   const youtubeId=match[1];
+   const {data:existing,error:lookupError}=await sb.from("videos").select("id,status").eq("user_id",session.user.id).eq("youtube_video_id",youtubeId).maybeSingle();
+   if(lookupError)throw lookupError;let id=existing?.id;
    if(!id){
     const {data:meta,error:metaError}=await sb.functions.invoke("youtube-metadata",{body:{url:clean}});
     if(metaError)throw metaError;if(meta?.error)throw new Error(meta.error);
@@ -82,14 +81,9 @@ function VideoPage({go}:{go:(s:Screen)=>void}){
     if(createError)throw createError;id=created.id;
    }else if(existing.status==="completed"){sessionStorage.setItem("trean-processing-video",id);sessionStorage.setItem("trean-processing-title","Saved video");go("Processing Video");return;}
    sessionStorage.setItem("trean-processing-video",id);sessionStorage.setItem("trean-processing-title","YouTube video");
-   // Database trigger enqueues processing. Navigate immediately; cron worker handles the long-running job.
    go("Processing Video");
-   sb.functions.invoke("process-video",{body:{video_id:id}}).then(({error,data})=>{
-    if(error)console.warn("Video worker kickoff deferred to scheduled queue:",error.message);
-    else if(data?.error)console.warn("Video worker kickoff deferred:",data.error);
-   }).catch(e=>console.warn("Video worker kickoff deferred:",e));
-  }catch(e:any){setNotice(e?.message||"Could not queue this video.");}
-  finally{setBusy(false);}
+   void sb.functions.invoke("process-video",{body:{video_id:id}}).then(({error,data})=>{if(error)console.warn("Worker kickoff deferred to scheduled queue:",error.message);else if(data?.error)console.warn("Worker kickoff deferred:",data.error);}).catch(e=>console.warn("Worker kickoff deferred:",e));
+  }catch(e:any){setNotice(e?.message||"Could not queue this video.");}finally{setBusy(false);}
  }
  return <div className="page-view"><header className="page-header"><span className="section-kicker">LEARNING</span><h1>Learn from Video</h1><p>Turn a YouTube video into a searchable learning workspace.</p></header><div className="page-panel video-panel"><div className="segmented">{["Video","Playlist","Channel"].map(x=><button className={mode===x?"active":""} key={x} onClick={()=>setMode(x)}>{x}</button>)}</div><label className="field-label">YouTube {mode.toLowerCase()} URL</label><div className="url-field"><Link2/><input value={url} onChange={e=>setUrl(e.target.value)} placeholder="Paste a YouTube video URL"/></div><Button kind="primary" disabled={!url.trim()||busy} onClick={startProcessing}>{busy?"Adding to queue…":"Process video"} <ArrowUp/></Button>{notice&&<div className="chat-error">{notice}</div>}<div className="what-next"><h3>What you'll get</h3><div className="benefit-grid">{[[FileText,"AI Summary"],[Layers,"Key Concepts"],[MessageSquare,"Ask Questions"],[Library,"Save to Library"]].map(([I,t]:any)=><div key={t}><I/><span>{t}</span></div>)}</div></div></div></div>
 }
