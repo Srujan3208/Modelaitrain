@@ -79,7 +79,7 @@ function VideoPage({go}:{go:(s:Screen)=>void}){
     const v=meta.video;if(!v?.youtube_video_id)throw new Error("Could not read video metadata.");
     const {data:created,error:createError}=await sb.from("videos").insert({user_id:session.user.id,youtube_video_id:v.youtube_video_id,title:v.title,channel_name:v.channel_name,description:v.description,thumbnail_url:v.thumbnail_url,youtube_url:v.youtube_url,duration_seconds:v.duration_seconds,status:"pending",processing_stage:"pending",processing_progress:0,transcript_status:"pending",embedding_status:"pending"}).select("id").single();
     if(createError)throw createError;id=created.id;
-   }else if(existing.status==="completed"){sessionStorage.setItem("trean-processing-video",id);sessionStorage.setItem("trean-processing-title","Saved video");go("Processing Video");return;}
+   }else if(existing?.status==="completed"){sessionStorage.setItem("trean-processing-video",id);sessionStorage.setItem("trean-processing-title","Saved video");go("Processing Video");return;}
    sessionStorage.setItem("trean-processing-video",id);sessionStorage.setItem("trean-processing-title","YouTube video");
    go("Processing Video");
    void sb.functions.invoke("process-video",{body:{video_id:id}}).then(({error,data})=>{if(error)console.warn("Worker kickoff deferred to scheduled queue:",error.message);else if(data?.error)console.warn("Worker kickoff deferred:",data.error);}).catch(e=>console.warn("Worker kickoff deferred:",e));
