@@ -1,0 +1,12 @@
+{
+ "name":"TREAN AI — Personal Learning Workspace",
+ "short_name":"TREAN AI",
+ "description":"Learn from videos, chat with AI, and build your searchable knowledge.",
+ "start_url":"/",
+ "scope":"/",
+ "display":"standalone",
+ "orientation":"any",
+ "background_color":"#080610",
+ "theme_color":"#12091f",
+ "icons":[{"src":"/icons/trean-ai.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
