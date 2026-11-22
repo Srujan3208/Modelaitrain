@@ -71,7 +71,7 @@ function VideoPage({go}:{go:(s:Screen)=>void}){
    const {data:{session},error:sessionError}=await sb.auth.getSession();
    if(sessionError)throw sessionError;if(!session?.user)throw new Error("Sign in before processing learning sources.");
    const youtubeId=match[1];
-   const {data:existing,error:lookupError}=await sb.from("videos").select("id,status").eq("user_id",session.user.id).eq("youtube_video_id",youtubeId).maybeSingle();
+   const {data:existing,error:lookupError}=await sb.from("videos").select("id,status,title").eq("user_id",session.user.id).eq("youtube_video_id",youtubeId).maybeSingle();
    if(lookupError)throw lookupError;let id=existing?.id;
    if(!id){
     const {data:meta,error:metaError}=await sb.functions.invoke("youtube-metadata",{body:{url:clean}});
@@ -80,7 +80,7 @@ function VideoPage({go}:{go:(s:Screen)=>void}){
     const {data:created,error:createError}=await sb.from("videos").insert({user_id:session.user.id,youtube_video_id:v.youtube_video_id,title:v.title,channel_name:v.channel_name,description:v.description,thumbnail_url:v.thumbnail_url,youtube_url:v.youtube_url,duration_seconds:v.duration_seconds,status:"pending",processing_stage:"pending",processing_progress:0,transcript_status:"pending",embedding_status:"pending"}).select("id").single();
     if(createError)throw createError;id=created.id;
    }else if(existing?.status==="completed"){sessionStorage.setItem("trean-processing-video",id);sessionStorage.setItem("trean-processing-title","Saved video");go("Processing Video");return;}
-   sessionStorage.setItem("trean-processing-video",id);sessionStorage.setItem("trean-processing-title",v?.title||"YouTube video");sessionStorage.setItem("trean-processing-accepted","1");sessionStorage.setItem("trean-processing-kickoff","queued");
+   sessionStorage.setItem("trean-processing-video",id);sessionStorage.setItem("trean-processing-title",existing?.title||"YouTube video");sessionStorage.setItem("trean-processing-accepted","1");sessionStorage.setItem("trean-processing-kickoff","queued");
    setNotice("Video accepted. Background processing has started — you can monitor progress on the next screen.");
    go("Processing Video");
    void sb.functions.invoke("process-video",{body:{video_id:id}}).then(({error,data})=>{if(error){sessionStorage.setItem("trean-processing-kickoff","scheduled");sessionStorage.setItem("trean-processing-kickoff-detail",error.message||"");window.dispatchEvent(new CustomEvent("trean-processing-kickoff"));console.warn("Worker kickoff deferred to scheduled queue:",error.message);}else if(data?.error){sessionStorage.setItem("trean-processing-kickoff","scheduled");sessionStorage.setItem("trean-processing-kickoff-detail",String(data.error));window.dispatchEvent(new CustomEvent("trean-processing-kickoff"));}else{sessionStorage.setItem("trean-processing-kickoff","accepted");sessionStorage.setItem("trean-processing-kickoff-detail","");window.dispatchEvent(new CustomEvent("trean-processing-kickoff"));}}).catch(e=>{sessionStorage.setItem("trean-processing-kickoff","scheduled");sessionStorage.setItem("trean-processing-kickoff-detail",e?.message||"");window.dispatchEvent(new CustomEvent("trean-processing-kickoff"));console.warn("Worker kickoff deferred:",e);});
