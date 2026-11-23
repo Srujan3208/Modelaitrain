@@ -25,3 +25,9 @@ Connect this repository to Vercel. Deploy `trean-redesign` as a preview first, t
 
 ## Environment variables
 Backend integration uses server-side environment variables for Supabase and AI providers. Never commit API secrets or service-role keys.
+
+
+## Documentation
+
+- [Complete Project Documentation](docs/PROJECT_DOCUMENTATION.md)
+- [Hero CTA Update](docs/hero-cta-update.md)
