@@ -101,8 +101,13 @@ export default function HomePage(){
     setAuthReady(true);
     const {data}=client.auth.onAuthStateChange((event,nextSession)=>{
      if(!alive)return;
-     if(event==="SIGNED_OUT"||!nextSession?.user){setScreen("Landing");return;}
-     if(event==="SIGNED_IN"||event==="USER_UPDATED")setScreen("Dashboard");
+     // Only an explicit sign-out should send the user back to the public landing page.
+     // Other auth events can temporarily carry a null session while Supabase refreshes
+     // or restores tokens; do not let those events interrupt in-app navigation.
+     if(event==="SIGNED_OUT"){setScreen("Landing");return;}
+     if(nextSession?.user&&(event==="SIGNED_IN"||event==="USER_UPDATED"||event==="TOKEN_REFRESHED")){
+      setScreen(current=>current==="Landing"?"Dashboard":current);
+     }
     });
     subscription=data.subscription;
    }catch(error){
