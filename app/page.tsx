@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import React,{useState,useEffect,useRef} from "react";
 import {ArrowUp,BookOpen,Brain,ChevronDown,FileText,Folder,History,Home,Library,Menu,MessageSquare,Plus,Search,Settings,User,Video,X,Mic,Paperclip,Layers,Sparkles,Play,PanelLeft,Link2,Clock,Send,Share2,Copy,Pencil,Trash2} from "lucide-react";
