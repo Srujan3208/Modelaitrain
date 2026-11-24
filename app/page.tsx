@@ -150,8 +150,9 @@ export default function HomePage(){
     setAuthReady(true);
     const {data}=client.auth.onAuthStateChange((event,nextSession)=>{
      if(!alive)return;
-     if(event==="SIGNED_OUT"||!nextSession?.user){setScreen("Landing");return;}
-     if(event==="SIGNED_IN"||event==="USER_UPDATED")setScreen("Chat");
+     // Session refresh / cross-tab SIGNED_IN events must not reset the user's
+     // current workspace section. Initial routing is handled by getSession().
+     if(event==="SIGNED_OUT"||!nextSession?.user){setScreen("Landing");setOpen(false);}
     });
     subscription=data.subscription;
    }catch(error){
