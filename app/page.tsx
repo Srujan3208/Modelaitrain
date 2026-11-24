@@ -69,7 +69,57 @@ function ProfilePanel({user}:{user:any}){const [name,setName]=useState(user?.use
  const [instruction,setInstruction]=useState("");const [file,setFile]=useState<File|null>(null);const [tasks,setTasks]=useState<any[]>([]);const [busy,setBusy]=useState(false);const [notice,setNotice]=useState("");const [sb,setSb]=useState<any>(null);const [user,setUser]=useState<any>(null);
  useEffect(()=>{let timer:any;let alive=true;(async()=>{try{const {createClient}=await import("@supabase/supabase-js");const client=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!,process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);const {data:{session}}=await client.auth.getSession();if(!alive)return;setSb(client);setUser(session?.user||null);if(session?.user){await refresh(client,session.user.id);timer=setInterval(()=>refresh(client,session.user.id),10000);}}catch(e:any){if(alive)setNotice(e.message||"Unable to load learning tasks.");}})();return()=>{alive=false;if(timer)clearInterval(timer);};},[]);
  async function refresh(client:any,uid:string){const {data,error}=await client.from("learning_tasks").select("id,title,instruction,status,stage,progress,error,created_at,updated_at,completed_at,retry_count").eq("user_id",uid).order("created_at",{ascending:false}).limit(50);if(error)setNotice(error.message);else setTasks(data||[]);}
- async function start(){if(!sb||!user)return;const prompt=instruction.trim();if(!prompt&&!file){setNotice("Write what TREAN AI should learn, or upload a PDF.");return;}setBusy(true);setNotice("");try{let documentScope:any={};if(file){if(file.type!=="application/pdf"&&!file.name.toLowerCase().endsWith(".pdf"))throw new Error("Please upload a PDF file.");if(file.size>10*1024*1024)throw new Error("PDF must be 10 MB or smaller for background learning.");const path=user.id+"/background-learning/"+Date.now()+"-"+crypto.randomUUID()+"-"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_");const {error:uploadError}=await sb.storage.from("trean-chat-files").upload(path,file,{contentType:"application/pdf",upsert:false});if(uploadError)throw uploadError;documentScope={document_path:path,document_name:file.name,document_bucket:"trean-chat-files",document_mime_type:"application/pdf"};}const fullInstruction=prompt||(file?"Learn the uploaded PDF thoroughly. Extract the main concepts, definitions, examples, formulas, and important details.":"");const {data,error}=await sb.functions.invoke("create-learning-task",{body:{title:(file?file.name+": ":"")+fullInstruction.slice(0,180),instruction:fullInstruction,scope:{sources:file?["uploaded_pdf","web","documentation"]:["web","documentation"],autonomous:true,...documentScope}}});if(error)throw error;if(data?.error)throw new Error(data.error);setNotice("Learning task queued. TREAN AI will work on it in the background.");setInstruction("");setFile(null);const input=document.getElementById("background-learning-pdf") as HTMLInputElement|null;if(input)input.value="";await refresh(sb,user.id);}catch(e:any){setNotice(e.message||"Could not start background learning.");}finally{setBusy(false);}}
+ async function start(){
+  if(!sb||!user)return;
+  const prompt=instruction.trim();
+  if(!prompt&&!file){setNotice("Write what TREAN AI should learn, or upload a PDF.");return;}
+  setBusy(true);setNotice("");
+  let uploadedPdfPath:string|null=null,uploadedTextPath:string|null=null;
+  try{
+   let documentScope:any={};
+   if(file){
+    if(file.type!=="application/pdf"&&!file.name.toLowerCase().endsWith(".pdf"))throw new Error("Please upload a PDF file.");
+    if(file.size>10*1024*1024)throw new Error("PDF must be 10 MB or smaller for background learning.");
+    setNotice("Extracting searchable text from your PDF…");
+    const pdfjs:any=await import("pdfjs-dist/legacy/build/pdf.mjs");
+    pdfjs.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+    const pdfBytes=new Uint8Array(await file.arrayBuffer());
+    let parsed:any;
+    try{parsed=await pdfjs.getDocument({data:pdfBytes,useSystemFonts:true,disableFontFace:true,isEvalSupported:false}).promise;}
+    catch(firstError){pdfjs.GlobalWorkerOptions.workerSrc="https://unpkg.com/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs";parsed=await pdfjs.getDocument({data:pdfBytes,useSystemFonts:true,disableFontFace:true,isEvalSupported:false}).promise;}
+    const pages:string[]=[];
+    for(let pageNumber=1;pageNumber<=parsed.numPages;pageNumber++){
+     const page=await parsed.getPage(pageNumber),content=await page.getTextContent();
+     const pageText=(content.items??[]).map((item:any)=>typeof item.str==="string"?item.str:"").join(" ").replace(/\\s+/g," ").trim();
+     if(pageText)pages.push("[Page "+pageNumber+"] "+pageText);
+     page.cleanup();
+     if(pageNumber%25===0)setNotice("Extracting PDF text: "+pageNumber+"/"+parsed.numPages+" pages…");
+    }
+    await parsed.destroy();
+    const extractedText=pages.join("\\n\\n");
+    if(extractedText.trim().length<500)throw new Error("This PDF appears to be scanned or image-only. Text extraction found too little readable content; OCR is needed for this file.");
+    const base=user.id+"/background-learning/"+Date.now()+"-"+crypto.randomUUID()+"-"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    uploadedPdfPath=base;
+    const {error:uploadError}=await sb.storage.from("trean-chat-files").upload(uploadedPdfPath,file,{contentType:"application/pdf",upsert:false});
+    if(uploadError)throw uploadError;
+    uploadedTextPath=base+".txt";
+    const {error:textUploadError}=await sb.storage.from("trean-chat-files").upload(uploadedTextPath,new Blob([extractedText],{type:"text/plain"}),{contentType:"text/plain",upsert:false});
+    if(textUploadError)throw textUploadError;
+    documentScope={document_path:uploadedPdfPath,document_name:file.name,document_bucket:"trean-chat-files",document_mime_type:"application/pdf",document_text_path:uploadedTextPath,document_text_bucket:"trean-chat-files"};
+   }
+   const fullInstruction=prompt||(file?"Learn the uploaded PDF thoroughly. Extract the main concepts, definitions, examples, formulas, and important details.":"");
+   const {data,error}=await sb.functions.invoke("create-learning-task",{body:{title:(file?file.name+": ":"")+fullInstruction.slice(0,180),instruction:fullInstruction,scope:{sources:file?["uploaded_pdf","web","documentation"]:["web","documentation"],autonomous:true,...documentScope}}});
+   if(error)throw error;if(data?.error)throw new Error(data.error);
+   setNotice("Learning task queued. TREAN AI will process the extracted PDF text in resumable model batches.");
+   setInstruction("");setFile(null);
+   const input=document.getElementById("background-learning-pdf") as HTMLInputElement|null;if(input)input.value="";
+   await refresh(sb,user.id);
+  }catch(e:any){
+   if(uploadedTextPath)await sb.storage.from("trean-chat-files").remove([uploadedTextPath]);
+   if(uploadedPdfPath)await sb.storage.from("trean-chat-files").remove([uploadedPdfPath]);
+   setNotice(e.message||"Could not start background learning.");
+  }finally{setBusy(false);}
+ }
  const statusColor=(s:string)=>s==="completed"?"done":s==="failed"?"failed":s==="queued"?"queued":"active";
  return <div className="background-learning-page"><section className="background-learning-create"><div className="background-learning-icon"><Brain/></div><div><span className="section-kicker">AUTONOMOUS LEARNING</span><h2>Teach TREAN something new</h2><p>Upload a PDF, describe a topic, or combine both. TREAN will create a background learning task and keep its progress here.</p></div><label className="background-learning-label">What should TREAN learn?<textarea value={instruction} onChange={e=>setInstruction(e.target.value)} placeholder="Example: Learn operating systems thoroughly. Focus on process scheduling, memory management, deadlocks, definitions, examples, and exam-ready explanations." rows={5}/></label><label className="background-learning-upload"><FileText/><span><b>{file?file.name:"Upload a PDF document"}</b><small>{file?(file.size/1024/1024).toFixed(2)+" MB · PDF selected":"PDF only · Up to 10 MB"}</small><input id="background-learning-pdf" type="file" accept="application/pdf,.pdf" onChange={e=>setFile(e.target.files?.[0]||null)}/></span>{file&&<button type="button" onClick={()=>{setFile(null);const i=document.getElementById("background-learning-pdf") as HTMLInputElement|null;if(i)i.value="";}}>Remove</button>}</label><button className="btn primary background-learning-submit" disabled={busy||(!instruction.trim()&&!file)} onClick={start}>{busy?"Preparing task…":"Learn in background"}<Brain/></button>{notice&&<div className="background-learning-notice">{notice}</div>}</section><section className="background-learning-history"><div className="background-learning-history-head"><div><span className="section-kicker">TASK HISTORY</span><h2>Your background learning</h2><p>Track queued, active, completed and failed learning tasks.</p></div><button className="btn secondary" onClick={()=>sb&&user&&refresh(sb,user.id)}><History/> Refresh</button></div>{!user?<div className="data-empty"><User/><h3>Sign in to use background learning</h3><p>Your learning tasks are saved to your account.</p></div>:tasks.length===0?<div className="data-empty"><Brain/><h3>No background learning yet</h3><p>Your tasks and progress will appear here after you start learning.</p></div>:<div className="background-task-list">{tasks.map(t=><article className="background-task-card" key={t.id}><div className="background-task-top"><span className={"background-task-status "+statusColor(t.status)}>{t.status==="discovering"||t.status==="synthesizing"?"Learning":t.status}</span><span className="background-task-date">{new Date(t.created_at).toLocaleString()}</span></div><h3>{t.title}</h3><p>{t.instruction}</p><div className="background-task-progress"><div><span>{t.stage||t.status}</span><b>{t.progress||0}%</b></div><div className="progress-track"><span style={{width:(Math.min(100,Math.max(0,t.progress||0)))+"%"}}/></div></div>{t.error&&<div className="background-task-error">{t.error}</div>}{t.status==="completed"&&<small className="background-task-completed">Completed {t.completed_at?new Date(t.completed_at).toLocaleString():""}</small>}</article>)}</div>}</section></div>;
 }
