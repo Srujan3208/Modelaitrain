@@ -90,7 +90,7 @@ function ProfilePanel({user}:{user:any}){const [name,setName]=useState(user?.use
     const pages:string[]=[];
     for(let pageNumber=1;pageNumber<=parsed.numPages;pageNumber++){
      const page=await parsed.getPage(pageNumber),content=await page.getTextContent();
-     const pageText=(content.items??[]).map((item:any)=>typeof item.str==="string"?item.str:"").join(" ").replace(/\\s+/g," ").trim();
+     const pageText=(content.items??[]).map((item:any)=>typeof item.str==="string"?item.str:"").join(" ").replace(/\s+/g," ").trim();
      if(pageText)pages.push("[Page "+pageNumber+"] "+pageText);
      page.cleanup();
      if(pageNumber%25===0)setNotice("Extracting PDF text: "+pageNumber+"/"+parsed.numPages+" pages…");
