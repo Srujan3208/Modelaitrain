@@ -451,3 +451,96 @@ html,body{max-width:100%;overflow-x:hidden}
  .chat-functional .composer-functional{left:8px!important;right:8px!important;padding:10px!important}
  .chat-functional .composer-functional .source-button{max-width:140px!important}
 }
+
+
+/* Desktop workspace scrolling + auth-page overflow polish.
+   Scoped above tablet width so the existing mobile layout remains unchanged. */
+@media (min-width: 701px) {
+  html, body {
+    height: 100%;
+    overscroll-behavior-y: none;
+  }
+
+  .app-shell:not(.marketing-shell) {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    align-items: stretch;
+  }
+
+  .app-shell:not(.marketing-shell) > .sidebar {
+    position: relative;
+    top: 0;
+    height: 100dvh;
+    min-height: 0;
+    flex: 0 0 272px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(174, 139, 235, .38) transparent;
+    padding: 18px 14px 12px;
+  }
+
+  .app-shell:not(.marketing-shell) > .sidebar::-webkit-scrollbar,
+  .app-shell:not(.marketing-shell) > .main-area::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .app-shell:not(.marketing-shell) > .sidebar::-webkit-scrollbar-thumb,
+  .app-shell:not(.marketing-shell) > .main-area::-webkit-scrollbar-thumb {
+    background: rgba(174, 139, 235, .28);
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-clip: padding-box;
+  }
+
+  .app-shell:not(.marketing-shell) > .sidebar .sidebar-bottom {
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-top: 16px;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area {
+    height: 100dvh;
+    min-height: 0;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(174, 139, 235, .38) transparent;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 12;
+    backdrop-filter: blur(18px);
+    background: rgba(11, 12, 19, .88);
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .page-content {
+    min-height: calc(100dvh - 62px);
+  }
+
+  .auth-page {
+    min-height: 100dvh;
+    height: auto;
+    align-content: start;
+    overflow: visible;
+    padding: clamp(76px, 9vh, 104px) 28px 56px;
+  }
+
+  .auth-card {
+    width: min(500px, 100%);
+    margin: 0 auto;
+    flex-shrink: 0;
+  }
+
+  .auth-page .back-button {
+    position: absolute;
+    top: 28px;
+    left: 32px;
+  }
+}
