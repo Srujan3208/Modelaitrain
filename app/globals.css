@@ -407,3 +407,25 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 .markdown-code-wrap pre{margin:0;max-width:100%;overflow:auto;overscroll-behavior-x:contain;padding:1rem;line-height:1.65;font-size:.9rem;white-space:pre;tab-size:4}
 .markdown-code-wrap code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#e4dcf4;background:transparent;border:0;padding:0;white-space:pre}
 @media(max-width:600px){.markdown-chunk{gap:.85rem!important}.markdown-chunk p{line-height:1.76!important}.markdown-table-wrap table{font-size:.84em}.markdown-table-wrap th,.markdown-table-wrap td{min-width:105px;max-width:240px;padding:.62rem .7rem}.markdown-code-wrap pre{font-size:.82rem;padding:.85rem}}
+
+/* Keep the landing hero visually static and prevent mobile viewport drift */
+html,body{max-width:100%;overflow-x:hidden}
+.landing{width:100%;max-width:1440px;overflow-x:clip}
+.landing-header,.hero,.hero-copy,.hero-art{min-width:0;max-width:100%}
+.hero-art,.hero-art *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.art-orbit{transform:rotate(-25deg)!important;animation:none!important}
+@media(max-width:700px){
+ html,body{width:100%;overflow-x:hidden;overscroll-behavior-x:none}
+ .landing{width:100%;max-width:100%;padding-left:clamp(14px,4vw,22px);padding-right:clamp(14px,4vw,22px);overflow-x:clip}
+ .landing-header{width:100%;max-width:100%;overflow:visible}
+ .hero{width:100%;max-width:100%;overflow:clip}
+ .hero-copy{width:100%;max-width:100%;overflow-wrap:anywhere}
+ .hero h1{max-width:100%;word-break:normal}
+ .hero-art{width:100%;max-width:100%;contain:layout paint}
+ .orbit-one{width:min(430px,90vw);height:min(280px,58vw)}
+ .orbit-two{width:min(540px,100vw);height:min(360px,70vw)}
+ .art-node{max-width:42vw}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
