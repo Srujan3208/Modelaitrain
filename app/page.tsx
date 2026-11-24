@@ -146,7 +146,8 @@ export default function HomePage(){
     const {data:{session},error}=await client.auth.getSession();
     if(error)throw error;
     if(!alive)return;
-    setScreen(session?.user?"Chat":"Landing");
+    const authMode = new URLSearchParams(window.location.search).get("auth");
+    setScreen(authMode === "login" ? "Sign In" : session?.user ? "Chat" : "Landing");
     setAuthReady(true);
     const {data}=client.auth.onAuthStateChange((event,nextSession)=>{
      if(!alive)return;
