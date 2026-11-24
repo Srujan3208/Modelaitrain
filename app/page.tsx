@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import {useState,useEffect,useRef} from "react";
 import {ArrowUp,BookOpen,Brain,ChevronDown,FileText,Folder,History,Home,Library,Menu,MessageSquare,Plus,Search,Settings,User,Video,X,Mic,Paperclip,Layers,Sparkles,Play,PanelLeft,Link2,Clock,Send,Share2,Copy,Pencil,Trash2} from "lucide-react";
 type Screen="Landing"|"Sign In"|"Create Account"|"Chat"|"Dashboard"|"Learn from Video"|"Processing Video"|"Background Learning"|"Knowledge Base"|"Summaries"|"Learning Sources"|"History"|"Profile"|"Settings";
