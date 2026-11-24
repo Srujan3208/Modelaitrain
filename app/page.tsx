@@ -26,7 +26,7 @@ function MarkdownBlocks({text}:{text:string}){
  if(h){flushP();flushL();flushQ();flushT();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
  if(/^\\s*(---+|\\*\\*\\*|___)\\s*$/.test(line)){flushP();flushL();flushQ();flushT();blocks.push({type:"hr"});continue;}
  if(q){flushP();flushL();flushT();quote.push(q[1]);continue;}
- if(line.includes("|")&&/^\\s*\\|?.+\\|.+\\|?\\s*$/.test(line)){flushP();flushL();flushQ();rows.push(line.trim().replace(/^\\|/,"").replace(/\\|$/,"").split("|").map(c=>c.trim()));continue;}
+ if(line.includes("|")&&/^\s*\|?.+\|.+\|?\s*$/.test(line)){flushP();flushL();flushQ();rows.push(line.trim().replace(/^\\|/,"").replace(/\\|$/,"").split("|").map(c=>c.trim()));continue;}
  if(ul||ol){flushP();flushQ();flushT();const next=ul?"ul":"ol";if(lt&&lt!==next)flushL();lt=next;list.push((ul||ol)![1]);continue;}
  if(!line.trim()){flushP();flushL();flushQ();flushT();continue;}
  flushL();flushQ();flushT();para.push(line.trim());
