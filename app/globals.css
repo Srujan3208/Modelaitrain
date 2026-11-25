@@ -779,3 +779,41 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
     padding-bottom: 22px;
   }
 }
+
+
+/* Mobile ChatGPT-like composer: bottom anchored, grows upward, and follows the soft keyboard. */
+@media (max-width: 700px) {
+  .app-shell:not(.marketing-shell) .chat-functional .composer-functional {
+    bottom: calc(var(--chat-keyboard-inset, 0px) + 12px + env(safe-area-inset-bottom)) !important;
+    max-height: min(44dvh, 360px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 22px;
+    padding: 13px 14px 11px;
+    background: #171720;
+    box-shadow: 0 8px 32px rgba(0,0,0,.32);
+  }
+
+  .app-shell:not(.marketing-shell) .chat-functional .composer-functional textarea {
+    display: block;
+    width: 100%;
+    min-height: 42px;
+    max-height: 28dvh;
+    height: 42px;
+    overflow-y: auto;
+    resize: none;
+    line-height: 1.5;
+    padding: 7px 2px 10px;
+    box-sizing: border-box;
+    overscroll-behavior: contain;
+  }
+
+  .app-shell:not(.marketing-shell) .chat-functional .composer-functional .composer-tools {
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .app-shell:not(.marketing-shell) .chat-functional .chat-body {
+    scroll-padding-bottom: 24px;
+  }
+}
