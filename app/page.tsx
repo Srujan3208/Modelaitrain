@@ -15,9 +15,16 @@ function renderAssistantContent(raw:string){
  if(!content)return null;
  try{const parsed=JSON.parse(content);if(parsed&&typeof parsed==="object"&&("User Safety" in parsed||"Response Safety" in parsed)){return <div className="safety-result"><span className="safety-dot"/>Response safety check completed</div>;}}catch{}
  const normalized=content.replace(/\\r\\n/g,"\n").replace(/\\n/g,"\n").replace(/\r\n?/g,"\n");
- const parts:any[]=[];const tick=String.fromCharCode(96);const fence=new RegExp(tick+tick+tick+"([\\\\w+-]*)\\\\n([\\\\s\\\\S]*?)"+tick+tick+tick,"g");let last=0;let match:any;
- while((match=fence.exec(normalized))!==null){if(match.index>last)parts.push({type:"markdown",text:normalized.slice(last,match.index)});parts.push({type:"code",lang:match[1]||"Code",text:match[2].replace(/\n$/,"")});last=fence.lastIndex;}
- if(last<normalized.length)parts.push({type:"markdown",text:normalized.slice(last)});
+ const lines=normalized.split("\n");const parts:any[]=[];let markdown:string[]=[];let code:string[]=[];let inCode=false;let lang="Code";
+ const flushMarkdown=()=>{if(markdown.length){parts.push({type:"markdown",text:markdown.join("\n")});markdown=[];}};
+ for(const line of lines){
+  if(line.trimStart().startsWith(String.fromCharCode(96).repeat(3))){
+   if(!inCode){flushMarkdown();inCode=true;lang=line.trim().slice(3).trim()||"Code";}
+   else{parts.push({type:"code",lang,text:code.join("\n")});code=[];inCode=false;lang="Code";}
+  }else if(inCode)code.push(line);else markdown.push(line);
+ }
+ if(inCode)parts.push({type:"code",lang,text:code.join("\n")});
+ flushMarkdown();
  if(!parts.length)parts.push({type:"markdown",text:normalized});
  return <div className="markdown-response">{parts.map((part,i)=>part.type==="code"?<div className="code-block" key={i}><div className="code-header"><span>{part.lang}</span><button onClick={()=>navigator.clipboard?.writeText(part.text)}><Copy/> Copy code</button></div><pre><code>{part.text}</code></pre></div>:<MarkdownBlocks key={i} text={part.text}/>)}</div>;
 }
