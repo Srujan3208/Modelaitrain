@@ -978,3 +978,59 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
     flex: 0 0 auto !important;
   }
 }
+
+
+/* Mobile chat: prioritize natural document scrolling over vertical centering.
+   The welcome content must start at the top and remain fully reachable by touch scroll. */
+@media (max-width: 700px) {
+  .app-shell:not(.marketing-shell) .chat-workspace.chat-functional {
+    height: calc(100dvh - 62px - env(safe-area-inset-bottom)) !important;
+    min-height: 0 !important;
+    max-height: calc(100dvh - 62px - env(safe-area-inset-bottom)) !important;
+    overflow: hidden !important;
+  }
+
+  .app-shell:not(.marketing-shell) .chat-workspace.chat-functional > .chat-body {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: auto !important;
+    touch-action: pan-y !important;
+    scroll-behavior: smooth;
+    display: block !important;
+    padding: 18px 14px calc(190px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .app-shell:not(.marketing-shell) .chat-workspace.chat-functional > .chat-body > .chat-welcome:not(.chat-welcome-hidden) {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 560px !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    padding: 12px 0 26px !important;
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+
+  .app-shell:not(.marketing-shell) .chat-workspace.chat-functional > .chat-body > .chat-welcome:not(.chat-welcome-hidden) .welcome-symbol {
+    margin-top: 8px;
+    flex: 0 0 auto;
+  }
+
+  .app-shell:not(.marketing-shell) .chat-workspace.chat-functional > .chat-body > .chat-welcome:not(.chat-welcome-hidden) .quick-actions {
+    flex: 0 0 auto !important;
+    margin-bottom: 8px !important;
+  }
+
+  .app-shell:not(.marketing-shell) .chat-workspace.chat-functional > .chat-body > .messages {
+    padding-bottom: 24px;
+  }
+}
