@@ -515,7 +515,7 @@ export default function HomePage(){
     border-radius: 10px;
     background: rgba(167,139,250,.22);
   }
-  .app-shell:not(.marketing-shell) .auth-page {
+  .app-shell.marketing-shell .auth-page {
     min-height: 100dvh !important;
     width: 100%;
     display: grid !important;
@@ -523,7 +523,7 @@ export default function HomePage(){
     padding: 42px 24px !important;
     background: radial-gradient(ellipse at 50% 0%,rgba(115,78,210,.2),transparent 48%),#090812 !important;
   }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card {
+  .app-shell.marketing-shell .auth-page .auth-card {
     width: min(100%,460px) !important;
     max-width: 460px !important;
     padding: 34px 38px !important;
@@ -533,14 +533,14 @@ export default function HomePage(){
     background: rgba(18,15,29,.96) !important;
     box-shadow: 0 28px 90px rgba(0,0,0,.42) !important;
   }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card > .brand { margin-bottom: 12px !important; }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card h1 { font-size: 30px !important; line-height: 1.2 !important; }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card > p { margin-bottom: 10px !important; font-size: 13px !important; }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card label { display: block; margin: 12px 0 !important; font-size: 12px !important; }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card input { min-height: 48px !important; padding: 12px 14px !important; border-radius: 11px !important; font-size: 13px !important; }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card .oauth-button { min-height: 48px !important; border-radius: 11px !important; font-size: 13px !important; }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card .btn.primary { min-height: 48px !important; margin-top: 8px; }
-  .app-shell:not(.marketing-shell) .auth-page .auth-card .auth-divider { margin: 12px 0 !important; }
+  .app-shell.marketing-shell .auth-page .auth-card > .brand { margin-bottom: 12px !important; }
+  .app-shell.marketing-shell .auth-page .auth-card h1 { font-size: 30px !important; line-height: 1.2 !important; }
+  .app-shell.marketing-shell .auth-page .auth-card > p { margin-bottom: 10px !important; font-size: 13px !important; }
+  .app-shell.marketing-shell .auth-page .auth-card label { display: block; margin: 12px 0 !important; font-size: 12px !important; }
+  .app-shell.marketing-shell .auth-page .auth-card input { min-height: 48px !important; padding: 12px 14px !important; border-radius: 11px !important; font-size: 13px !important; }
+  .app-shell.marketing-shell .auth-page .auth-card .oauth-button { min-height: 48px !important; border-radius: 11px !important; font-size: 13px !important; }
+  .app-shell.marketing-shell .auth-page .auth-card .btn.primary { min-height: 48px !important; margin-top: 8px; }
+  .app-shell.marketing-shell .auth-page .auth-card .auth-divider { margin: 12px 0 !important; }
 }
 
 }
