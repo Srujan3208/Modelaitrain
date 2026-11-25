@@ -1535,3 +1535,300 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
     align-self: center !important;
   }
 }
+
+
+/* TREAN AI desktop workspace refinement.
+   Deliberately scoped to desktop widths; the approved mobile layout is untouched. */
+@media (min-width: 1024px) {
+  .app-shell:not(.marketing-shell) {
+    display: flex !important;
+    min-height: 100dvh !important;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .app-shell:not(.marketing-shell) .sidebar {
+    position: sticky !important;
+    inset-block: 0 !important;
+    flex: 0 0 264px !important;
+    width: 264px !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    padding: 18px 14px !important;
+  }
+
+  .app-shell:not(.marketing-shell) .sidebar::-webkit-scrollbar,
+  .app-shell:not(.marketing-shell) .main-area::-webkit-scrollbar,
+  .app-shell:not(.marketing-shell) .page-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  .app-shell:not(.marketing-shell) .sidebar::-webkit-scrollbar-thumb,
+  .app-shell:not(.marketing-shell) .main-area::-webkit-scrollbar-thumb,
+  .app-shell:not(.marketing-shell) .page-content::-webkit-scrollbar-thumb {
+    background: #343344;
+    border-radius: 10px;
+  }
+
+  .app-shell:not(.marketing-shell) .main-area {
+    position: relative;
+    display: flex !important;
+    flex: 1 1 0 !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    width: calc(100% - 264px);
+    height: 100dvh !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scrollbar-gutter: stable;
+  }
+
+  .app-shell:not(.marketing-shell) .topbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 40 !important;
+    flex: 0 0 72px !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    padding: 0 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: rgba(10,10,18,.94) !important;
+    backdrop-filter: blur(18px);
+  }
+
+  .app-shell:not(.marketing-shell) .topbar .menu-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #30303e;
+    border-radius: 12px;
+    color: #e8e5f0;
+    background: #151520;
+  }
+
+  .app-shell:not(.marketing-shell) .topbar .model-selector {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%,-50%) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 11px !important;
+    white-space: nowrap;
+    font-size: 14px !important;
+  }
+
+  .app-shell:not(.marketing-shell) .topbar .top-actions {
+    margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .app-shell:not(.marketing-shell) .topbar .top-actions button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #30303e !important;
+    border-radius: 12px;
+    background: #151520 !important;
+    color: #d7d3e3 !important;
+  }
+
+  .app-shell:not(.marketing-shell) .page-content {
+    flex: 1 0 auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding-bottom: 34px;
+  }
+
+  .app-shell:not(.marketing-shell) .page-view {
+    width: min(100%, 1320px) !important;
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    padding: 46px clamp(36px,5vw,76px) 64px !important;
+  }
+
+  .app-shell:not(.marketing-shell) .page-header {
+    margin-bottom: 34px !important;
+  }
+  .app-shell:not(.marketing-shell) .page-header h1 {
+    font-size: clamp(34px,3vw,42px) !important;
+    line-height: 1.12 !important;
+  }
+  .app-shell:not(.marketing-shell) .page-header p {
+    max-width: 760px;
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+  }
+
+  .app-shell:not(.marketing-shell) .profile-panel-edit {
+    width: min(100%, 980px) !important;
+    margin: 0 auto !important;
+    padding: 42px 48px !important;
+    border-radius: 22px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel-edit .profile-avatar {
+    width: 76px !important;
+    height: 76px !important;
+    margin-bottom: 18px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel-edit h2 {
+    font-size: 25px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-fields {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 22px !important;
+    margin-top: 34px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-fields label:last-child {
+    grid-column: 1 / -1;
+  }
+  .app-shell:not(.marketing-shell) .profile-fields input {
+    width: 100% !important;
+    min-height: 48px !important;
+    box-sizing: border-box;
+  }
+  .app-shell:not(.marketing-shell) .profile-actions {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 12px !important;
+    margin-top: 28px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-actions .btn {
+    min-width: 150px;
+    min-height: 44px;
+  }
+
+  .app-shell:not(.marketing-shell) .settings-list {
+    width: min(100%, 1060px) !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    gap: 18px !important;
+  }
+  .app-shell:not(.marketing-shell) .setting-card {
+    border-radius: 18px !important;
+    overflow: hidden;
+  }
+  .app-shell:not(.marketing-shell) .setting-trigger {
+    min-height: 86px !important;
+    padding: 20px 26px !important;
+  }
+  .app-shell:not(.marketing-shell) .setting-content {
+    padding: 24px 30px 30px !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-options {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 22px !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-options select {
+    min-height: 48px !important;
+    width: 100% !important;
+  }
+
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 0 34px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button:first-child {
+    order: 0 !important;
+    margin: 0 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > .chat-model-pill {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%,-50%) !important;
+    order: 1 !important;
+    margin: 0 !important;
+    white-space: nowrap;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="New chat and tools"] {
+    order: 2 !important;
+    margin-left: auto !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Search chats"],
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Share conversation"] {
+    order: 3 !important;
+    margin-left: 10px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > .model-menu {
+    position: absolute !important;
+    left: 50% !important;
+    top: 58px !important;
+    transform: translateX(-50%) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-body {
+    width: 100% !important;
+    padding: 38px 34px 26px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome {
+    margin-top: clamp(36px,7vh,78px) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer {
+    margin-bottom: 8px !important;
+  }
+
+  .app-shell:not(.marketing-shell) .mobile-nav {
+    display: none !important;
+  }
+  .app-shell:not(.marketing-shell) .sidebar-scrim {
+    display: none !important;
+  }
+
+  .app-shell.marketing-shell .auth-page {
+    min-height: 100dvh !important;
+    padding: 48px !important;
+    display: grid !important;
+    grid-template-columns: minmax(280px,1fr) minmax(420px,520px) !important;
+    align-items: center !important;
+    justify-items: center !important;
+    gap: clamp(40px,8vw,120px) !important;
+  }
+  .app-shell.marketing-shell .auth-page::before {
+    content: "LEARN · CONNECT · REMEMBER\A\AYour personal AI learning workspace. Turn videos into searchable knowledge, ask questions, and keep every discovery organized." !important;
+    white-space: pre-wrap !important;
+    display: block !important;
+    max-width: 520px !important;
+    color: #c9b8ed !important;
+    font: 600 clamp(25px,3vw,42px)/1.3 Manrope !important;
+    letter-spacing: -1px !important;
+    align-self: center !important;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+  .app-shell.marketing-shell .auth-page::after {
+    content: "A calmer space for focused learning." !important;
+    display: block !important;
+    color: #9895a9 !important;
+    font-size: 15px !important;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    align-self: center !important;
+    margin-top: 210px !important;
+  }
+  .app-shell.marketing-shell .auth-page .auth-card {
+    width: 100% !important;
+    max-width: 500px !important;
+    padding: 42px !important;
+    border-radius: 26px !important;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    align-self: center !important;
+  }
+}
