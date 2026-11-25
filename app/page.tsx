@@ -618,6 +618,23 @@ export default function HomePage(){
     font-size: 13px !important;
     border-radius: 12px !important;
   }
+  /* Put the TREAN AI model/logo pill at the far-right end of the desktop chat header. */
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar {
+    display: flex !important;
+    align-items: center !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Collapse sidebar"] { order: 0; }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="New chat and tools"] { order: 1; }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Search chats"] { order: 2; }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Share conversation"] { order: 3; }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > .chat-model-pill {
+    order: 10 !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > .model-menu {
+    order: 11;
+  }
   .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button:nth-last-child(3) {
     margin-left: auto !important;
   }
