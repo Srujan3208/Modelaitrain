@@ -1832,3 +1832,102 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
     align-self: center !important;
   }
 }
+
+
+/* Desktop scroll containment fix: keep the shell fixed, scroll the active pane. */
+@media (min-width: 1024px) {
+  html, body {
+    height: 100% !important;
+    min-height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  body {
+    overscroll-behavior: none;
+  }
+
+  .app-shell:not(.marketing-shell) {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  .app-shell:not(.marketing-shell) > .sidebar {
+    flex: 0 0 264px !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area {
+    flex: 1 1 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: auto !important;
+    height: 100dvh !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .topbar {
+    flex: 0 0 72px !important;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .page-content {
+    flex: 1 1 0 !important;
+    width: 100% !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+    padding-bottom: 34px !important;
+  }
+
+  .app-shell:not(.marketing-shell) .page-view {
+    min-height: min-content !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .app-shell.chat-screen:not(.marketing-shell) > .main-area > .page-content {
+    flex: 1 1 0 !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+  }
+
+  .app-shell.chat-screen:not(.marketing-shell) .chat-workspace,
+  .app-shell.chat-screen:not(.marketing-shell) .chat-functional {
+    min-height: 0 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .app-shell.chat-screen:not(.marketing-shell) .chat-body {
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    height: 0 !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
