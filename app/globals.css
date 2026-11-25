@@ -1952,3 +1952,48 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* Desktop non-chat pages: restore the actual workspace scroll container for Profile, Settings, and all dashboard pages. */
+@media (min-width: 768px) {
+  .app-shell:not(.marketing-shell):not(.chat-screen) {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+  .app-shell:not(.marketing-shell):not(.chat-screen) .main-area {
+    height: 100dvh !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .app-shell:not(.marketing-shell):not(.chat-screen) .page-content {
+    flex: 1 1 0 !important;
+    height: calc(100dvh - 62px) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(167,139,250,.42) transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+  .app-shell:not(.marketing-shell):not(.chat-screen) .page-view {
+    min-height: max-content !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding-bottom: 64px !important;
+  }
+  .app-shell:not(.marketing-shell):not(.chat-screen) .page-content::-webkit-scrollbar {
+    width: 9px;
+  }
+  .app-shell:not(.marketing-shell):not(.chat-screen) .page-content::-webkit-scrollbar-thumb {
+    background: rgba(167,139,250,.35);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
