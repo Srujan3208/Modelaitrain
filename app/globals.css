@@ -459,3 +459,36 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
     .background-task-top{align-items:flex-start}
     .background-task-date{max-width:48%;line-height:1.45}
   }
+
+
+/* Mobile workspace navigation reliability after session restoration */
+@media (max-width: 700px) {
+  .app-shell:not(.marketing-shell) { min-height: 100dvh; }
+  .app-shell:not(.marketing-shell) .main-area {
+    width: 100%; min-width: 0; min-height: 100dvh; margin-left: 0;
+    padding-bottom: calc(66px + env(safe-area-inset-bottom));
+  }
+  .app-shell:not(.marketing-shell) .page-content {
+    flex: 1 0 auto; min-width: 0;
+    padding-bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+  .app-shell:not(.marketing-shell) .mobile-nav {
+    position: fixed !important; left: 0; right: 0; bottom: 0;
+    z-index: 1000; display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%; min-height: 62px;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    pointer-events: auto; isolation: isolate;
+  }
+  .app-shell:not(.marketing-shell) .mobile-nav button {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; min-width: 0; min-height: 50px; padding: 4px 2px;
+    border: 0; background: transparent; color: #858294;
+    cursor: pointer; touch-action: manipulation; pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .app-shell:not(.marketing-shell) .mobile-nav button.active { color: #c29aff; }
+  .app-shell:not(.marketing-shell) .mobile-nav button svg { flex: 0 0 auto; pointer-events: none; }
+  .app-shell:not(.marketing-shell) .mobile-nav button span { pointer-events: none; }
+  .app-shell:not(.marketing-shell) .sidebar-scrim { z-index: 40; }
+}
