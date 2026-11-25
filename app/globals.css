@@ -678,3 +678,39 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
  .chatgpt-response .code-block pre { font-size:11.5px; padding:12px; }
  .chatgpt-response .markdown-table-wrap { border-radius:8px; }
 }
+
+
+/* Keep dashboard cards inside narrow/zoomed mobile viewports. */
+@media (max-width: 1100px) {
+  .app-shell:not(.marketing-shell) .main-area,
+  .app-shell:not(.marketing-shell) .page-content,
+  .app-shell:not(.marketing-shell) .page-view {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  .app-shell:not(.marketing-shell) .page-view {
+    padding-left: clamp(12px, 3vw, 24px);
+    padding-right: clamp(12px, 3vw, 24px);
+  }
+  .app-shell:not(.marketing-shell) .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100%;
+    min-width: 0;
+  }
+  .app-shell:not(.marketing-shell) .stat-card {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .app-shell:not(.marketing-shell) .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+  }
+}
+@media (max-width: 760px) {
+  .app-shell:not(.marketing-shell) .stats-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
