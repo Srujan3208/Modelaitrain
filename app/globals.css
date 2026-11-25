@@ -1034,3 +1034,478 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
     padding-bottom: 24px;
   }
 }
+
+
+/* =========================================================
+   DESKTOP WORKSPACE REFRESH — desktop only (1024px and up)
+   The mobile experience remains locked and is not modified.
+   ========================================================= */
+@media (min-width: 1024px) {
+  .app-shell:not(.marketing-shell) {
+    min-height: 100dvh !important;
+    height: 100dvh;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 72% -12%, rgba(112,72,223,.16), transparent 38%),
+      #090812 !important;
+  }
+
+  .app-shell:not(.marketing-shell) .sidebar {
+    width: 276px !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    padding: 22px 16px 16px !important;
+    background: rgba(12,10,21,.97) !important;
+    border-right: 1px solid rgba(177,151,255,.14) !important;
+  }
+  .app-shell:not(.marketing-shell) .sidebar > * {
+    flex-shrink: 0;
+  }
+  .app-shell:not(.marketing-shell) .sidebar .sidebar-bottom {
+    margin-top: 22px !important;
+    padding-top: 14px;
+  }
+  .app-shell:not(.marketing-shell) .sidebar::-webkit-scrollbar,
+  .app-shell:not(.marketing-shell) .page-content::-webkit-scrollbar,
+  .app-shell:not(.marketing-shell) .chat-body::-webkit-scrollbar {
+    width: 8px;
+  }
+  .app-shell:not(.marketing-shell) .sidebar::-webkit-scrollbar-thumb,
+  .app-shell:not(.marketing-shell) .page-content::-webkit-scrollbar-thumb,
+  .app-shell:not(.marketing-shell) .chat-body::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: rgba(167,139,250,.25);
+  }
+
+  .app-shell:not(.marketing-shell) .main-area {
+    width: calc(100% - 276px) !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    margin-left: 276px !important;
+    overflow: hidden !important;
+    transition: width .22s ease, margin-left .22s ease;
+  }
+  .app-shell:not(.marketing-shell).sidebar-collapsed .main-area {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  /* Shared desktop header: menu left, brand exactly centered, actions right. */
+  .app-shell:not(.marketing-shell) .topbar {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex: 0 0 72px !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    padding: 0 34px !important;
+    border-bottom: 1px solid rgba(177,151,255,.12) !important;
+    background: rgba(9,8,18,.88) !important;
+    backdrop-filter: blur(22px);
+  }
+  .app-shell:not(.marketing-shell) .topbar .menu-button {
+    display: grid !important;
+    place-items: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    margin: 0 !important;
+    border: 1px solid rgba(177,151,255,.16);
+    border-radius: 12px;
+    color: #c9b8f5;
+    background: rgba(255,255,255,.035);
+    cursor: pointer;
+  }
+  .app-shell:not(.marketing-shell) .topbar .model-selector {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%,-50%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .app-shell:not(.marketing-shell) .topbar .model-selector b {
+    font-size: 15px !important;
+    letter-spacing: .015em;
+  }
+  .app-shell:not(.marketing-shell) .topbar .top-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    margin-left: auto !important;
+  }
+  .app-shell:not(.marketing-shell) .topbar .top-actions > button {
+    display: grid !important;
+    place-items: center;
+    width: 40px !important;
+    height: 40px !important;
+    border: 1px solid rgba(177,151,255,.16) !important;
+    border-radius: 12px !important;
+    color: #c8b9e9 !important;
+    background: rgba(255,255,255,.035) !important;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .app-shell:not(.marketing-shell) .topbar .top-actions > button:hover {
+    border-color: rgba(177,151,255,.42) !important;
+    background: rgba(151,112,255,.12) !important;
+    transform: translateY(-1px);
+  }
+  .app-shell:not(.marketing-shell) .topbar .top-actions > .desktop-only-action {
+    display: grid !important;
+  }
+
+  /* Every non-chat screen scrolls in the content pane, not the whole browser page. */
+  .app-shell:not(.marketing-shell) .page-content {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain;
+    scrollbar-gutter: stable;
+    padding: 38px clamp(34px,4.2vw,72px) 64px !important;
+  }
+  .app-shell:not(.marketing-shell) .page-view {
+    width: min(100%, 1320px) !important;
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    padding-bottom: 26px;
+  }
+  .app-shell:not(.marketing-shell) .page-header {
+    margin-bottom: 34px !important;
+  }
+  .app-shell:not(.marketing-shell) .page-header h1 {
+    font-size: clamp(32px,2.7vw,42px) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -.045em !important;
+  }
+  .app-shell:not(.marketing-shell) .page-header p {
+    max-width: 760px !important;
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+
+  /* Chat header follows the same left / center / right alignment. */
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 0 34px !important;
+    min-height: 70px !important;
+    height: 70px !important;
+    flex: 0 0 70px !important;
+    background: rgba(9,8,18,.88) !important;
+    border-bottom: 1px solid rgba(177,151,255,.12) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Collapse sidebar"],
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Open navigation menu"] {
+    order: 0 !important;
+    margin: 0 auto 0 0 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > .chat-model-pill {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%,-50%) !important;
+    order: 1 !important;
+    margin: 0 !important;
+    min-height: 42px !important;
+    padding: 0 16px !important;
+    border-radius: 13px !important;
+    white-space: nowrap;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > .model-menu {
+    position: absolute !important;
+    left: 50% !important;
+    top: calc(100% - 4px) !important;
+    transform: translateX(-50%) !important;
+    z-index: 80 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="New chat and tools"] {
+    order: 2 !important;
+    margin-left: auto !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Search chats"] {
+    order: 3 !important;
+    margin-left: 0 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Share conversation"] {
+    order: 4 !important;
+    margin-left: 0 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar .chat-toolbar-button {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    border-radius: 12px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-body {
+    padding: 42px 36px 28px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome {
+    width: min(100%, 850px) !important;
+    margin: clamp(46px,8vh,94px) auto 34px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome .welcome-symbol {
+    margin-bottom: 20px;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome h1 {
+    font-size: clamp(34px,3vw,44px) !important;
+    letter-spacing: -.045em;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions {
+    width: min(100%, 760px) !important;
+    gap: 14px !important;
+    margin-top: 34px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions button {
+    min-height: 76px !important;
+    padding: 17px 19px !important;
+    border-radius: 16px !important;
+    font-size: 13px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer {
+    width: min(calc(100% - 72px), 850px) !important;
+    max-width: 850px !important;
+    margin: 0 auto 9px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .disclaimer {
+    width: min(calc(100% - 72px),850px) !important;
+    margin: 0 auto 14px !important;
+  }
+
+  /* Profile: comfortable, readable two-column account form and visible actions. */
+  .app-shell:not(.marketing-shell) .profile-panel {
+    width: min(100%, 1040px) !important;
+    margin: 0 auto !important;
+    padding: clamp(30px,3vw,48px) !important;
+    border-radius: 24px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel .profile-avatar {
+    width: 76px !important;
+    height: 76px !important;
+    margin: 0 auto 18px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel > h2,
+  .app-shell:not(.marketing-shell) .profile-panel > p {
+    text-align: center !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel > h2 {
+    font-size: 26px !important;
+    margin: 0 0 8px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel > p {
+    margin: 0 auto 32px !important;
+    max-width: 620px;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel .profile-fields {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 22px !important;
+    width: min(100%, 850px) !important;
+    margin: 0 auto !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel .profile-fields label:last-child {
+    grid-column: 1 / -1;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel .profile-fields input {
+    width: 100% !important;
+    min-height: 50px !important;
+    box-sizing: border-box !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-panel .profile-actions {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    margin: 28px auto 0 !important;
+    width: min(100%,850px);
+  }
+  .app-shell:not(.marketing-shell) .profile-panel .profile-actions .btn {
+    min-width: 150px;
+    min-height: 46px !important;
+  }
+
+  /* Settings: a readable full-width accordion with consistent spacing and scroll. */
+  .app-shell:not(.marketing-shell) .settings-list {
+    width: min(100%, 1120px) !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    gap: 14px !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-list .setting-card {
+    overflow: hidden;
+    border: 1px solid rgba(177,151,255,.16) !important;
+    border-radius: 18px !important;
+    background: linear-gradient(145deg,rgba(25,21,40,.92),rgba(15,13,25,.96)) !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-list .setting-trigger {
+    min-height: 78px !important;
+    padding: 18px 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-list .setting-trigger > svg:first-child {
+    width: 22px !important;
+    height: 22px !important;
+    flex: 0 0 22px;
+    color: #b99aff;
+  }
+  .app-shell:not(.marketing-shell) .settings-list .setting-trigger > span {
+    display: flex !important;
+    flex: 1 !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    text-align: left;
+  }
+  .app-shell:not(.marketing-shell) .settings-list .setting-trigger b {
+    font-size: 15px !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-list .setting-trigger small {
+    font-size: 12px !important;
+    color: #9b93aa;
+  }
+  .app-shell:not(.marketing-shell) .settings-list .setting-content {
+    padding: 22px 26px 26px !important;
+    border-top: 1px solid rgba(177,151,255,.12);
+  }
+  .app-shell:not(.marketing-shell) .settings-options {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 20px !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-options label {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 9px !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-options select {
+    width: 100% !important;
+    min-height: 48px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Learning, library and dashboard pages use the same desktop content grid. */
+  .app-shell:not(.marketing-shell) .video-panel,
+  .app-shell:not(.marketing-shell) .add-source-panel {
+    width: min(100%, 1080px) !important;
+    max-width: 1080px !important;
+    margin: 0 auto !important;
+    padding: clamp(28px,3vw,44px) !important;
+  }
+  .app-shell:not(.marketing-shell) .video-panel .url-field,
+  .app-shell:not(.marketing-shell) .add-source-panel .url-field {
+    min-height: 56px !important;
+  }
+  .app-shell:not(.marketing-shell) .stats-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 18px !important;
+  }
+  .app-shell:not(.marketing-shell) .stats-grid .stat-card {
+    min-height: 190px !important;
+    padding: 24px !important;
+  }
+  .app-shell:not(.marketing-shell) .data-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 18px !important;
+  }
+  .app-shell:not(.marketing-shell) .library-toolbar {
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+  }
+
+  /* Desktop authentication: balanced split composition and properly sized form. */
+  .app-shell.marketing-shell .auth-page {
+    min-height: 100dvh !important;
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) minmax(420px,520px) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: clamp(48px,8vw,130px) !important;
+    padding: 56px clamp(48px,9vw,150px) !important;
+    background:
+      radial-gradient(ellipse at 24% 45%,rgba(112,72,223,.2),transparent 42%),
+      radial-gradient(ellipse at 85% 10%,rgba(112,72,223,.12),transparent 38%),
+      #090812 !important;
+  }
+  .app-shell.marketing-shell .auth-page .back-button {
+    position: absolute !important;
+    top: 34px !important;
+    left: 42px !important;
+  }
+  .app-shell.marketing-shell .auth-page::before {
+    content: "LEARN · CONNECT · REMEMBER";
+    display: block;
+    max-width: 540px;
+    color: #a98aff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .24em;
+    line-height: 1.8;
+    align-self: center;
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 210px;
+  }
+  .app-shell.marketing-shell .auth-page::after {
+    content: "Your personal AI learning workspace. Turn videos into searchable knowledge, ask questions, and keep what you learn organized.";
+    display: block;
+    max-width: 560px;
+    color: #c3bbd4;
+    font-size: clamp(28px,3vw,42px);
+    font-weight: 650;
+    letter-spacing: -.045em;
+    line-height: 1.25;
+    align-self: center;
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 20px;
+  }
+  .app-shell.marketing-shell .auth-page .auth-card {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100% !important;
+    max-width: 520px !important;
+    padding: 38px 42px !important;
+    gap: 14px !important;
+    border: 1px solid rgba(177,151,255,.2) !important;
+    border-radius: 24px !important;
+    background: rgba(18,15,29,.96) !important;
+    box-shadow: 0 30px 100px rgba(0,0,0,.46) !important;
+  }
+  .app-shell.marketing-shell .auth-page .auth-card h1 {
+    font-size: 34px !important;
+    line-height: 1.15 !important;
+  }
+  .app-shell.marketing-shell .auth-page .auth-card label {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin: 7px 0 !important;
+  }
+  .app-shell.marketing-shell .auth-page .auth-card input,
+  .app-shell.marketing-shell .auth-page .auth-card .password-field {
+    width: 100% !important;
+    min-height: 52px !important;
+    box-sizing: border-box !important;
+  }
+  .app-shell.marketing-shell .auth-page .auth-card .oauth-button,
+  .app-shell.marketing-shell .auth-page .auth-card .btn.primary {
+    min-height: 52px !important;
+  }
+}
