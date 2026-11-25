@@ -1509,3 +1509,29 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
     min-height: 52px !important;
   }
 }
+
+
+/* Desktop auth copy and form occupy separate grid rows to avoid overlap. */
+@media (min-width: 1024px) {
+  .app-shell.marketing-shell .auth-page {
+    grid-template-rows: auto auto !important;
+    align-content: center !important;
+  }
+  .app-shell.marketing-shell .auth-page::before {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    align-self: end !important;
+    margin: 0 0 14px !important;
+  }
+  .app-shell.marketing-shell .auth-page::after {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    align-self: start !important;
+    margin: 0 !important;
+  }
+  .app-shell.marketing-shell .auth-page .auth-card {
+    grid-column: 2 !important;
+    grid-row: 1 / span 2 !important;
+    align-self: center !important;
+  }
+}
