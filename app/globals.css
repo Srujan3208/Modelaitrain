@@ -710,7 +710,20 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
   }
 }
 @media (max-width: 760px) {
+  /* Mobile dashboard: keep the four learning metrics in a compact 2-by-2 grid. */
   .app-shell:not(.marketing-shell) .stats-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100%;
+    min-width: 0;
+  }
+  .app-shell:not(.marketing-shell) .stats-grid > .stat-card {
+    min-width: 0;
+    min-height: 132px;
+    padding: 14px !important;
+  }
+  .app-shell:not(.marketing-shell) .stats-grid > .stat-card small {
+    line-height: 1.4;
   }
 }
