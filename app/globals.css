@@ -492,3 +492,38 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
   .app-shell:not(.marketing-shell) .mobile-nav button span { pointer-events: none; }
   .app-shell:not(.marketing-shell) .sidebar-scrim { z-index: 40; }
 }
+
+
+/* Fix mobile sidebar tap interception: keep the drawer above its backdrop. */
+@media (max-width: 700px) {
+  .app-shell:not(.marketing-shell) .sidebar {
+    position: fixed !important;
+    z-index: 1200 !important;
+    inset-block: 0 !important;
+    left: -270px;
+    width: min( min(255px, 86vw), 320px);
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    pointer-events: none;
+    touch-action: pan-y;
+  }
+  .app-shell:not(.marketing-shell) .sidebar.open {
+    left: 0 !important;
+    pointer-events: auto;
+  }
+  .app-shell:not(.marketing-shell) .sidebar-scrim {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1190 !important;
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+  .app-shell:not(.marketing-shell) .sidebar button {
+    pointer-events: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
