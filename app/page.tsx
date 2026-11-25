@@ -24,16 +24,7 @@ function renderAssistantContent(raw:string){
    return <div className="safety-result"><span className="safety-dot"/>Response safety check completed</div>;
   }
  }catch{}
- let normalized=content.replace(/\r\n?/g,"\n");
- if(normalized.includes("\\n"))normalized=normalized.replace(/\\r?\\n/g,"\n");
- normalized=normalized.replace(/\\([#>*_~-])/g,"$1");
- const fence=String.fromCharCode(96).repeat(3);
- if(normalized.startsWith(fence+"markdown")||normalized.startsWith(fence+"md")){
-  const first=normalized.indexOf("\n"),last=normalized.lastIndexOf(fence);
-  if(first>=0&&last>first)normalized=normalized.slice(first+1,last).trim();
- }
- try{const envelope=JSON.parse(normalized);if(envelope&&typeof envelope==="object"){const candidate=envelope.answer??envelope.response??envelope.content;if(typeof candidate==="string")normalized=candidate;}}catch{}
-
+ const normalized=content.replace(/\\r\\n/g,"\n").replace(/\\n/g,"\n").replace(/\r\n?/g,"\n");
  return <div className="markdown-response chatgpt-response">
   <ReactMarkdown
    remarkPlugins={[remarkGfm,remarkMath]}
@@ -46,8 +37,8 @@ function renderAssistantContent(raw:string){
     pre:({children})=>{
      const child=React.Children.toArray(children).find(React.isValidElement) as any;
      const codeClass=child?.props?.className||"";
-     const language=(codeClass.match(/language-([\w+-]+)/)||[])[1]||"Code";
-     const codeText=React.Children.toArray(child?.props?.children).join("").replace(/\n$/,"");
+     const language=(codeClass.match(/language-([\\w+-]+)/)||[])[1]||"Code";
+     const codeText=String(child?.props?.children??"").replace(/\n$/,"");
      return <div className="code-block"><div className="code-header"><span>{language}</span><button type="button" onClick={()=>navigator.clipboard?.writeText(codeText)}><Copy/> Copy code</button></div><pre>{children}</pre></div>;
     },
     code:({className,children,...props})=><code className={className} {...props}>{children}</code>,
