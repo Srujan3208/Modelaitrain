@@ -14,20 +14,21 @@ function renderAssistantContent(raw:string){
  const content=(raw||"").trim();
  if(!content)return null;
  try{const parsed=JSON.parse(content);if(parsed&&typeof parsed==="object"&&("User Safety" in parsed||"Response Safety" in parsed)){return <div className="safety-result"><span className="safety-dot"/>Response safety check completed</div>;}}catch{}
- const parts:any[]=[];const fence=/```([\w+-]*)\n([\s\S]*?)```/g;let last=0;let match:any;
- while((match=fence.exec(content))!==null){if(match.index>last)parts.push({type:"markdown",text:content.slice(last,match.index)});parts.push({type:"code",lang:match[1]||"Code",text:match[2].replace(/\n$/,"")});last=fence.lastIndex;}
- if(last<content.length)parts.push({type:"markdown",text:content.slice(last)});
- if(!parts.length)parts.push({type:"markdown",text:content});
+ const normalized=content.replace(/\\r\\n/g,"\n").replace(/\\n/g,"\n").replace(/\r\n?/g,"\n");
+ const parts:any[]=[];const tick=String.fromCharCode(96);const fence=new RegExp(tick+tick+tick+"([\\\\w+-]*)\\\\n([\\\\s\\\\S]*?)"+tick+tick+tick,"g");let last=0;let match:any;
+ while((match=fence.exec(normalized))!==null){if(match.index>last)parts.push({type:"markdown",text:normalized.slice(last,match.index)});parts.push({type:"code",lang:match[1]||"Code",text:match[2].replace(/\n$/,"")});last=fence.lastIndex;}
+ if(last<normalized.length)parts.push({type:"markdown",text:normalized.slice(last)});
+ if(!parts.length)parts.push({type:"markdown",text:normalized});
  return <div className="markdown-response">{parts.map((part,i)=>part.type==="code"?<div className="code-block" key={i}><div className="code-header"><span>{part.lang}</span><button onClick={()=>navigator.clipboard?.writeText(part.text)}><Copy/> Copy code</button></div><pre><code>{part.text}</code></pre></div>:<MarkdownBlocks key={i} text={part.text}/>)}</div>;
 }
 function MarkdownBlocks({text}:{text:string}){
- const lines=text.replace(/\\r/g,"").split("\\n");const blocks:any[]=[];let para:string[]=[];let list:string[]=[];let lt:"ul"|"ol"|null=null;let rows:string[][]=[];let quote:string[]=[];
+ const lines=text.replace(/\r/g,"").split("\n");const blocks:any[]=[];let para:string[]=[];let list:string[]=[];let lt:"ul"|"ol"|null=null;let rows:string[][]=[];let quote:string[]=[];
  const flushP=()=>{if(para.length){blocks.push({type:"p",text:para.join(" ")});para=[];}};const flushL=()=>{if(list.length){blocks.push({type:lt,text:list});list=[];lt=null;}};const flushQ=()=>{if(quote.length){blocks.push({type:"quote",text:quote.join(" ")});quote=[];}};const flushT=()=>{if(rows.length){const clean=rows.filter(r=>!r.every(c=>/^:?-{3,}:?$/.test(c.trim())));if(clean.length>1)blocks.push({type:"table",rows:clean});else clean.forEach(r=>blocks.push({type:"p",text:r.join(" · ")}));rows=[];}};
- for(const line of lines){const h=line.match(/^\\s{0,3}(#{1,6})\\s+(.+)$/),ul=line.match(/^\\s*[-*+]\\s+(.+)$/),ol=line.match(/^\\s*\\d+[.)]\\s+(.+)$/),q=line.match(/^\\s*>\\s?(.*)$/);
+ for(const line of lines){const h=line.match(/^\s{0,3}(#{1,6})\s+(.+)$/),ul=line.match(/^\s*[-*+]\s+(.+)$/),ol=line.match(/^\s*\d+[.)]\s+(.+)$/),q=line.match(/^\s*>\s?(.*)$/);
  if(h){flushP();flushL();flushQ();flushT();blocks.push({type:"h",text:h[2],level:h[1].length});continue;}
- if(/^\\s*(---+|\\*\\*\\*|___)\\s*$/.test(line)){flushP();flushL();flushQ();flushT();blocks.push({type:"hr"});continue;}
+ if(/^\s*(---+|\*\*\*|___)\s*$/.test(line)){flushP();flushL();flushQ();flushT();blocks.push({type:"hr"});continue;}
  if(q){flushP();flushL();flushT();quote.push(q[1]);continue;}
- if(line.includes("|")&&/^\s*\|?.+\|.+\|?\s*$/.test(line)){flushP();flushL();flushQ();rows.push(line.trim().replace(/^\\|/,"").replace(/\\|$/,"").split("|").map(c=>c.trim()));continue;}
+ if(line.includes("|")&&/^\s*\|?.+\|.+\|?\s*$/.test(line)){flushP();flushL();flushQ();rows.push(line.trim().replace(/^\|/,"").replace(/\|$/,"").split("|").map(c=>c.trim()));continue;}
  if(ul||ol){flushP();flushQ();flushT();const next=ul?"ul":"ol";if(lt&&lt!==next)flushL();lt=next;list.push((ul||ol)![1]);continue;}
  if(!line.trim()){flushP();flushL();flushQ();flushT();continue;}
  flushL();flushQ();flushT();para.push(line.trim());
@@ -35,8 +36,9 @@ function MarkdownBlocks({text}:{text:string}){
  return <div className="markdown-chunk">{blocks.map((b:any,i:number)=>b.type==="h"?React.createElement("h"+Math.min(b.level,6),{key:i},formatInline(b.text)):b.type==="p"?<p key={i}>{formatInline(b.text)}</p>:b.type==="ul"?<ul key={i}>{b.text.map((v:string,j:number)=><li key={j}>{formatInline(v)}</li>)}</ul>:b.type==="ol"?<ol key={i}>{b.text.map((v:string,j:number)=><li key={j}>{formatInline(v)}</li>)}</ol>:b.type==="quote"?<blockquote key={i}>{formatInline(b.text)}</blockquote>:b.type==="hr"?<hr key={i}/>:<div className="markdown-table-wrap" key={i}><table><thead><tr>{b.rows[0].map((c:string,j:number)=><th key={j}>{formatInline(c)}</th>)}</tr></thead><tbody>{b.rows.slice(1).map((row:string[],j:number)=><tr key={j}>{b.rows[0].map((_:string,k:number)=><td key={k}>{formatInline(row[k]||"")}</td>)}</tr>)}</tbody></table></div>)}</div>;
 }
 function formatInline(text:string){
- const parts=text.split(/(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`|\*[^*]+\*)/g);
- return parts.map((part,i)=>part.startsWith("**")&&part.endsWith("**")||part.startsWith("__")&&part.endsWith("__")?<strong key={i}>{part.slice(2,-2)}</strong>:part.startsWith("`")&&part.endsWith("`")?<code key={i}>{part.slice(1,-1)}</code>:part.startsWith("*")&&part.endsWith("*")?<em key={i}>{part.slice(1,-1)}</em>:part);
+ const pattern=/(\*\*[^*]+?\*\*|__[^_]+?__|~~[^~]+?~~|\x60[^\x60]+\x60|\*[^*]+?\*|_[^_]+?_)/g;
+ const parts=text.split(pattern);
+ return parts.map((part,i)=>part.startsWith("**")&&part.endsWith("**")||part.startsWith("__")&&part.endsWith("__")?<strong key={i}>{part.slice(2,-2)}</strong>:part.startsWith("~~")&&part.endsWith("~~")?<del key={i}>{part.slice(2,-2)}</del>:part.charCodeAt(0)===96&&part.charCodeAt(part.length-1)===96?<code key={i}>{part.slice(1,-1)}</code>:part.startsWith("*")&&part.endsWith("*")||part.startsWith("_")&&part.endsWith("_")?<em key={i}>{part.slice(1,-1)}</em>:part);
 }
 function Chat(){
  const [draft,setDraft]=useState("");const [messages,setMessages]=useState<any[]>([]);const [sessions,setSessions]=useState<any[]>([]);const [sessionId,setSessionId]=useState<string|null>(null);const [loading,setLoading]=useState(false);const [sessionLoading,setSessionLoading]=useState(true);const [error,setError]=useState("");const [historyOpen,setHistoryOpen]=useState(false);const [historyQuery,setHistoryQuery]=useState("");const [background,setBackground]=useState(false);const [taskStatus,setTaskStatus]=useState("");const [modelMenu,setModelMenu]=useState(false);const [selectedModel,setSelectedModel]=useState("Auto");const [plusMenu,setPlusMenu]=useState(false);const [knowledgeMenu,setKnowledgeMenu]=useState(false);const [knowledgeMode,setKnowledgeMode]=useState("Knowledge");const [attachments,setAttachments]=useState<any[]>([]);const [uploading,setUploading]=useState(false);const [editing,setEditing]=useState<string|null>(null);const bottomRef=useRef<HTMLDivElement|null>(null);const chatBodyRef=useRef<HTMLDivElement|null>(null);const textareaRef=useRef<HTMLTextAreaElement|null>(null);const fileRef=useRef<HTMLInputElement|null>(null);const [sb,setSb]=useState<any>(null);const [user,setUser]=useState<any>(null);
