@@ -270,6 +270,279 @@ export default function HomePage(){
   .auth-page .auth-card .forgot-button{margin:0}
   .auth-page .auth-card .auth-switch,.auth-page .auth-card .auth-legal{margin-top:3px;font-size:11px}
 
+
+/* Desktop-only ChatGPT-inspired workspace layout. Mobile styles remain untouched. */
+@media (min-width: 768px) {
+  .app-shell:not(.marketing-shell) {
+    min-height: 100dvh !important;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .app-shell:not(.marketing-shell) .sidebar {
+    position: fixed !important;
+    inset: 0 auto 0 0 !important;
+    width: 276px !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(167,139,250,.35) transparent;
+    padding: 18px 14px 14px !important;
+  }
+  .app-shell:not(.marketing-shell) .sidebar-head { flex: 0 0 auto; padding: 4px 8px 20px !important; }
+  .app-shell:not(.marketing-shell) .sidebar > .btn.new-chat { flex: 0 0 auto; }
+  .app-shell:not(.marketing-shell) .side-search { flex: 0 0 auto; margin-bottom: 10px !important; }
+  .app-shell:not(.marketing-shell) .sidebar > div:not(.sidebar-bottom) { flex: 0 0 auto; }
+  .app-shell:not(.marketing-shell) .sidebar-bottom { flex: 0 0 auto; margin-top: 22px !important; }
+  .app-shell:not(.marketing-shell) .main-area {
+    width: calc(100% - 276px) !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    margin-left: 276px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .app-shell:not(.marketing-shell) .topbar {
+    flex: 0 0 62px;
+    height: 62px !important;
+    min-height: 62px;
+    padding: 0 28px !important;
+    background: rgba(9,8,18,.88) !important;
+    border-bottom: 1px solid rgba(177,151,255,.12) !important;
+  }
+  .app-shell:not(.marketing-shell) .page-content {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: calc(100dvh - 62px);
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+  .app-shell:not(.marketing-shell) .chat-workspace {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .app-shell:not(.marketing-shell) .chat-functional {
+    position: relative !important;
+    display: flex !important;
+    flex: 1 1 auto !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .app-shell:not(.marketing-shell) .chat-toolbar {
+    position: sticky !important;
+    top: 0;
+    z-index: 15;
+    flex: 0 0 58px;
+    min-height: 58px !important;
+    width: 100%;
+    padding: 0 clamp(20px,4vw,56px) !important;
+    border-bottom: 1px solid rgba(177,151,255,.1) !important;
+    background: rgba(9,8,18,.76) !important;
+    backdrop-filter: blur(18px);
+  }
+  .app-shell:not(.marketing-shell) .chat-toolbar-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    min-height: 38px !important;
+    padding: 0 11px !important;
+    border: 1px solid rgba(177,151,255,.14) !important;
+    border-radius: 11px !important;
+    color: #c4b5e8 !important;
+    background: rgba(255,255,255,.035) !important;
+    cursor: pointer;
+    transition: background .18s ease,border-color .18s ease;
+  }
+  .app-shell:not(.marketing-shell) .chat-toolbar-button:hover,
+  .app-shell:not(.marketing-shell) .chat-model-pill:hover {
+    border-color: rgba(177,151,255,.4) !important;
+    background: rgba(151,112,255,.12) !important;
+  }
+  .app-shell:not(.marketing-shell) .chat-model-pill {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 9px;
+    min-height: 39px !important;
+    padding: 0 13px !important;
+    border: 1px solid rgba(177,151,255,.17) !important;
+    border-radius: 11px !important;
+    color: #eee7ff !important;
+    background: rgba(255,255,255,.035) !important;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .app-shell:not(.marketing-shell) .chat-model-pill svg { width: 16px; height: 16px; }
+  .app-shell:not(.marketing-shell) .chat-toolbar > .chat-toolbar-button:nth-last-child(3) { margin-left: auto; }
+  .app-shell:not(.marketing-shell) .chat-body {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding: 42px 28px 26px !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(167,139,250,.3) transparent;
+  }
+  .app-shell:not(.marketing-shell) .chat-welcome {
+    width: min(100%, 850px);
+    margin: 7vh auto 28px !important;
+  }
+  .app-shell:not(.marketing-shell) .chat-welcome h1 {
+    font-size: clamp(28px,3vw,38px) !important;
+    letter-spacing: -.045em !important;
+  }
+  .app-shell:not(.marketing-shell) .chat-welcome > p {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px !important;
+  }
+  .app-shell:not(.marketing-shell) .quick-actions {
+    width: min(100%, 720px);
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 12px !important;
+    margin: 32px auto 12px !important;
+  }
+  .app-shell:not(.marketing-shell) .quick-actions button {
+    min-height: 66px;
+    padding: 15px 17px !important;
+    border: 1px solid rgba(177,151,255,.16) !important;
+    border-radius: 14px !important;
+    background: rgba(255,255,255,.025) !important;
+    font-size: 12px !important;
+  }
+  .app-shell:not(.marketing-shell) .quick-actions button:hover {
+    border-color: rgba(177,151,255,.42) !important;
+    background: rgba(151,112,255,.08) !important;
+  }
+  .app-shell:not(.marketing-shell) .messages {
+    width: min(100%, 850px) !important;
+    max-width: 850px !important;
+    margin: 0 auto !important;
+  }
+  .app-shell:not(.marketing-shell) .message { margin-bottom: 30px !important; font-size: 14px !important; }
+  .app-shell:not(.marketing-shell) .assistant-message { font-size: 15px !important; line-height: 1.8 !important; }
+  .app-shell:not(.marketing-shell) .user-message {
+    max-width: min(78%,720px) !important;
+    padding: 12px 16px !important;
+    border: 1px solid rgba(177,151,255,.15);
+    border-radius: 18px 18px 5px 18px;
+    background: rgba(116,84,178,.18);
+  }
+  .app-shell:not(.marketing-shell) .composer {
+    position: relative !important;
+    flex: 0 0 auto;
+    width: min(calc(100% - 48px), 850px) !important;
+    max-width: 850px;
+    margin: 0 auto 8px !important;
+    padding: 14px 15px 10px !important;
+    border: 1px solid rgba(177,151,255,.23) !important;
+    border-radius: 18px !important;
+    background: rgba(24,20,37,.96) !important;
+    box-shadow: 0 14px 42px rgba(0,0,0,.28) !important;
+  }
+  .app-shell:not(.marketing-shell) .composer textarea {
+    min-height: 42px !important;
+    max-height: 180px !important;
+    padding: 9px 10px !important;
+    font-size: 14px !important;
+  }
+  .app-shell:not(.marketing-shell) .composer-tools { gap: 8px !important; }
+  .app-shell:not(.marketing-shell) .composer-tools button {
+    min-width: 36px;
+    min-height: 36px !important;
+    justify-content: center;
+    border-radius: 10px !important;
+  }
+  .app-shell:not(.marketing-shell) .composer-tools .source-button { min-width: auto; padding: 0 12px !important; }
+  .app-shell:not(.marketing-shell) .disclaimer {
+    flex: 0 0 auto;
+    width: min(calc(100% - 48px),850px);
+    margin: 0 auto 12px !important;
+    text-align: center;
+    color: #817990 !important;
+  }
+  .app-shell:not(.marketing-shell) .chat-history-panel {
+    position: absolute !important;
+    z-index: 40 !important;
+    top: 66px !important;
+    left: 20px !important;
+    width: min(360px,calc(100% - 40px)) !important;
+    max-height: min(72vh,680px) !important;
+    overflow-y: auto !important;
+    border: 1px solid rgba(177,151,255,.22) !important;
+    border-radius: 15px !important;
+    background: #151221 !important;
+    box-shadow: 0 22px 70px rgba(0,0,0,.55) !important;
+  }
+  .app-shell:not(.marketing-shell) .chat-plus-menu,
+  .app-shell:not(.marketing-shell) .model-menu,
+  .app-shell:not(.marketing-shell) .knowledge-menu {
+    z-index: 50 !important;
+    box-shadow: 0 22px 70px rgba(0,0,0,.48) !important;
+  }
+  .app-shell:not(.marketing-shell) .sidebar::-webkit-scrollbar,
+  .app-shell:not(.marketing-shell) .chat-body::-webkit-scrollbar { width: 7px; }
+  .app-shell:not(.marketing-shell) .sidebar::-webkit-scrollbar-thumb,
+  .app-shell:not(.marketing-shell) .chat-body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(167,139,250,.22);
+  }
+  .app-shell:not(.marketing-shell) .auth-page {
+    min-height: 100dvh !important;
+    width: 100%;
+    display: grid !important;
+    place-items: center !important;
+    padding: 42px 24px !important;
+    background: radial-gradient(ellipse at 50% 0%,rgba(115,78,210,.2),transparent 48%),#090812 !important;
+  }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card {
+    width: min(100%,460px) !important;
+    max-width: 460px !important;
+    padding: 34px 38px !important;
+    gap: 12px !important;
+    border: 1px solid rgba(177,151,255,.2) !important;
+    border-radius: 22px !important;
+    background: rgba(18,15,29,.96) !important;
+    box-shadow: 0 28px 90px rgba(0,0,0,.42) !important;
+  }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card > .brand { margin-bottom: 12px !important; }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card h1 { font-size: 30px !important; line-height: 1.2 !important; }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card > p { margin-bottom: 10px !important; font-size: 13px !important; }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card label { display: block; margin: 12px 0 !important; font-size: 12px !important; }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card input { min-height: 48px !important; padding: 12px 14px !important; border-radius: 11px !important; font-size: 13px !important; }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card .oauth-button { min-height: 48px !important; border-radius: 11px !important; font-size: 13px !important; }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card .btn.primary { min-height: 48px !important; margin-top: 8px; }
+  .app-shell:not(.marketing-shell) .auth-page .auth-card .auth-divider { margin: 12px 0 !important; }
+}
+
 }
 `}
 </style><main className={"app-shell "+(screen==="Landing"||screen==="Sign In"||screen==="Create Account"?"marketing-shell":"")}>{screen==="Landing"?<Landing go={setScreen}/>:screen==="Sign In"||screen==="Create Account"?<Auth screen={screen} go={setScreen}/>:<><Sidebar screen={screen} go={setScreen} open={open} setOpen={setOpen}/><div className="main-area"><header className="topbar"><button className="menu-button" onClick={()=>setOpen(true)}><Menu/></button><div className="model-selector"><Brain/><b>TREAN AI</b><span>Learning workspace</span></div><div className="top-actions"><button onClick={()=>setScreen("Settings")}><Settings/></button><button className="top-avatar" onClick={()=>setScreen("Profile")}><User/></button></div></header><div className="page-content"><ScreenErrorBoundary key={screen} screen={screen}>{screen==="Chat"?<Chat/>:screen==="Learn from Video"?<VideoPage go={setScreen}/>:screen==="Processing Video"?<ProcessingPage go={setScreen}/>:<Page screen={screen}/>}</ScreenErrorBoundary></div><nav className="mobile-nav" aria-label="Main navigation">{[[Home,"Home","Dashboard"],[Video,"Learn","Learn from Video"],[MessageSquare,"Chat","Chat"],[Library,"Library","Knowledge Base"],[User,"Profile","Profile"]].map(([I,n,s]:any)=><button type="button" aria-label={n} aria-current={screen===s?"page":undefined} className={screen===s?"active":""} key={n} onClick={()=>{setOpen(false);setScreen(s as Screen);}}><I/><span>{n}</span></button>)}</nav></div></>}</main></>
