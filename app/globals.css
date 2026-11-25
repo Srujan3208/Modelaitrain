@@ -1997,3 +1997,56 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
   }
 }
 
+/* Desktop marketing pages: allow normal page scrolling; center auth card without the promotional side panel. */
+@media (min-width: 1024px) {
+  html,
+  body {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .app-shell.marketing-shell {
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Sign-in and create-account: show only the same centered form used on mobile. */
+  .app-shell.marketing-shell .auth-page {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    place-items: center !important;
+    align-content: center !important;
+    gap: 0 !important;
+    width: 100% !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    padding: 48px 24px !important;
+    overflow: visible !important;
+  }
+
+  .app-shell.marketing-shell .auth-page::before,
+  .app-shell.marketing-shell .auth-page::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .app-shell.marketing-shell .auth-page .auth-card {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    justify-self: center !important;
+    align-self: center !important;
+    width: min(100%, 460px) !important;
+    max-width: 460px !important;
+    margin: 0 auto !important;
+  }
+}
+
