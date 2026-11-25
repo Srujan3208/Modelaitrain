@@ -2050,3 +2050,240 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
   }
 }
 
+/* Desktop-wide visual consistency pass for every workspace section.
+   Scoped above tablet widths so the approved mobile layout remains untouched. */
+@media (min-width: 1024px) {
+  html, body {
+    height: 100% !important;
+    min-height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .app-shell:not(.marketing-shell) {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  .app-shell:not(.marketing-shell) > .sidebar {
+    position: relative !important;
+    inset: auto !important;
+    flex: 0 0 272px !important;
+    width: 272px !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(167,139,250,.34) transparent;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area {
+    position: relative !important;
+    display: flex !important;
+    flex: 1 1 0 !important;
+    flex-direction: column !important;
+    width: auto !important;
+    height: 100dvh !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .topbar {
+    position: relative !important;
+    top: auto !important;
+    flex: 0 0 72px !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    padding-inline: clamp(28px, 3.2vw, 56px) !important;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .page-content {
+    display: block !important;
+    flex: 1 1 0 !important;
+    width: 100% !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 38px clamp(32px, 4vw, 68px) 76px !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain !important;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(167,139,250,.38) transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .page-content::-webkit-scrollbar,
+  .app-shell:not(.marketing-shell) > .sidebar::-webkit-scrollbar {
+    width: 9px;
+  }
+  .app-shell:not(.marketing-shell) > .main-area > .page-content::-webkit-scrollbar-thumb,
+  .app-shell:not(.marketing-shell) > .sidebar::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: rgba(167,139,250,.34);
+    background-clip: padding-box;
+  }
+
+  .app-shell:not(.marketing-shell) .page-view {
+    display: flow-root !important;
+    width: min(100%, 1320px) !important;
+    min-height: max-content !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 auto !important;
+    padding: 0 0 72px !important;
+    overflow: visible !important;
+  }
+
+  .app-shell:not(.marketing-shell) .page-header {
+    margin: 0 0 34px !important;
+  }
+  .app-shell:not(.marketing-shell) .page-header h1 {
+    font-size: clamp(32px, 2.6vw, 40px) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -.045em !important;
+  }
+  .app-shell:not(.marketing-shell) .page-header p {
+    max-width: 760px !important;
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+
+  .app-shell:not(.marketing-shell) .stats-grid,
+  .app-shell:not(.marketing-shell) .data-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+  }
+  .app-shell:not(.marketing-shell) .stat-card,
+  .app-shell:not(.marketing-shell) .data-card,
+  .app-shell:not(.marketing-shell) .page-panel,
+  .app-shell:not(.marketing-shell) .background-task-card,
+  .app-shell:not(.marketing-shell) .setting-card {
+    border-color: rgba(177,151,255,.17) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 14px 42px rgba(0,0,0,.18) !important;
+  }
+  .app-shell:not(.marketing-shell) .stat-card {
+    min-height: 190px !important;
+    padding: 25px !important;
+  }
+  .app-shell:not(.marketing-shell) .dashboard-recent,
+  .app-shell:not(.marketing-shell) .settings-list,
+  .app-shell:not(.marketing-shell) .profile-panel-edit {
+    margin-top: 24px !important;
+  }
+  .app-shell:not(.marketing-shell) .library-toolbar {
+    display: flex !important;
+    align-items: center !important;
+    gap: 18px !important;
+    width: 100% !important;
+    margin: 0 0 24px !important;
+  }
+  .app-shell:not(.marketing-shell) .library-toolbar .url-field {
+    flex: 1 1 auto !important;
+    max-width: 760px !important;
+    min-width: 260px !important;
+  }
+  .app-shell:not(.marketing-shell) .knowledge-card,
+  .app-shell:not(.marketing-shell) .video-data-card {
+    min-width: 0 !important;
+    padding: 22px !important;
+  }
+  .app-shell:not(.marketing-shell) .knowledge-card p {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 5 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    line-height: 1.75 !important;
+  }
+
+  .app-shell:not(.marketing-shell) .profile-panel-edit {
+    width: min(100%, 980px) !important;
+    padding: 34px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+  }
+  .app-shell:not(.marketing-shell) .profile-fields label:last-child {
+    grid-column: 1 / -1 !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-list {
+    width: min(100%, 1080px) !important;
+    display: grid !important;
+    gap: 14px !important;
+  }
+  .app-shell:not(.marketing-shell) .setting-row {
+    min-height: 78px !important;
+    padding: 18px 22px !important;
+  }
+  .app-shell:not(.marketing-shell) .setting-content {
+    padding: 8px 24px 24px 68px !important;
+  }
+  .app-shell:not(.marketing-shell) .settings-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+  }
+  .app-shell:not(.marketing-shell) .data-empty,
+  .app-shell:not(.marketing-shell) .data-loading {
+    min-height: 260px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 48px !important;
+  }
+
+  /* Chat retains its own independent message scroller and fixed composer. */
+  .app-shell.chat-screen:not(.marketing-shell) > .main-area {
+    overflow: hidden !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) > .main-area > .page-content {
+    height: 0 !important;
+    flex: 1 1 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-body {
+    min-height: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: contain !important;
+  }
+}
+
+/* Keep the desktop public landing page naturally scrollable. */
+@media (min-width: 1024px) {
+  html:has(.app-shell.marketing-shell),
+  body:has(.app-shell.marketing-shell) {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+  .app-shell.marketing-shell {
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    height: auto !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
