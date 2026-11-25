@@ -1834,16 +1834,13 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
 }
 
 
-/* Desktop scroll containment fix: keep the shell fixed, scroll the active pane. */
+/* Desktop page scrolling: scroll the main workspace as one continuous pane.
+   Sidebar remains independently scrollable; chat keeps its own message scroller. */
 @media (min-width: 1024px) {
   html, body {
     height: 100% !important;
     min-height: 100% !important;
     overflow: hidden !important;
-  }
-
-  body {
-    overscroll-behavior: none;
   }
 
   .app-shell:not(.marketing-shell) {
@@ -1869,42 +1866,64 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
   }
 
   .app-shell:not(.marketing-shell) > .main-area {
+    position: relative !important;
     flex: 1 1 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
+    display: block !important;
     width: auto !important;
     height: 100dvh !important;
     min-width: 0 !important;
     min-height: 0 !important;
     max-height: 100dvh !important;
-    overflow: hidden !important;
-  }
-
-  .app-shell:not(.marketing-shell) > .main-area > .topbar {
-    flex: 0 0 72px !important;
-  }
-
-  .app-shell:not(.marketing-shell) > .main-area > .page-content {
-    flex: 1 1 0 !important;
-    width: 100% !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    max-height: none !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
     overscroll-behavior-y: contain !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-gutter: stable;
-    padding-bottom: 34px !important;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .topbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 60 !important;
+  }
+
+  .app-shell:not(.marketing-shell) > .main-area > .page-content {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: calc(100dvh - 72px) !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 54px !important;
   }
 
   .app-shell:not(.marketing-shell) .page-view {
-    min-height: min-content !important;
+    display: flow-root !important;
+    width: min(100%, 1320px) !important;
     height: auto !important;
+    min-height: min-content !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 72px !important;
+  }
+
+  .app-shell:not(.marketing-shell) .profile-panel-edit,
+  .app-shell:not(.marketing-shell) .settings-list,
+  .app-shell:not(.marketing-shell) .setting-content {
+    height: auto !important;
+    max-height: none !important;
     overflow: visible !important;
   }
 
+  /* Keep chat's message list independently scrollable with a fixed composer. */
+  .app-shell.chat-screen:not(.marketing-shell) > .main-area {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
   .app-shell.chat-screen:not(.marketing-shell) > .main-area > .page-content {
+    display: flex !important;
     flex: 1 1 0 !important;
     height: 0 !important;
     min-height: 0 !important;
@@ -1914,6 +1933,8 @@ html, body { width:100%; max-width:100%; overflow-x:clip; }
 
   .app-shell.chat-screen:not(.marketing-shell) .chat-workspace,
   .app-shell.chat-screen:not(.marketing-shell) .chat-functional {
+    display: flex !important;
+    flex-direction: column !important;
     min-height: 0 !important;
     height: 100% !important;
     max-height: 100% !important;
