@@ -527,3 +527,73 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+
+/* Reliable mobile drawer: isolate the drawer and backdrop in the viewport. */
+@media (max-width: 700px) {
+  .app-shell:not(.marketing-shell) {
+    position: relative;
+    isolation: isolate;
+    overflow-x: clip;
+  }
+
+  .app-shell:not(.marketing-shell) .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: min(320px, 86vw) !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding-top: max(15px, env(safe-area-inset-top));
+    z-index: 2002 !important;
+    transform: translate3d(-105%, 0, 0);
+    transition: transform .25s ease;
+    visibility: hidden;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    background: #0d0e15;
+  }
+
+  .app-shell:not(.marketing-shell) .sidebar.open {
+    transform: translate3d(0, 0, 0) !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .app-shell:not(.marketing-shell) .sidebar-scrim {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    z-index: 2001 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: rgba(0, 0, 0, .62) !important;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+  }
+
+  .app-shell:not(.marketing-shell) .sidebar.open button,
+  .app-shell:not(.marketing-shell) .sidebar.open a {
+    pointer-events: auto !important;
+    touch-action: manipulation;
+  }
+
+  .app-shell:not(.marketing-shell) .sidebar.open button svg,
+  .app-shell:not(.marketing-shell) .sidebar.open button span {
+    pointer-events: none;
+  }
+
+  .app-shell:not(.marketing-shell) .topbar {
+    position: relative;
+    z-index: 1;
+  }
+}
