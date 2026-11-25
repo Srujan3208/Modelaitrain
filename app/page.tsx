@@ -562,7 +562,161 @@ export default function HomePage(){
   }
 }
 
+
+/* Desktop chat: a single ChatGPT-style conversation surface, not nested dashboard cards. */
+@media (min-width: 768px) {
+  .app-shell.chat-screen:not(.marketing-shell) {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .main-area {
+    height: 100dvh !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .topbar {
+    display: none !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .page-content {
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-workspace {
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-functional {
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar {
+    min-height: 64px !important;
+    height: 64px !important;
+    flex: 0 0 64px !important;
+    padding: 0 clamp(22px,3.4vw,52px) !important;
+    border-bottom: 1px solid rgba(255,255,255,.075) !important;
+    background: rgba(9,8,18,.9) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button:first-child {
+    margin-right: 4px;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar .chat-model-pill {
+    min-height: 40px !important;
+    padding: 0 13px !important;
+    font-size: 13px !important;
+    border-radius: 12px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button:nth-last-child(3) {
+    margin-left: auto !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-body {
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+    padding: 36px 28px 24px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .messages {
+    width: min(100%, 768px) !important;
+    max-width: 768px !important;
+    margin: 0 auto !important;
+    gap: 28px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .message {
+    gap: 10px !important;
+    margin: 0 0 25px !important;
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .message-author {
+    margin-bottom: 3px !important;
+    font-size: 12px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .assistant-message {
+    font-size: 15px !important;
+    line-height: 1.85 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .user-message {
+    max-width: min(78%,680px) !important;
+    padding: 12px 17px !important;
+    border-radius: 18px 18px 5px 18px !important;
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome {
+    width: min(100%, 768px) !important;
+    margin: clamp(38px,9vh,100px) auto 35px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome h1 {
+    font-size: clamp(30px,3vw,38px) !important;
+    line-height: 1.2 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome > p {
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions {
+    width: min(100%, 700px) !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 12px !important;
+    margin: 30px auto 12px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions button {
+    min-height: 64px !important;
+    padding: 14px 16px !important;
+    border-radius: 14px !important;
+    font-size: 12px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer {
+    flex: 0 0 auto !important;
+    position: relative !important;
+    width: min(calc(100% - 48px), 768px) !important;
+    max-width: 768px !important;
+    margin: 0 auto 7px !important;
+    padding: 13px 15px 10px !important;
+    border-radius: 19px !important;
+    background: #171521 !important;
+    box-shadow: 0 12px 36px rgba(0,0,0,.25) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer textarea {
+    min-height: 42px !important;
+    max-height: 190px !important;
+    font-size: 14px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-tools button {
+    min-height: 36px !important;
+    min-width: 36px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-tools .source-button {
+    min-width: auto !important;
+    padding: 0 11px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .disclaimer {
+    flex: 0 0 auto !important;
+    width: min(calc(100% - 48px),768px) !important;
+    margin: 0 auto 11px !important;
+    text-align: center !important;
+    line-height: 1.45 !important;
+  }
+}
+
 }
 `}
-</style><main className={"app-shell "+(screen==="Landing"||screen==="Sign In"||screen==="Create Account"?"marketing-shell":"")+(sidebarCollapsed?" sidebar-collapsed":"")}>{screen==="Landing"?<Landing go={setScreen}/>:screen==="Sign In"||screen==="Create Account"?<Auth screen={screen} go={setScreen}/>:<><Sidebar screen={screen} go={setScreen} open={open} setOpen={setOpen}/><div className="main-area"><header className="topbar"><button className="menu-button" onClick={()=>setOpen(true)}><Menu/></button><div className="model-selector"><Brain/><b>TREAN AI</b><span>Learning workspace</span></div><div className="top-actions"><button onClick={()=>setScreen("Settings")}><Settings/></button><button className="top-avatar" onClick={()=>setScreen("Profile")}><User/></button></div></header><div className="page-content"><ScreenErrorBoundary key={screen} screen={screen}>{screen==="Chat"?<Chat/>:screen==="Learn from Video"?<VideoPage go={setScreen}/>:screen==="Processing Video"?<ProcessingPage go={setScreen}/>:<Page screen={screen}/>}</ScreenErrorBoundary></div><nav className="mobile-nav" aria-label="Main navigation">{[[Home,"Home","Dashboard"],[Video,"Learn","Learn from Video"],[MessageSquare,"Chat","Chat"],[Library,"Library","Knowledge Base"],[User,"Profile","Profile"]].map(([I,n,s]:any)=><button type="button" aria-label={n} aria-current={screen===s?"page":undefined} className={screen===s?"active":""} key={n} onClick={()=>{setOpen(false);setScreen(s as Screen);}}><I/><span>{n}</span></button>)}</nav></div></>}</main></>
+</style><main className={"app-shell "+(screen==="Landing"||screen==="Sign In"||screen==="Create Account"?"marketing-shell":"")+(screen==="Chat"?" chat-screen":"")+(sidebarCollapsed?" sidebar-collapsed":"")}>{screen==="Landing"?<Landing go={setScreen}/>:screen==="Sign In"||screen==="Create Account"?<Auth screen={screen} go={setScreen}/>:<><Sidebar screen={screen} go={setScreen} open={open} setOpen={setOpen}/><div className="main-area"><header className="topbar"><button className="menu-button" onClick={()=>setOpen(true)}><Menu/></button><div className="model-selector"><Brain/><b>TREAN AI</b><span>Learning workspace</span></div><div className="top-actions"><button onClick={()=>setScreen("Settings")}><Settings/></button><button className="top-avatar" onClick={()=>setScreen("Profile")}><User/></button></div></header><div className="page-content"><ScreenErrorBoundary key={screen} screen={screen}>{screen==="Chat"?<Chat/>:screen==="Learn from Video"?<VideoPage go={setScreen}/>:screen==="Processing Video"?<ProcessingPage go={setScreen}/>:<Page screen={screen}/>}</ScreenErrorBoundary></div><nav className="mobile-nav" aria-label="Main navigation">{[[Home,"Home","Dashboard"],[Video,"Learn","Learn from Video"],[MessageSquare,"Chat","Chat"],[Library,"Library","Knowledge Base"],[User,"Profile","Profile"]].map(([I,n,s]:any)=><button type="button" aria-label={n} aria-current={screen===s?"page":undefined} className={screen===s?"active":""} key={n} onClick={()=>{setOpen(false);setScreen(s as Screen);}}><I/><span>{n}</span></button>)}</nav></div></>}</main></>
 }
