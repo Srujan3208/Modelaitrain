@@ -99,7 +99,7 @@ export default function HomePage(){
  useEffect(()=>{
   let alive=true;let subscription:any=null;
   const onScreen=(event:any)=>setScreen(event.detail);
-  const onToggleSidebar=()=>setSidebarCollapsed(v=>!v);
+  const onToggleSidebar=()=>{if(window.matchMedia("(max-width: 1023px)").matches){setOpen(v=>!v);}else{setSidebarCollapsed(v=>!v);}};
   window.addEventListener("trean-screen",onScreen);
   window.addEventListener("trean-toggle-sidebar",onToggleSidebar);
   (async()=>{
