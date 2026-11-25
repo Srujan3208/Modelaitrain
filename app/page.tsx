@@ -733,6 +733,252 @@ export default function HomePage(){
   }
 }
 
+/* Desktop Chat refinement: balanced header, roomy welcome cards and a contained composer. */
+@media (min-width: 768px) {
+  .app-shell.chat-screen:not(.marketing-shell) .chat-functional {
+    display:flex !important;
+    flex-direction:column !important;
+    min-height:0 !important;
+    height:100% !important;
+    overflow:hidden !important;
+    background:
+      radial-gradient(ellipse at 50% 8%, rgba(105,72,170,.13), transparent 42%),
+      transparent !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar {
+    position:relative !important;
+    display:flex !important;
+    align-items:center !important;
+    flex:0 0 68px !important;
+    height:68px !important;
+    min-height:68px !important;
+    padding:0 clamp(24px,4vw,64px) !important;
+    gap:12px !important;
+    background:rgba(9,8,18,.88) !important;
+    border-bottom:1px solid rgba(177,151,255,.10) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[aria-label="Open navigation menu"] {
+    order:0 !important;
+    margin:0 auto 0 0 !important;
+    width:40px !important;
+    height:40px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > .chat-model-pill {
+    position:absolute !important;
+    left:50% !important;
+    top:50% !important;
+    transform:translate(-50%,-50%) !important;
+    order:1 !important;
+    margin:0 !important;
+    min-height:42px !important;
+    padding:0 17px !important;
+    border-radius:13px !important;
+    background:rgba(27,22,42,.88) !important;
+    box-shadow:0 8px 28px rgba(0,0,0,.18) !important;
+    white-space:nowrap !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="New chat and tools"] {
+    order:2 !important;
+    margin-left:auto !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Search chats"],
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > button[title="Share conversation"] {
+    order:3 !important;
+    margin-left:0 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-toolbar > .model-menu {
+    position:absolute !important;
+    top:58px !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-body {
+    flex:1 1 0 !important;
+    min-height:0 !important;
+    height:auto !important;
+    max-height:none !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    overscroll-behavior:contain !important;
+    padding:clamp(28px,5vh,58px) clamp(28px,5vw,72px) 36px !important;
+    scrollbar-width:thin !important;
+    scrollbar-color:rgba(167,139,250,.32) transparent !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome {
+    width:min(100%,900px) !important;
+    margin:clamp(16px,3vh,38px) auto 44px !important;
+    text-align:center !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .welcome-symbol {
+    width:76px !important;
+    height:76px !important;
+    margin:0 auto 22px !important;
+    border-radius:24px !important;
+    box-shadow:0 12px 38px rgba(115,75,190,.18), inset 0 1px rgba(255,255,255,.08) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .welcome-symbol svg {
+    width:36px !important;
+    height:36px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome h1 {
+    margin:15px 0 12px !important;
+    font-size:clamp(32px,3vw,42px) !important;
+    line-height:1.16 !important;
+    letter-spacing:-.05em !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .chat-welcome > p {
+    max-width:680px !important;
+    margin:0 auto !important;
+    color:#aaa3bb !important;
+    font-size:15px !important;
+    line-height:1.75 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions {
+    width:min(100%,780px) !important;
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:16px !important;
+    margin:38px auto 12px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions button {
+    display:flex !important;
+    align-items:center !important;
+    gap:15px !important;
+    min-width:0 !important;
+    min-height:88px !important;
+    padding:20px 22px !important;
+    border:1px solid rgba(177,151,255,.17) !important;
+    border-radius:17px !important;
+    background:linear-gradient(145deg,rgba(28,24,43,.82),rgba(17,16,27,.86)) !important;
+    color:#eee9f7 !important;
+    font-size:14px !important;
+    font-weight:650 !important;
+    text-align:left !important;
+    box-shadow:0 10px 30px rgba(0,0,0,.12) !important;
+    transition:transform .18s ease,border-color .18s ease,background .18s ease !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions button:hover {
+    transform:translateY(-2px) !important;
+    border-color:rgba(177,151,255,.42) !important;
+    background:linear-gradient(145deg,rgba(48,36,70,.78),rgba(22,19,35,.94)) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions button svg:first-child {
+    width:24px !important;
+    height:24px !important;
+    flex:0 0 24px !important;
+    color:#bd9aff !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .quick-actions button svg:last-child {
+    width:17px !important;
+    height:17px !important;
+    margin-left:auto !important;
+    flex:0 0 17px !important;
+    color:#8d829f !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional {
+    position:relative !important;
+    flex:0 0 auto !important;
+    width:min(calc(100% - 64px),920px) !important;
+    max-width:920px !important;
+    margin:0 auto 8px !important;
+    padding:16px 18px 13px !important;
+    border:1px solid rgba(177,151,255,.24) !important;
+    border-radius:22px !important;
+    background:linear-gradient(145deg,rgba(29,25,44,.98),rgba(19,17,29,.98)) !important;
+    box-shadow:0 18px 48px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.035) !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional textarea {
+    display:block !important;
+    width:100% !important;
+    min-height:48px !important;
+    max-height:190px !important;
+    padding:10px 12px 13px !important;
+    resize:none !important;
+    color:#f5f0ff !important;
+    font-size:15px !important;
+    line-height:1.55 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional .composer-tools {
+    display:flex !important;
+    align-items:center !important;
+    flex-wrap:nowrap !important;
+    gap:10px !important;
+    min-width:0 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional .composer-tools > button {
+    display:inline-flex !important;
+    flex:0 0 42px !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:42px !important;
+    min-width:42px !important;
+    height:42px !important;
+    min-height:42px !important;
+    padding:0 !important;
+    border:1px solid rgba(255,255,255,.09) !important;
+    border-radius:13px !important;
+    background:rgba(255,255,255,.035) !important;
+    color:#c4b8dc !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional .composer-tools > .source-button {
+    flex:0 0 auto !important;
+    display:inline-flex !important;
+    width:auto !important;
+    min-width:158px !important;
+    height:42px !important;
+    min-height:42px !important;
+    justify-content:space-between !important;
+    gap:10px !important;
+    padding:0 14px !important;
+    border:1px solid rgba(177,151,255,.2) !important;
+    border-radius:13px !important;
+    background:rgba(139,99,244,.11) !important;
+    color:#e6ddf7 !important;
+    font-size:12px !important;
+    white-space:nowrap !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional .composer-tools > .source-button svg {
+    width:17px !important;
+    height:17px !important;
+    flex:0 0 auto !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional .composer-tools > span {
+    flex:1 1 auto !important;
+    min-width:8px !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional .composer-tools > .send {
+    flex:0 0 44px !important;
+    width:44px !important;
+    min-width:44px !important;
+    height:44px !important;
+    min-height:44px !important;
+    margin-left:0 !important;
+    border:0 !important;
+    border-radius:14px !important;
+    background:linear-gradient(135deg,#a16df8,#7444d8) !important;
+    color:white !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .composer-functional .knowledge-menu {
+    position:absolute !important;
+    left:76px !important;
+    bottom:calc(100% + 12px) !important;
+    top:auto !important;
+    min-width:220px !important;
+    border:1px solid rgba(177,151,255,.24) !important;
+    border-radius:15px !important;
+    background:#171422 !important;
+  }
+  .app-shell.chat-screen:not(.marketing-shell) .disclaimer {
+    flex:0 0 auto !important;
+    width:min(calc(100% - 64px),920px) !important;
+    margin:0 auto 14px !important;
+    text-align:center !important;
+    color:#827a91 !important;
+    font-size:10px !important;
+    line-height:1.5 !important;
+  }
+}
+
 }
 `}
 </style><main className={"app-shell "+(screen==="Landing"||screen==="Sign In"||screen==="Create Account"?"marketing-shell":"")+(screen==="Chat"?" chat-screen":"")+(sidebarCollapsed?" sidebar-collapsed":"")}>{screen==="Landing"?<Landing go={setScreen}/>:screen==="Sign In"||screen==="Create Account"?<Auth screen={screen} go={setScreen}/>:<><Sidebar screen={screen} go={setScreen} open={open} setOpen={setOpen}/><div className="main-area">{screen!=="Chat"&&<header className="topbar"><button className="menu-button" aria-label="Toggle sidebar" title="Toggle sidebar" onClick={()=>{if(window.matchMedia("(min-width: 1024px)").matches){setSidebarCollapsed(v=>!v);}else{setOpen(true);}}}><Menu/></button><div className="model-selector"><Brain/><b>TREAN AI</b><span>Learning workspace</span></div><div className="top-actions"><button className="desktop-only-action" title="New chat" aria-label="New chat" onClick={()=>setScreen("Chat")}><Plus/></button><button className="desktop-only-action" title="Search conversations" aria-label="Search conversations" onClick={()=>setScreen("History")}><Search/></button><button title="Settings" aria-label="Settings" onClick={()=>setScreen("Settings")}><Settings/></button><button className="top-avatar" title="Profile" aria-label="Profile" onClick={()=>setScreen("Profile")}><User/></button></div></header>}<div className="page-content"><ScreenErrorBoundary key={screen} screen={screen}>{screen==="Chat"?<Chat sidebarOpen={open} onToggleSidebar={()=>{if(window.matchMedia("(max-width: 700px)").matches){setOpen(v=>!v);}else{setSidebarCollapsed(v=>!v);}}}/>:screen==="Learn from Video"?<VideoPage go={setScreen}/>:screen==="Processing Video"?<ProcessingPage go={setScreen}/>:<Page screen={screen}/>}</ScreenErrorBoundary></div><nav className="mobile-nav" aria-label="Main navigation">{[[Home,"Home","Dashboard"],[Video,"Learn","Learn from Video"],[MessageSquare,"Chat","Chat"],[Library,"Library","Knowledge Base"],[User,"Profile","Profile"]].map(([I,n,s]:any)=><button type="button" aria-label={n} aria-current={screen===s?"page":undefined} className={screen===s?"active":""} key={n} onClick={()=>{setOpen(false);setScreen(s as Screen);}}><I/><span>{n}</span></button>)}</nav></div></>}</main></>
