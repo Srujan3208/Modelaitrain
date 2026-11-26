@@ -110,7 +110,12 @@ export default function HomePage(){
     const {data:{session},error}=await client.auth.getSession();
     if(error)throw error;
     if(!alive)return;
-    setScreen(session?.user?"Dashboard":"Landing");
+    const path=window.location.pathname.replace(/\\/+$/,"")||"/";
+     const routeScreens:Record<string,Screen>={"/login":"Sign In","/register":"Create Account","/signup":"Create Account","/chat":"Chat","/learn":"Learn from Video","/library":"Knowledge Base","/settings":"Settings","/profile":"Profile","/dashboard":"Dashboard"};
+     const requestedScreen=routeScreens[path];
+     if(requestedScreen==="Sign In"||requestedScreen==="Create Account")setScreen(requestedScreen);
+     else if(requestedScreen)setScreen(session?.user?requestedScreen:"Sign In");
+     else setScreen(session?.user?"Dashboard":"Landing");
     setAuthReady(true);
     const {data}=client.auth.onAuthStateChange((event,nextSession)=>{
      if(!alive)return;
